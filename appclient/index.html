@@ -1,38 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/Styles.css">
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
 
-</head>
-<body>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/Styles.css" />
+  </head>
+  <body>
     <main class="container">
+      <h1>Listado Alumnos</h1>
+      <div class="container-filter">
+        <p>Buscador</p>
+        <select id="selectorSexo">
+          <option value="t" selected>Todos</option>
+          <option value="h">Hombre</option>
+          <option value="m">Mujer</option>
+        </select>
+        <input type="search" id="inombre" placeholder="Escribe nombre" />
+      </div>
 
-        <h1>Listado Alumnos</h1>
-        <div class="container-filter">
-            <p>Buscador</p>           
-            <select id="selectorSexo">
-                <option value="t" selected>Todos</option>
-                <option value="h">Hombre</option>
-                <option value="m">Mujer</option>
-            </select>
-            <input type="search" id="inombre" placeholder="Escribe nombre">
-        </div>
-        <ul id="alumnos">
-            <li><img src="img/avatar1.png" alt="avatar">Oconnor</li>
-            <li><img src="img/avatar2.png" alt="avatar">Pepa</li>
-            <li><img src="img/avatar3.png" alt="avatar">JoseMAri</li>
-            <li><img src="img/avatar4.png" alt="avatar">JuanCar</li>
-        </ul>
-
+      <ul id="alumnos">
+        <li>
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar1.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">Oconnor</h5>                    
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar2.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">Pepa</h5>                    
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar3.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">JoseMari</h5>                    
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+        </li>
+        <li><
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar4.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">JuanCar</h5>                    
+                    <a href="#" class="btn btn-primary">erfíl</a>
+                </div>
+            </div>    
+        </li>
+        <li>
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar5.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">María Mar</h5>                    
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="card" style="width: 8rem;">
+            <img src="img/avatar6.png" class="card-img-top" alt="Responsive image">
+            <div class="card-body">
+                <h5 class="card-title">Eneko Chus</h5>                
+                <a href="#" class="btn btn-primary">Perfíl</a>
+            </div>
+        </div></li>
+        <li>
+            <div class="card" style="width: 8rem;">
+                <img src="img/avatar7.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">Jon Calvo</h5>                    
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+        </li>
+      </ul>
     </main>
 
-
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/main.js"></script>
-
-</body>
+  </body>
 </html>

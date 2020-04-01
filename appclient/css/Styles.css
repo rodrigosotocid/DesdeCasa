@@ -1,15 +1,27 @@
 /* estilos propios */
 h1{ 
-    background-color: teal;
+    background-color: rgb(70, 70, 70);
     color: #FFF;
     padding: 10px 5px;
     font-size: 1.5em;
 }
 
 li{
-    border-bottom: 1px solid rgb(109, 102, 102);
     margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
     padding: 5px;
+    display: inline-block;
+}
+
+.card {
+    margin-top: 0.3rem;
+}
+
+.card-img-top {
+    align-items: center;
+    margin:0 auto;
+    padding-top: 1rem;;
+    width: 6rem;;
 }
 
 main.container{
