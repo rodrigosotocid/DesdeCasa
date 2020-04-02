@@ -1,46 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listado Peliculas</title>
-</head>
-<body>
+  </head>
+  <body>
     <!--Anexo Actividad 4
     Crear un documento HTML “listado.html” donde se cargue en una lista 
     los siguientes datos en formato Json:
 -->
 
-<div id="contenido"></div>
-<script>
-
-    let cine = {
-        peliculas: [
-            {
-                "id" : 1,
-                "nombre" : "El Sexto Sentido",
-                "director" : "M. Night Shyamalan",
-                "clasificacion" : "Drama"
-            },
-            {
-                "id" : 2,
-                "nombre" : "Pulp Fiction",
-                "director" : "Tarantino",
-                "clasificacion" : "Acción"
-            },
-            {
-                "id" : 3,
-                "nombre" : "Todo Sobre Mi Madre",
-                "director" : "Almodobar",
-                "clasificacion" : "Drama"
-            }
-        ]
-
-    }
-
-    console.log(cine);
-
+    <div id="contenido"></div>
     
-</script>
-</body>
+    <script>
+      let cine = {
+        peliculas: [
+          {
+            id: 1,
+            nombre: "El Sexto Sentido",
+            director: "M. Night Shyamalan",
+            clasificacion: "Drama"
+          },
+          {
+            id: 2,
+            nombre: "Pulp Fiction",
+            director: "Tarantino",
+            clasificacion: "Acción"
+          },
+          {
+            id: 3,
+            nombre: "Todo Sobre Mi Madre",
+            director: "Almodobar",
+            clasificacion: "Drama"
+          }
+        ]
+      };
+
+      console.log(cine);
+      console.log(cine.peliculas);
+
+      let contenido = document.getElementById("contenido");
+      let texto = "";
+
+      for (let i = 0; i < cine.peliculas.length; i++) {
+        let peliculas = cine.peliculas[i];
+        console.log(peliculas);
+
+        let nombre = peliculas.nombre;
+        let director = peliculas.director;
+        let clasificacion = peliculas.clasificacion;
+
+        console.log(nombre);
+
+        texto += "<div class='pelicula'>";
+        texto += "<ol>";
+        texto += "<li><b>" + nombre + "</b></li>";
+        texto += "<li>" + director + "</li>";
+        texto += "<li>" + clasificacion + "</li>";
+        texto += "</ol>";
+        texto += "</div>";
+      }
+
+      contenido.innerHTML = texto;
+    </script>
+  </body>
 </html>
