@@ -13,3 +13,4 @@ lista.innerHTML = '';
 for(let i=1; i < 7; i++){
     lista.innerHTML += `<li><img src="img/avatar${i}.png" alt="avatar"></li>`;
 }
+

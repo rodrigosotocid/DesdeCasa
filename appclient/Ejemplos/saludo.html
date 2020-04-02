@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saludo</title>
+  </head>
+  <body>
+    <!-- 
+        Anexo Actividad 3.-
+        Crear un documento HTML “saludo.html” con un campo de texto (input:text), 
+        un botón y un párrafo.
+        Cuando pulsemos el botón se debe mostrar en el párrafo el nombre del campo de texto, 
+        en caso de no haber nombre mostrar una alerta.
+    -->
+
+    <input type="text" name="saludo" id="saludo">
+
+    <p id="parrafo"></p>
+
+    <button id="boton">Enviar Texto</button>
+
+    <script>
+        
+      let boton = document.getElementById('boton');
+      boton.addEventListener('click', saludo);
+
+      function saludo() {
+
+          let texto = document.getElementById('saludo').value;
+          console.log(texto);
+          let parrafo = document.getElementById('parrafo');
+          parrafo.innerHTML = texto;   
+      }
+    </script>
+
+  </body>
+</html>
