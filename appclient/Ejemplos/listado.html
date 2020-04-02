@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listado Peliculas</title>
   </head>
+  <style>
+        .pelicula{
+        float: left;
+        border: 10px solid teal;
+        margin: 1rem;
+        padding: 1em; 
+        }
+        b {
+            color: teal;
+        }
+        span {
+            color: red;
+        }
+        ol{
+            margin:0;
+            padding:0;
+            list-style-type:none;
+        }
+  </style>
   <body>
     <!--Anexo Actividad 4
     Crear un documento HTML “listado.html” donde se cargue en una lista 
@@ -37,27 +56,29 @@
         ]
       };
 
-      console.log(cine);
-      console.log(cine.peliculas);
+      //console.log(cine);
+      //console.log(cine.peliculas);
 
       let contenido = document.getElementById("contenido");
-      let texto = "";
+      let texto = '';
 
       for (let i = 0; i < cine.peliculas.length; i++) {
+
         let peliculas = cine.peliculas[i];
+        
         console.log(peliculas);
 
         let nombre = peliculas.nombre;
         let director = peliculas.director;
         let clasificacion = peliculas.clasificacion;
 
-        console.log(nombre);
+        //console.log(nombre);
 
         texto += "<div class='pelicula'>";
         texto += "<ol>";
-        texto += "<li><b>" + nombre + "</b></li>";
-        texto += "<li>" + director + "</li>";
-        texto += "<li>" + clasificacion + "</li>";
+        texto += "<li><b>Pelicula:<span> " + nombre + " </span></b></li>";
+        texto += "<li><b>Director:</b> " + director + " </li>";
+        texto += "<li><b>Clasificación:</b> " + clasificacion + " </li>";
         texto += "</ol>";
         texto += "</div>";
       }
