@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personas</title>
+
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+  </head>
+  <body>
+
+    <main class="container-fluid">
+        <h2>Listado Personas</h2>
+
+        <section id="listado" class="row d-flex justify-content-around">
+            
+                
+	        
+        </section>
+    </main>
+   
+
+    <script>
+        window.addEventListener('load', init() );
+
+        function init(){
+            console.debug('Document Load and Ready');
+
+            const url = 'https://randomuser.me/api/?results=8';
+
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200){
+                    console.info('Peticion GET' + url);
+                    console.debug( this.responseText );
+
+                    const jsonData = JSON.parse(this.responseText);    
+                    console.debug( jsonData );
+
+                    const personas = jsonData.results;
+
+                    let lista = document.getElementById('listado');
+                    lista.innerHTML = '';
+
+                    for(let i=0; i < personas.length; i++ ){
+                        const persona = personas[i];
+                        console.debug( persona.name.first );
+                        
+                        lista.innerHTML += `
+                                        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 m-2 ">
+                                            <img src="${persona.picture.medium}" class="card-img-top mt-2" alt="avatar">
+                                            <div class="card-body m-0 p-1">
+                                                <h5 class="card-title text-justify text-center">${persona.name.title} ${persona.name.first} ${persona.name.last}</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><b>Sexo: </b>${persona.gender}</li>
+                                                    <li class="list-group-item"><b>Edad: </b>${persona.dob.age}</li>
+                                                    <li class="list-group-item"><b>Teléfono: </b>${persona.phone}</li>
+                                                    <li class="list-group-item"><b>Móvil: </b>${persona.cell}</li>
+                                                    <li class="list-group-item"><b>E-mail: </b>${persona.email}</li>
+                                                    <li class="list-group-item"><b>Registro: </b>${persona.registered.age} años</li>
+                                                    <li class="list-group-item"><b>Ciudad: </b>${persona.location.city}</li>
+                                                </ul>
+                                                <a href="#" class="btn btn-primary">Perfíl</a> 
+                                            </div>
+                                        </div>
+                                            `;
+
+                    }
+                }
+            };
+
+            xhttp.open("GET", url , true);
+            xhttp.send();
+
+        }
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
