@@ -65,7 +65,7 @@
       for (let i = 0; i < cine.peliculas.length; i++) {
 
         let peliculas = cine.peliculas[i];
-        
+
         console.log(peliculas);
 
         let nombre = peliculas.nombre;
@@ -74,9 +74,9 @@
 
         //console.log(nombre);
 
-        texto += "<div class='pelicula'>";
+        texto += `<div class='pelicula'>`;
         texto += "<ol>";
-        texto += "<li><b>Pelicula:<span> " + nombre + " </span></b></li>";
+        texto += `<li><b>Pelicula:<span> ${nombre}  </span></b></li>`;
         texto += "<li><b>Director:</b> " + director + " </li>";
         texto += "<li><b>Clasificación:</b> " + clasificacion + " </li>";
         texto += "</ol>";
