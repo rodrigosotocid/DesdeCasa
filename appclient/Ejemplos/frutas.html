@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frutas</title>
+  </head>
+  <body>
+    <!-- 
+        Anexo Actividad 7
+      
+        Crear una página dentro de la carpeta actividades “frutas.html”.
+        Dado el array de frutas en formato Json que tenemos en el anexo de este documento, 
+        conseguir los siguientes objetivos usando: map, filter, reduce
+        
+        •	Array solo con nombres de frutas ( map )
+        •	Array solo con nombres de frutas que están en oferta ( map + filter )
+        •	Precio TOTAL de todas las frutas ( map + reduce )
+        •	Precio TOTAL de todas las frutas, pero aplicando el descuento si están en oferta ( map, filter, reduce )
+        •	Array solo con los colores de las frutas 
+        •	Array solo con los colores de las frutas SIN REPETICIÓN
+
+     -->
+
+    <script>
+      window.addEventListener("load", init());
+
+      function init() {
+        console.debug("Document Load and Ready");
+
+        const frutas = [
+            {
+                "nombre": "fresa",
+                "precio": 4.56,
+                "oferta": true,
+                "descuento" : 50,
+                "colores" : [ "rojo" ]
+            },
+            {
+                "nombre": "manzana",
+                "precio": 1.99,
+                "oferta": false,
+                "descuento" : 50,
+                "colores" : [ "rojo","verde","amarillo" ]
+            },
+            {
+                "nombre": "kiwi",
+                "precio": 3.00,
+                "oferta": false,
+                "descuento" : 10,
+                "colores" : [ "verde","amarillo" ]
+            }
+            
+        ];
+
+
+
+
+
+
+
+
+      }
+    </script>
+  </body>
+</html>
