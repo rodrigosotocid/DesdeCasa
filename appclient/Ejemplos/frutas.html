@@ -96,10 +96,19 @@
         .map(f => f.precio)
         .reduce((p, c) => p + c, 0); 
         console.log("*** Precio TOTAL, con descuento si están en oferta ( map, filter, reduce ): %o", precioTotalDescuento);
-        console.log(precioConDescuento + precioTotalDescuento);
+        
 
 
+        /* Array solo con los colores de las frutas */
 
+      const colores = frutas.map(f => f.colores);
+        console.log('Array solo con los colores de las frutas: %o', colores);
+
+        /* Array solo con los colores de las frutas SIN REPETICIÓN */
+        const coloresNoRepe = frutas
+            .map(f => f.colores)
+            .filter((valor, indiceActual, arreglo) => arreglo.indexOf(valor) === indiceActual);
+        console.log('Colores de las frutas SIN REPETICIÓN : %o', coloresNoRepe);
 
 
 
