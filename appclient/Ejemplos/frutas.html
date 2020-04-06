@@ -29,36 +29,52 @@
         console.debug("Document Load and Ready");
 
         const frutas = [
-            {
-                "nombre": "fresa",
-                "precio": 4.56,
-                "oferta": true,
-                "descuento" : 50,
-                "colores" : [ "rojo" ]
-            },
-            {
-                "nombre": "manzana",
-                "precio": 1.99,
-                "oferta": false,
-                "descuento" : 50,
-                "colores" : [ "rojo","verde","amarillo" ]
-            },
-            {
-                "nombre": "kiwi",
-                "precio": 3.00,
-                "oferta": false,
-                "descuento" : 10,
-                "colores" : [ "verde","amarillo" ]
-            }
-            
+          {
+            nombre: "fresa",
+            precio: 4.56,
+            oferta: true,
+            descuento: 50,
+            colores: ["rojo"],
+          },
+          {
+            nombre: "manzana",
+            precio: 1.99,
+            oferta: false,
+            descuento: 50,
+            colores: ["rojo", "verde", "amarillo"],
+          },
+          {
+            nombre: "kiwi",
+            precio: 3.0,
+            oferta: false,
+            descuento: 10,
+            colores: ["verde", "amarillo"],
+          },
         ];
 
+        console.log("*** Primera llamada al Array frutas: %o", frutas);
 
+        // Array solo con nombres de frutas ( map )
 
+        const frutasNombres = frutas.map((fruta) => {
+          //console.log(fruta);
+          return fruta.nombre;
+        });
+        console.log(
+          "*** Array solo con nombres de frutas ( map ): %o",
+          frutasNombres
+        );
 
+        // Array solo con nombres de frutas que están en oferta ( map + filter )
 
+        //var ofertasFrutas = frutas.filter((frutas) => frutas.descuento == true );
+        const ofertasFrutas = frutas.map(fruta => fruta.nombre).filter(fruta => {
+            return fruta.oferta === true;
+        }
+        
+        );
 
-
+        console.log("*** Array solo con nombres de frutas que están en oferta ( map + filter ): %o", ofertasFrutas);
 
       }
     </script>
