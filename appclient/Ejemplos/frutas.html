@@ -66,15 +66,45 @@
         );
 
         // Array solo con nombres de frutas que están en oferta ( map + filter )
-
-        //var ofertasFrutas = frutas.filter((frutas) => frutas.descuento == true );
-        const ofertasFrutas = frutas.map(fruta => fruta.nombre).filter(fruta => {
-            return fruta.oferta === true;
-        }
-        
-        );
+        const ofertasFrutas = frutas.filter((fruta) => fruta.oferta == true );
 
         console.log("*** Array solo con nombres de frutas que están en oferta ( map + filter ): %o", ofertasFrutas);
+
+        const frutasOfertas = frutas.map(f => f.nombre).filter(f => {
+            return f.oferta == true;
+        });
+        console.log('opcion 2 oferta (luego lo miro) %o', frutasOfertas);
+
+        // Precio TOTAL de todas las frutas ( map + reduce )
+
+        const valorInicial = 0;
+        const precioTotal = frutas.map(f => f.precio).reduce((previous, current) => {
+            console.log('previous ' + previous);
+            console.log('current ' + current);
+
+            return previous + current;
+        }, valorInicial);
+
+        console.log("*** Precio TOTAL de todas las frutas ( map + reduce ): %o", precioTotal);
+
+        /* 
+        Precio TOTAL de todas las frutas, pero aplicando el descuento si están en oferta 
+        ( map, filter, reduce )
+        */
+    
+        const precioTotalDescuento = frutas
+        .map(f => f.precio)
+        .reduce((p, c) => p + c, 0); 
+        console.log("*** Precio TOTAL, con descuento si están en oferta ( map, filter, reduce ): %o", precioTotalDescuento);
+        console.log(precioConDescuento + precioTotalDescuento);
+
+
+
+
+
+
+
+
 
       }
     </script>
