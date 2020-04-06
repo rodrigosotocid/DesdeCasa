@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>actividad6.html</title>
+  </head>
+  <body>
+    <!--Anexo Actividad 6
+        Crear un documento html con el nombre “actividad6.html” y 
+        realizar los ejercicios propuestos en el 3º enlace de interés 
+        “Programación funcional explicación ampliada”
+
+        link: https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209
+    -->
+
+    <script>
+      window.addEventListener("load", init());
+
+      function init() {
+        console.debug("Document Load and Ready");
+
+        // "map" en la práctica.
+        // "duration" es en minutos.
+
+        var tasks = [
+          {
+            name: "Write for Envato Tuts+",
+            duration: 120,
+          },
+          {
+            name: "Work out",
+            duration: 60,
+          },
+          {
+            name: "Procrastinate on Duolingo",
+            duration: 240,
+          },
+        ];
+
+        // Usando un ciclo for, escribiríamos algo como esto:
+        var task_names = [];
+
+        for (var i = 0, max = tasks.length; i < max; i += 1) {
+          task_names.push(tasks[i].name);
+        }
+
+        console.log("*** con for %o", task_names);
+
+        // Usando un ciclo forEach, escribiríamos algo como esto:
+
+        tasks.forEach(function (task) {
+          task_names.push(task.name);
+        });
+
+        console.log("*** con forEach %o", task_names);
+
+        //Usando map lo resumimos así:
+        var task_names = tasks.map(function (task, index, array) {
+          return task.name;
+        });
+
+        console.log("*** con map %o", task_names);
+
+        /* 
+        Arrow function permiten omitir la palabra return 
+        cuando el código es de una sola línea.
+         */
+        var task_names = tasks.map((task) => task.name);
+        console.log("*** con map Arrow function %o", task_names);
+
+
+
+
+
+
+
+
+
+
+
+        
+      }
+    </script>
+  </body>
+</html>
