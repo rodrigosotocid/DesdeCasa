@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemons</title>
+
+    <link rel="stylesheet" href="../css/pokemon.css">
+
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+
+      <div class="container">
+        <div class="row">
+            <div class="col col-md-12 text-center m-4">
+                <img src="../img/pokeapi_logo.png" alt="pokelogo">
+            </div>
+        </div>
+        <div class="row">
+            <div id="pokemons" class="col col-md-6">
+                <h1>Tipo</h1>
+                <ul id="listaPokemones" class="list-group mt-3">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+               </ul>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination mt-3">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+          </div>
+          <div id="descripcion" class="col col-md-6">
+            <h1>Descripción</h1>
+            <div class="card mt-3" style="width: 8rem;">
+                <img src="../img/avatar1.png" class="card-img-top" alt="Responsive image">
+                <div class="card-body">
+                    <h5 class="card-title">Oconnor</h5> 
+                    <p>jksdhfvsvrxv</p>                   
+                    <a href="#" class="btn btn-primary">Perfíl</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <script>
+      window.addEventListener("load", init());
+
+      function init() {
+        console.debug("Document Load and Ready");
+
+        // Se empaqueta la petición a la url de la API en una una función
+        function pokemonById(id) {
+          const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+          var xhttp = new XMLHttpRequest();
+
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              console.info("Petición GET a la URL: " + url);
+              const pokemon = JSON.parse(this.responseText);
+
+              console.debug(pokemon.name);
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+
+        pokemonById(12);
+       
+      }
+
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
