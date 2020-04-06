@@ -26,12 +26,8 @@
         <div class="row">
             <div id="pokemons" class="col col-md-6">
                 <h1>Tipo</h1>
-                <ul id="listaPokemones" class="list-group mt-3">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                <ul id="lista" class="list-group mt-3">
+                    <li class="list-group-item">Cargando...</li>
                </ul>
               <nav aria-label="Page navigation example">
                 <ul class="pagination mt-3">
@@ -43,14 +39,15 @@
                 </ul>
               </nav>
           </div>
-          <div id="descripcion" class="col col-md-6">
+          <div class="col col-md-6">
             <h1>Descripción</h1>
-            <div class="card mt-3" style="width: 8rem;">
-                <img src="../img/avatar1.png" class="card-img-top" alt="Responsive image">
+            <div class="card mt-3" style="width: 18rem;">
+                <img id="pokemonImagen" src="../img/avatar1.png" class="card-img-top" alt="Responsive image">
                 <div class="card-body">
-                    <h5 class="card-title">Oconnor</h5> 
-                    <p>jksdhfvsvrxv</p>                   
-                    <a href="#" class="btn btn-primary">Perfíl</a>
+                    <h5 id="pokemonNombre" class="card-title">Oconnor</h5> 
+                    <p id="pokemonAltura">cargando...</p> 
+                    <p id="pokemonPeso">cargando...</p> 
+                    
                 </div>
             </div>
           </div>
@@ -63,26 +60,68 @@
 
       function init() {
         console.debug("Document Load and Ready");
+        pintarLista();
 
-        // Se empaqueta la petición a la url de la API en una una función
-        function pokemonById(id) {
-          const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-          var xhttp = new XMLHttpRequest();
+      }
+
+      function pintarLista(){
+        const urlLista = `https://pokeapi.co/api/v2/pokemon/`;
+        console.log('pintarLista');
+
+        var xhttp = new XMLHttpRequest();
+
+          xhttp.onreadystatechange = function () {
+
+            if (this.readyState == 4 && this.status == 200) {
+              const jsonData = JSON.parse(this.responseText);
+
+              console.debug(jsonData);
+
+              const pokemons = jsonData.results;
+
+              let lista = document.getElementById('lista');
+              lista.innerHTML = '';
+
+              pokemons.forEach(el => {
+                lista.innerHTML += `<li onclick="detallePokemon('${el.name}')" 
+                                        class="list-group-item">${el.name}</li>`;
+              });
+            }
+          };
+          xhttp.open("GET", urlLista, true);
+          xhttp.send();
+      }
+
+      function detallePokemon(nombre){
+
+        console.trace(`detallePokemon ${nombre}`);
+        const urlDetalle = `https://pokeapi.co/api/v2/pokemon/${nombre}/`;
+
+        var xhttp = new XMLHttpRequest();
 
           xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              console.info("Petición GET a la URL: " + url);
-              const pokemon = JSON.parse(this.responseText);
+              const jsonData = JSON.parse(this.responseText);
+              console.debug(jsonData);
 
-              console.debug(pokemon.name);
+              let elNombre = document.getElementById('pokemonNombre');
+              elNombre.textContent = 'Nombre: ' + jsonData.name;
+
+              let elImagen = document.getElementById('pokemonImagen');
+              elImagen.src = jsonData.sprites.front_default;
+
+              let elAltura = document.getElementById('pokemonAltura');
+              elAltura.textContent = 'Altura: ' + jsonData.height;
+
+              let elPeso= document.getElementById('pokemonPeso');
+              elPeso.textContent = 'Peso: ' + jsonData.weight;
+
             }
           };
-          xhttp.open("GET", url, true);
+          xhttp.open("GET", urlDetalle, true);
           xhttp.send();
-        }
 
-        pokemonById(12);
-       
+        
       }
 
     </script>
