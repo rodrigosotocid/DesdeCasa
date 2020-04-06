@@ -56,7 +56,7 @@
 
         console.log("*** con forEach %o", task_names);
 
-        //Usando map lo resumimos así:
+        // Usando map lo resumimos así:
         var task_names = tasks.map(function (task, index, array) {
           return task.name;
         });
@@ -70,17 +70,35 @@
         var task_names = tasks.map((task) => task.name);
         console.log("*** con map Arrow function %o", task_names);
 
-
-
-
-
-
-
-
-
-
-
+        /* 
         
+        */
+
+        var map = function (array, callback) {
+          var new_array = [];
+
+          array.forEach(function (element, index, array) {
+            new_array.push(callback(element));
+          });
+
+          return new_array;
+        };
+        console.log("*** con map %o", new_array);
+
+        var task_names = map(tasks, function (task) {
+          return task.name;
+        });
+
+        console.log(map);
+
+        // Otro Ejemplo
+        const array1 = [1, 4, 9, 16];
+
+        // pass a function to map
+        const map1 = array1.map((x) => x * 2);
+
+        console.log(map1);
+        // expected output: Array [2, 8, 18, 32]
       }
     </script>
   </body>
