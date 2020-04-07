@@ -52,40 +52,39 @@
           },
         ];
 
-        console.log("*** Primera llamada al Array frutas: %o", frutas);
+        console.log("*** Primera llamada al Array frutas ***");
+        console.log(frutas);
 
         // Array solo con nombres de frutas ( map )
 
-        const frutasNombres = frutas.map((fruta) => {
-          //console.log(fruta);
-          return fruta.nombre;
-        });
-        console.log(
-          "*** Array solo con nombres de frutas ( map ): %o",
-          frutasNombres
-        );
+        const frutasNombres = frutas.map(f => f.nombre);
+
+        console.log("*** Array solo con nombres de frutas ( map ) ***");
+        console.log(frutasNombres);
 
         // Array solo con nombres de frutas que están en oferta ( map + filter )
         const ofertasFrutas = frutas.filter((fruta) => fruta.oferta == true );
 
-        console.log("*** Array solo con nombres de frutas que están en oferta ( map + filter ): %o", ofertasFrutas);
+        console.log("*** Array solo con nombres de frutas que están en oferta ( map + filter )***");
+        console.log(ofertasFrutas);
 
-        const frutasOfertas = frutas.map(f => f.nombre).filter(f => {
+        const frutasOfertas = frutas
+                    .map(f => f.nombre)
+                    .filter(f => {
             return f.oferta == true;
         });
-        console.log('opcion 2 oferta (luego lo miro) %o', frutasOfertas);
+
+        console.log('opcion 2 oferta (luego lo miro)', frutasOfertas);
+        console.log(frutasOfertas);
 
         // Precio TOTAL de todas las frutas ( map + reduce )
 
-        const valorInicial = 0;
-        const precioTotal = frutas.map(f => f.precio).reduce((previous, current) => {
-            console.log('previous ' + previous);
-            console.log('current ' + current);
+        const precioTotal = frutas
+                    .map(f => f.precio)
+                    .reduce((p, c) => p + c, 0);
 
-            return previous + current;
-        }, valorInicial);
-
-        console.log("*** Precio TOTAL de todas las frutas ( map + reduce ): %o", precioTotal);
+        console.log("*** Precio TOTAL de todas las frutas ( map + reduce ) ***");
+        console.log(precioTotal);
 
         /* 
         Precio TOTAL de todas las frutas, pero aplicando el descuento si están en oferta 
@@ -93,22 +92,40 @@
         */
     
         const precioTotalDescuento = frutas
-        .map(f => f.precio)
-        .reduce((p, c) => p + c, 0); 
-        console.log("*** Precio TOTAL, con descuento si están en oferta ( map, filter, reduce ): %o", precioTotalDescuento);
+                .map(f => (f.oferta) ? f.precio - (f.precio * f.descuento /100 ): f.precio )
+                .reduce((p, c) => p + c, 0); 
+
+        console.log("*** Precio TOTAL, con descuento si están en oferta ( map, filter, reduce ): ***");
+        console.log(precioTotalDescuento);
         
 
 
         /* Array solo con los colores de las frutas */
 
-      const colores = frutas.map(f => f.colores);
-        console.log('Array solo con los colores de las frutas: %o', colores);
+       
+
+        const colores = frutas
+                .map(f => f.colores)
+                .reduce((p,c,i,a) => {
+                    const resultado = p.concat(c);
+                    return resultado;
+                });
+
+        console.log('*** Array solo con los colores de las frutas ***');
+        console.log(colores);
 
         /* Array solo con los colores de las frutas SIN REPETICIÓN */
-        const coloresNoRepe = frutas
-            .map(f => f.colores)
-            .filter((valor, indiceActual, arreglo) => arreglo.indexOf(valor) === indiceActual);
-        console.log('Colores de las frutas SIN REPETICIÓN : %o', coloresNoRepe);
+        const coloresNoRepe =  [...new Set(
+            frutas
+                .map(f => f.colores)
+                .reduce((p,c,i,a) => {
+                    const resultado = p.concat(c);
+                    return resultado;
+                })
+                )];
+
+        console.log('Colores de las frutas SIN REPETICIÓN');
+        console.log(coloresNoRepe);
 
 
 
