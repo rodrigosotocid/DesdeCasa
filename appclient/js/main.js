@@ -83,12 +83,14 @@ function listener(){
     
     selectorSexo.addEventListener('change', function(){
         const sexo = selectorSexo.value;
-        console.debug('cambiado select ' + sexo);
+        console.debug('select cambiado a: ' + sexo);
         if ( 't' != sexo ){
             const personasFiltradas = personas.filter( el => el.sexo == sexo );
-            pintarLista(personasFiltradas);
+            //pintarLista(personasFiltradas);
+            pintarListaRest(personasFiltradas);
         }else{
-            pintarLista(personas);
+            //pintarLista(personas);
+            pintarListaRest( personas );
         }    
     });
     
@@ -98,9 +100,10 @@ function listener(){
         console.debug('tecla pulsada, valor input ' +  busqueda );
         if ( busqueda ){
             const personasFiltradas = personas.filter( el => el.nombre.toLowerCase().includes(busqueda));
-            pintarLista(personasFiltradas);
+            pintarListaRest(personasFiltradas);
         }else{
-            pintarLista(personas);
+            //pintarLista(personas);
+            pintarListaRest( personas );
         }    
     });
 

@@ -24,9 +24,6 @@ public class PersonaController {
 	
 	private static ArrayList<Persona> personas = new ArrayList<Persona>();
 	
-	
-	
-	
 	public PersonaController() {
 		super();
 		personas.add( new Persona(1,"Arantxa","avatar1.png", "m") );
@@ -38,12 +35,9 @@ public class PersonaController {
 		personas.add( new Persona(7,"Eneritz","avatar5.png", "m") );
 	}
 
-
 	@GET
 	public ArrayList<Persona> getAll() {	
 		LOGGER.info("getAll");
 		return personas;
 	}
-	
-	
 }
