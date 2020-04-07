@@ -32,8 +32,6 @@ function init() {
   // es importante esperar que todo este cargando para comenzar
   console.debug("Document Load and Ready");
 
-  /* pintarLista(personasFiltradas);
-  console.log(personasFiltradas); */
 } //init
 
 function pintarLista(arrayPersonas) {
@@ -49,6 +47,11 @@ function pintarLista(arrayPersonas) {
 function seleccionSexo() {
   let option = document.getElementById("selectorSexo").value;
   console.log(option);
+
+  if(option === 't'){
+    //console.log(personas.map(p => p.nombre));
+    console.log(personas);
+  }
   const personasFiltradas = personas.filter((p) => p.sexo == `${option}`);
   console.log(personasFiltradas);
   pintarLista(personasFiltradas);
