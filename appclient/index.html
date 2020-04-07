@@ -24,21 +24,31 @@
         <h1>Listado Alumnos</h1>
 
         <div class="container-filter">
-
-          <p class="m-2">Buscador</p>
-
-          <select id="selectorSexo" onchange="seleccionSexo()" >
-            <option value="t" selected>Todos</option>
-            <option value="h">Hombre</option>
-            <option value="m">Mujer</option>
-          </select>
-
-          <input type="search" id="inombre" placeholder="Escribe nombre" />
+          <p class="mb-2">Buscador</p>
+            <div class="row">
+                <div class="col">
+                    <select id="selectorSexo" onchange="seleccionSexo()" class="custom-select custom-select-lg mb-3" >
+                      <option value="t" selected>Todos</option>
+                      <option value="h">Hombre</option>
+                      <option value="m">Mujer</option>
+                    </select>
+                </div>
+                    <div class="col">                
+                      <input type="search" id="inombre" placeholder="Escribe nombre" class="custom-select custom-select-lg mb-3"/>
+                    </div>
+                </div>
+        </div> 
+        <div class="row">
+          <div class="col">
+            <ul id="alumnos">
+              <li>Cargando...</li>
+           </ul>
           </div>
+        </div>      
 
-          <ul id="alumnos">
-            <li>Cargando...</li>
-        </ul>
+          
+
+          
       <!-- <ul id="alumnos">
         <li>
             <div class="card" style="width: 8rem;">
@@ -71,5 +81,6 @@
     ></script>
 
     <script src="js/main.js"></script>
+    <script src="js/ajax.js"></script>
   </body>
 </html>

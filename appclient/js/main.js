@@ -1,3 +1,4 @@
+
 //Fichero javascript para app
 
 /* 
@@ -26,13 +27,103 @@ const personas = [
   },
 ];
 
-window.addEventListener("load", init());
+window.addEventListener('load', init() );
+
+function init(){
+    console.debug('Document Load and Ready');    
+    listener();
+
+    //TODO llamada Ajax al servicio Rest, Cuidado es ASINCRONO!!!!!
+    pintarLista( personas );
+
+}//init
+
+/**
+ * Inicializamos los listener de index.hml
+ */
+function listener(){
+
+    let selectorSexo = document.getElementById('selectorSexo');
+    let inputNombre = document.getElementById('inombre');
+
+
+
+    //selectorSexo.addEventListener('change', busqueda( selectorSexo.value, inputNombre.value ) );
+    
+    selectorSexo.addEventListener('change', function(){
+        const sexo = selectorSexo.value;
+        console.debug('cambiado select ' + sexo);
+        if ( 't' != sexo ){
+            const personasFiltradas = personas.filter( el => el.sexo == sexo );
+            pintarLista(personasFiltradas);
+        }else{
+            pintarLista(personas);
+        }    
+    });
+    
+
+    inputNombre.addEventListener('keyup', function(){
+        const busqueda = inputNombre.value.toLowerCase();
+        console.debug('tecla pulsada, valor input ' +  busqueda );
+        if ( busqueda ){
+            const personasFiltradas = personas.filter( el => el.nombre.toLowerCase().includes(busqueda));
+            pintarLista(personasFiltradas);
+        }else{
+            pintarLista(personas);
+        }    
+    });
+
+
+}
+
+function pintarLista( arrayPersonas ){
+    //seleccionar la lista por id
+    let lista = document.getElementById('alumnos');
+    lista.innerHTML = ''; // vaciar html 
+    arrayPersonas.forEach( p => lista.innerHTML += `<li><img src="${p.avatar}" alt="avatar">${p.nombre}</li>` );
+}
+
+
+function busqueda( sexo = 't', nombreBuscar = '' ){
+
+    console.info('Busqueda sexo %o nombre %o', sexo, nombreBuscar );
+}
+
+
+/* window.addEventListener("load", init());
 
 function init() {
   // es importante esperar que todo este cargando para comenzar
   console.debug("Document Load and Ready");
+  pintarLista2();
+  
+
 
 } //init
+
+function pintarLista2(){
+  const urlLista = `http://localhost:8080/apprest/api/personas/`;
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+
+      if (this.readyState == 4 && this.status == 200) {
+        const personas = JSON.parse(this.responseText);
+
+        console.debug(personas);
+
+        let lista = document.getElementById('lista');
+        lista.innerHTML = '';
+
+        personas.forEach(el => {
+          lista.innerHTML += `<li><img src="${p.avatar}" alt="avatar">${p.nombre}</li>`;
+        });
+      }
+    };
+    request.open("GET", urlLista, true);
+    request.send();
+}
 
 function pintarLista(arrayPersonas) {
   //seleccionar la lista por id
@@ -48,11 +139,11 @@ function seleccionSexo() {
   let option = document.getElementById("selectorSexo").value;
   console.log(option);
 
-  if(option === 't'){
-    //console.log(personas.map(p => p.nombre));
-    console.log(personas);
+  if(option !== 't'){
+    const personasFiltradas = personas.filter((p) => p.sexo == `${option}`);
+    pintarLista(personasFiltradas);
+  }else {
+    pintarLista(personas);
   }
-  const personasFiltradas = personas.filter((p) => p.sexo == `${option}`);
-  console.log(personasFiltradas);
-  pintarLista(personasFiltradas);
-}
+  
+} */
