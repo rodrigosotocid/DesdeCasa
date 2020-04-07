@@ -60,7 +60,7 @@ function pintarListaRest(PersonasRest){
                                                                 <p id="id-p-card" >${p.id}</p>
                                                                 <img src="../img/${p.avatar}" class="card-img-top" alt="Responsive image">
                                                                 <div class="card-body">
-                                                                    <h2 class="card-title text-center">${p.nombre}</h2>
+                                                                    <h2 class="card-title text-center"><b>${p.nombre}</b></h2>
                                                                 </div>
                                                             </div> 
                                                       </li>` );

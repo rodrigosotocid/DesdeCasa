@@ -32,6 +32,8 @@ li{
 
 .card-title {
     color: rgb(243, 167, 3);
+    text-decoration: solid;
+    font-size: 1.3rem;
 }
 #id-p-card {
     color: rgb(139, 243, 3);
