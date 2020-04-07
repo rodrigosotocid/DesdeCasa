@@ -32,12 +32,43 @@ window.addEventListener('load', init() );
 function init(){
     console.debug('Document Load and Ready');    
     listener();
-
+    
     //TODO llamada Ajax al servicio Rest, Cuidado es ASINCRONO!!!!!
-    pintarLista( personas );
+    
+    //pintarLista( personas );
+    pintarListaRest( personas );
 
 }//init
 
+function pintarListaRest(PersonasRest){
+  const url = `http://localhost:8080/apprest/api/personas/`;
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+
+      if (this.readyState == 4 && this.status == 200) {
+        const personasRest = JSON.parse(this.responseText);
+
+        console.debug('Personas Rest %o', personasRest);
+
+        //seleccionar la lista por id
+        let lista = document.getElementById('alumnos');
+        lista.innerHTML = ''; // vaciar html 
+        personasRest.forEach( p => lista.innerHTML += `<li>
+                                                            <div class="card border border-warning" style="width: 10rem;">
+                                                                <p id="id-p-card" >${p.id}</p>
+                                                                <img src="../img/${p.avatar}" class="card-img-top" alt="Responsive image">
+                                                                <div class="card-body">
+                                                                    <h2 class="card-title text-center">${p.nombre}</h2>
+                                                                </div>
+                                                            </div> 
+                                                      </li>` );
+      }
+    };
+    request.open("GET", url, true);
+    request.send();
+}
 /**
  * Inicializamos los listener de index.hml
  */
@@ -80,7 +111,14 @@ function pintarLista( arrayPersonas ){
     //seleccionar la lista por id
     let lista = document.getElementById('alumnos');
     lista.innerHTML = ''; // vaciar html 
-    arrayPersonas.forEach( p => lista.innerHTML += `<li><img src="${p.avatar}" alt="avatar">${p.nombre}</li>` );
+    arrayPersonas.forEach( p => lista.innerHTML += `<li>
+                                                        <div class="card" style="width: 10rem;">
+                                                            <img src="${p.avatar}" class="card-img-top" alt="Responsive image">
+                                                            <div class="card-body">
+                                                                <h2 class="card-title">${p.nombre}</h2>
+                                                            </div>
+                                                        </div> 
+                                                   </li>` );
 }
 
 

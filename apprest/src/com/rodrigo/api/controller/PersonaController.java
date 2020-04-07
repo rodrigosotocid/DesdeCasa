@@ -33,7 +33,9 @@ public class PersonaController {
 		personas.add( new Persona(2,"Idoia","avatar2.png", "m") );
 		personas.add( new Persona(3,"Iker","avatar3.png", "h") );
 		personas.add( new Persona(4,"Hodei","avatar4.png", "m") );
-		personas.add( new Persona(5,"Rodrigo","avatar5.png", "h") );
+		personas.add( new Persona(5,"Rodrigo","avatar6.png", "h") );
+		personas.add( new Persona(6,"Pepe","avatar7.png", "h") );
+		personas.add( new Persona(7,"Eneritz","avatar5.png", "m") );
 	}
 
 

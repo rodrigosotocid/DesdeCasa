@@ -21,20 +21,20 @@
 
     <main class="container">
 
-        <h1>Listado Alumnos</h1>
+        <h1 class="text-center" >Listado Alumnos</h1>
 
         <div class="container-filter">
           <p class="mb-2">Buscador</p>
             <div class="row">
                 <div class="col">
-                    <select id="selectorSexo" onchange="seleccionSexo()" class="custom-select custom-select-lg mb-3" >
+                    <select id="selectorSexo" onchange="seleccionSexo()" class="custom-select custom-select-lg mb-3 border border-warning" >
                       <option value="t" selected>Todos</option>
                       <option value="h">Hombre</option>
                       <option value="m">Mujer</option>
                     </select>
                 </div>
                     <div class="col">                
-                      <input type="search" id="inombre" placeholder="Escribe nombre" class="custom-select custom-select-lg mb-3"/>
+                      <input type="search" id="inombre" placeholder="Escribe el nombre" class="custom-select custom-select-lg mb-3 border border-warning"/>
                     </div>
                 </div>
         </div> 
@@ -46,22 +46,6 @@
           </div>
         </div>      
 
-          
-
-          
-      <!-- <ul id="alumnos">
-        <li>
-            <div class="card" style="width: 8rem;">
-                <img src="img/avatar1.png" class="card-img-top" alt="Responsive image">
-                <div class="card-body">
-                    <h5 class="card-title">Oconnor</h5>                    
-                    <a href="#" class="btn btn-primary">Perfíl</a>
-                </div>
-            </div>
-        </li>
-      </ul> -->
-
-     
     </main>
 
     <script
@@ -82,5 +66,6 @@
 
     <script src="js/main.js"></script>
     <script src="js/ajax.js"></script>
+
   </body>
 </html>

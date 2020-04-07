@@ -1,4 +1,9 @@
 /* estilos propios */
+
+body {
+    background-color: #DDD;
+}
+
 h1{ 
     background-color: rgb(70, 70, 70);
     color: #FFF;
@@ -9,12 +14,13 @@ h1{
 li{
     margin-bottom: 0.3rem;
     margin-top: 0.3rem;
-    padding: 5px;
+    padding: 15px;
     display: inline-block;
+    
 }
 
 .card {
-    margin-top: 0.3rem;
+    margin-top: 0.3rem;    
 }
 
 .card-img-top {
@@ -22,6 +28,16 @@ li{
     margin:0 auto;
     padding-top: 1rem;;
     width: 6rem;;
+}
+
+.card-title {
+    color: rgb(243, 167, 3);
+}
+#id-p-card {
+    color: rgb(139, 243, 3);
+    margin: 10px;
+    text-decoration: solid;
+    font-size: 2rem;
 }
 
 main.container{
