@@ -1,53 +1,161 @@
-/* estilos propios */
-
 body {
-    background-color: #DDD;
+  background: #aea79f;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
 }
 
-h1{ 
-    background-color: rgb(70, 70, 70);
-    color: #FFF;
-    padding: 10px 5px;
-    font-size: 1.5em;
+main.container {
+  background: #333333;
+  /* max-width: 1024px; */
+  margin: auto;
+  border: 1px solid #aea79f;
 }
 
-li{
-    margin-bottom: 0.3rem;
-    margin-top: 0.3rem;
-    padding: 15px;
-    display: inline-block;
-    
+.container-filter {
+  padding: 0.5rem;
+  border: 1px solid #aea79f;
 }
 
-.card {
-    margin-top: 0.3rem;    
+h1 {
+  background: #ee6d40;
+  color: inherit;
+  padding: 10px 5px;
+  font-size: 1.5em;
 }
 
-.card-img-top {
-    align-items: center;
-    margin:0 auto;
-    padding-top: 1rem;;
-    width: 6rem;;
+p {
+  color: inherit;
 }
 
-.card-title {
-    color: rgb(243, 167, 3);
-    text-decoration: solid;
+label {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* FORMULARIO */
+
+.form-control, .form-group {
+    background:	#333333;
+    border-color: #aea79f;
+}
+
+#form-crud {
     font-size: 1.3rem;
-}
-#id-p-card {
-    color: rgb(139, 243, 3);
-    margin: 10px;
-    text-decoration: solid;
-    font-size: 2rem;
+    margin: 1rem;
 }
 
-main.container{
-    max-width: 1024px;
-    margin: auto;;
+/* BOTONES TABLA CRUD */
+
+.btn {
+  background-color: #ee6d40;
+  color: inherit;
 }
 
-.container-filter{
-    padding: 0.5rem;
-    border: 1px solid #DDD;
+.btn-lg {
+  padding: 0.3rem 0.7rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.btn-new, .btn-mod, .btn-del  {
+    background: #333333;
+  color: inherit;
+}
+
+/* TABLA CRUD */
+
+.table{
+    margin-top: 1rem;
+    background: #333333;
+    margin-bottom: 1rem;
+}
+
+.tabla-img {
+  width: 3.5rem;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  filter:opacity(85%);
+  -webkit-filter:opacity(85%);
+}
+
+.page-item.disabled .page-link, .page-item.active .page-link {
+    color: #FFFFFF;
+    background:	#ee6d40;
+    border-color: #333333;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}   
+
+.table, .dataTables_info {
+    color: #ee6d40;
+    background:	#333333;
+} 
+    
+.table-hover tbody tr:hover{
+    color: #FFFFFF;
+    background: #ee6d40;
+}
+    
+.dataTables_wrapper {
+    font-size: 1rem;
+    background:	#333333;
+    color: #ee6d40;
+    padding:15px;
+    border-radius:1em;	
+}
+
+.page-item.active .page-link {
+    background: #333333;
+    border-color: #cccccc;
+}
+
+/* HEAD TABLA */
+.head-tabla, .foot-tabla{
+    background: #ee6d40;
+    color: #333333;
+}
+    
+.btn-add, .btn-edit, .btn-del {
+    color: #7c7c7d;
+    background: #333333;
+    border-color: #343740;
+}
+    
+/*Footer*/
+    
+footer {
+    background: #ee6d40;
+    padding: 10px;
+    text-align: center;	
+    margin-left: -15px;
+    margin-right: -15px;
+}
+    
+footer p {
+    color: #333333; 
+    margin: 0 auto;
+}
+    
+.redes-sociales {
+        /* font-size: 2em; */
+}
+    
+.redes {
+    font-size:35px;
+    color: #343740;    
+}
+    
+@media (min-width: 1200px) {
+    :not(#sesiones, #clientes) div.dataTables_wrapper div.dataTables_filter input {
+        width: 8em;
+    }
+        
+    #sesiones div.dataTables_wrapper div.dataTables_filter input {
+        width: 20em;
+    }     
 }

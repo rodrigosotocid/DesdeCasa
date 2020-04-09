@@ -1,74 +1,41 @@
+$(document).ready(function() {
+  $('.table').DataTable({
+          "language": {
+              "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+          }
+      } );
+});
 
-//Fichero javascript para app
-
-/* 
-console.info("Esto lo puedes ver depurado en el navegador");
-console.debug("esto es una traza de tipo debug");
-console.trace("esto se usa para tracear o decir que entras y sales");
-console.warn("Mensaje de Warning!");
-console.error("Ha petado nuestra App"); 
-*/
-
-const personas = [
-  {
-    nombre: "Oconnor",
-    avatar: "img/avatar1.png",
-    sexo: "h",
-  },
-  {
-    nombre: "Pepa",
-    avatar: "img/avatar2.png",
-    sexo: "m",
-  },
-  {
-    nombre: "JoseMAri",
-    avatar: "img/avatar3.png",
-    sexo: "h",
-  },
-];
+"use strict";
+// este array se carga de forma asincrona mediante Ajax
+//const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
+const endpoint = 'http://localhost:8080/apprest/api/personas/';
+let personas = [];
 
 window.addEventListener('load', init() );
 
 function init(){
     console.debug('Document Load and Ready');    
     listener();
-    
-    //TODO llamada Ajax al servicio Rest, Cuidado es ASINCRONO!!!!!
-    
-    //pintarLista( personas );
-    pintarListaRest( personas );
+
+    const promesa = ajax("GET", endpoint, undefined);
+    promesa
+    .then( data => {
+            console.trace('promesa resolve'); 
+            personas = data;
+            pintarLista( personas );
+
+    }).catch( error => {
+            console.warn('promesa rejectada');
+            alert(error);
+    });
+
+    console.debug('continua la ejecuion del script de forma sincrona');
+    // CUIDADO!!!, es asincrono aqui personas estaria sin datos
+    // pintarLista( personas );
 
 }//init
 
-function pintarListaRest(PersonasRest){
-  const url = `http://localhost:8080/apprest/api/personas/`;
-
-  var request = new XMLHttpRequest();
-
-  request.onreadystatechange = function () {
-
-      if (this.readyState == 4 && this.status == 200) {
-        const personasRest = JSON.parse(this.responseText);
-
-        console.debug('Personas Rest %o', personasRest);
-
-        //seleccionar la lista por id
-        let lista = document.getElementById('alumnos');
-        lista.innerHTML = ''; // vaciar html 
-        personasRest.forEach( p => lista.innerHTML += `<li>
-                                                            <div class="card border border-warning" style="width: 10rem;">
-                                                                <p id="id-p-card" >${p.id}</p>
-                                                                <img src="../img/${p.avatar}" class="card-img-top" alt="Responsive image">
-                                                                <div class="card-body">
-                                                                    <h2 class="card-title text-center"><b>${p.nombre}</b></h2>
-                                                                </div>
-                                                            </div> 
-                                                      </li>` );
-      }
-    };
-    request.open("GET", url, true);
-    request.send();
-}
 /**
  * Inicializamos los listener de index.hml
  */
@@ -77,53 +44,105 @@ function listener(){
     let selectorSexo = document.getElementById('selectorSexo');
     let inputNombre = document.getElementById('inombre');
 
-
-
-    //selectorSexo.addEventListener('change', busqueda( selectorSexo.value, inputNombre.value ) );
+    selectorSexo.addEventListener('change', busqueda( selectorSexo.value, inputNombre.value ) );
     
-    selectorSexo.addEventListener('change', function(){
-        const sexo = selectorSexo.value;
-        console.debug('select cambiado a: ' + sexo);
-        if ( 't' != sexo ){
-            const personasFiltradas = personas.filter( el => el.sexo == sexo );
-            //pintarLista(personasFiltradas);
-            pintarListaRest(personasFiltradas);
-        }else{
-            //pintarLista(personas);
-            pintarListaRest( personas );
-        }    
-    });
-    
-
     inputNombre.addEventListener('keyup', function(){
         const busqueda = inputNombre.value.toLowerCase();
         console.debug('tecla pulsada, valor input ' +  busqueda );
         if ( busqueda ){
             const personasFiltradas = personas.filter( el => el.nombre.toLowerCase().includes(busqueda));
-            pintarListaRest(personasFiltradas);
+            pintarLista(personasFiltradas);
         }else{
-            //pintarLista(personas);
-            pintarListaRest( personas );
+            pintarLista(personas);
         }    
     });
-
-
 }
 
 function pintarLista( arrayPersonas ){
-    //seleccionar la lista por id
-    let lista = document.getElementById('alumnos');
-    lista.innerHTML = ''; // vaciar html 
-    arrayPersonas.forEach( p => lista.innerHTML += `<li>
-                                                        <div class="card" style="width: 10rem;">
-                                                            <img src="${p.avatar}" class="card-img-top" alt="Responsive image">
-                                                            <div class="card-body">
-                                                                <h2 class="card-title">${p.nombre}</h2>
-                                                            </div>
-                                                        </div> 
-                                                   </li>` );
+  
+  //seleccionar la lista por id
+  let lista = document.getElementById('estudiantes');
+  lista.innerHTML = ''; // vaciar html 
+  lista.innerHTML = `<thead class="head-tabla class="thead-light"">
+                        <tr>
+                          <th>Id </th>
+                          <th>Nombre</th>
+                          <th>Avatar</th>
+                          <th>Opciones</th>
+                        </tr>
+                    </thead>`;
+
+  arrayPersonas.forEach( p => lista.innerHTML += `<tbody>
+                                                      <tr>
+                                                        <td>${p.id}</td>
+                                                        <td>${p.nombre}</td>
+                                                        <td>
+                                                            <img src="../img/${p.avatar}" class="tabla-img" alt="Responsive image">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn-new btn-lg"><i class="fas fa-plus"></i></a>
+                                                            <a class="btn-mod btn-lg"><i class="far fa-edit"></i></a>
+                                                            <a class="btn-del btn-lg"><i class="far fa-trash-alt"></i></a>
+                                                        </td>	
+                                                      </tr>
+                                                  </tbody>
+                                                
+                                                        ` );
+
 }
 
+function eliminar(indice){
+  let personaSeleccionada = personas[indice];
+  console.debug('click eliminar persona %o', personaSeleccionada);
+  const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
+  if ( confirm(mensaje) ){
+
+      //TODO mirar como remover de una posicion
+      //personas = personas.splice(indice,1);
+      personas = personas.filter( el => el.id != personaSeleccionada.id) 
+      pintarLista(personas);
+      //TODO llamada al servicio rest
+
+  }
+
+}
+
+function seleccionar(indice){
+
+  let  personaSeleccionada = { "id":0, "nombre": "sin nombre" };
+
+  if ( indice != 0 ){
+      personaSeleccionada = personas[indice];
+  }
+  
+  console.debug('click guardar persona %o', personaSeleccionada);
+ 
+  //rellernar formulario
+  document.getElementById('inputId').value = personaSeleccionada.id;
+  document.getElementById('inputNombre').value = personaSeleccionada.nombre;
+ 
+}
+
+function guardar(){
+
+  console.trace('click guardar');
+  let id = document.getElementById('inputId').value;
+  let nombre = document.getElementById('inputNombre').value;
+
+  let persona = {
+      "id" : id,
+      "nombre" : nombre,
+      "avatar" : "avatar7.png"
+  };
+
+  console.debug('persona a guardar %o', persona);
+
+  //TODO llamar servicio rest
+
+  personas.push(persona);
+  pintarLista(personas);
+
+}
 
 function busqueda( sexo = 't', nombreBuscar = '' ){
 
@@ -131,60 +150,3 @@ function busqueda( sexo = 't', nombreBuscar = '' ){
 }
 
 
-/* window.addEventListener("load", init());
-
-function init() {
-  // es importante esperar que todo este cargando para comenzar
-  console.debug("Document Load and Ready");
-  pintarLista2();
-  
-
-
-} //init
-
-function pintarLista2(){
-  const urlLista = `http://localhost:8080/apprest/api/personas/`;
-
-  var request = new XMLHttpRequest();
-
-  request.onreadystatechange = function () {
-
-      if (this.readyState == 4 && this.status == 200) {
-        const personas = JSON.parse(this.responseText);
-
-        console.debug(personas);
-
-        let lista = document.getElementById('lista');
-        lista.innerHTML = '';
-
-        personas.forEach(el => {
-          lista.innerHTML += `<li><img src="${p.avatar}" alt="avatar">${p.nombre}</li>`;
-        });
-      }
-    };
-    request.open("GET", urlLista, true);
-    request.send();
-}
-
-function pintarLista(arrayPersonas) {
-  //seleccionar la lista por id
-  let lista = document.getElementById("alumnos");
-  lista.innerHTML = "";
-  arrayPersonas.forEach(
-    (p) =>
-      (lista.innerHTML += `<li><img src="${p.avatar}" alt="avatar">${p.nombre}</li>`)
-  );
-}
-
-function seleccionSexo() {
-  let option = document.getElementById("selectorSexo").value;
-  console.log(option);
-
-  if(option !== 't'){
-    const personasFiltradas = personas.filter((p) => p.sexo == `${option}`);
-    pintarLista(personasFiltradas);
-  }else {
-    pintarLista(personas);
-  }
-  
-} */
