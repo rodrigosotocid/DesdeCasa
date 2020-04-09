@@ -31,12 +31,20 @@ label {
   font-size: 1rem;
   margin: 0;
 }
-
+.custom-select {
+    background:	#333333;
+    border-color: #aea79f;
+    color: #aea79f;
+}
 /* FORMULARIO */
 
+.form-control:disabled, .form-control[readonly] {
+    background:	#333333;
+}
 .form-control, .form-group {
     background:	#333333;
     border-color: #aea79f;
+    color: #aea79f;
 }
 
 #form-crud {
@@ -48,7 +56,7 @@ label {
 
 .btn {
   background-color: #ee6d40;
-  color: inherit;
+  color: #ffffff;
 }
 
 .btn-lg {
@@ -60,6 +68,17 @@ label {
 .btn-new, .btn-mod, .btn-del  {
     background: #333333;
   color: inherit;
+}
+.btn-new:hover {
+    background-color: #c76d61
+}
+
+.btn-mod:hover {
+    background-color: #7897cc;
+}
+
+.btn-del:hover {
+background-color: red;
 }
 
 /* TABLA CRUD */

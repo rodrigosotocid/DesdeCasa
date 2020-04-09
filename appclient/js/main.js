@@ -1,10 +1,12 @@
+
+/* // FUNCIONES DE LA TABLA
 $(document).ready(function() {
   $('.table').DataTable({
           "language": {
               "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
           }
       } );
-});
+}); */
 
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
