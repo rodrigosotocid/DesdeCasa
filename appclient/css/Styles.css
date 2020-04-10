@@ -48,35 +48,6 @@ label {
     margin: 1rem;
 }
 
-/* BOTONES TABLA CRUD */
-
-.btn {
-  background-color: #ee6d40;
-  color: #ffffff;
-}
-
-.btn-lg {
-  padding: 0.3rem 0.7rem;
-  font-size: 1.1rem;
-  color: #ffffff;
-}
-
-.btn-new, .btn-mod, .btn-del  {
-    background: #333333;
-  color: inherit;
-}
-.btn-new:hover {
-    background-color: #c76d61
-}
-
-.btn-mod:hover {
-    background-color: #7897cc;
-}
-
-.btn-del:hover {
-background-color: red;
-}
-
 /* 
  * TABLA CRUD
  */
@@ -111,40 +82,42 @@ background-color: red;
     background: #ee6d40;
 }
 
-.page-item.disabled .page-link, .page-item.active .page-link {
-    color: #FFFFFF;
-    background:	#ee6d40;
-    border-color: #333333;
-}
-
-/* .table td, .table th {
+.table td, .table th {
     vertical-align: middle;
-}    */
-    
+}       
 
-/*     
-.dataTables_wrapper {
-    font-size: 1rem;
-    background:	#333333;
-    color: #ee6d40;
-    padding:15px;
-    border-radius:1em;	
-} */
+/* BOTONES TABLA CRUD */
 
-/* .page-item.active .page-link {
-    background: #333333;
-    border-color: #cccccc;
-} */
+.btn {
+    background-color: #ee6d40;
+    color: #ffffff;
+  }
+  
+  .btn-lg {
+    padding: 0.3rem 0.7rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+  
+  .btn-new, .btn-mod, .btn-del  {
+      background: #333333;
+    color: inherit;
+  }
+  .btn-new:hover {
+      background-color: #c76d61
+  }
+  
+  .btn-mod:hover {
+      background-color: #7897cc;
+  }
+  
+  .btn-del:hover {
+  background-color: red;
+  }
 
-
-    
-/* .btn-add, .btn-edit, .btn-del {
-    color: #7c7c7d;
-    background: #333333;
-    border-color: #343740;
-}
-     */
-/*Footer*/
+/*
+ * FOOTER
+ */
     
 footer {
     background: #ee6d40;
@@ -159,13 +132,10 @@ footer p {
     margin: 0 auto;
 }
     
-.redes-sociales {
-        /* font-size: 2em; */
-}
-    
 .redes {
     font-size:35px;
-    color: #343740;    
+    color: #343740;
+    margin-left: 5px;    
 }
     
 
