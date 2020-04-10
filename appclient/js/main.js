@@ -1,13 +1,3 @@
-
-/* // FUNCIONES DE LA TABLA
-$(document).ready(function() {
-  $('.table').DataTable({
-          "language": {
-              "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-          }
-      } );
-}); */
-
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
@@ -65,18 +55,18 @@ function pintarLista( arrayPersonas ){
   //seleccionar la lista por id
   let lista = document.getElementById('estudiantes');
   lista.innerHTML = ''; // vaciar html 
-  lista.innerHTML = `<thead class="head-tabla class="thead-light"">
+  lista.innerHTML = `<thead class="head-tabla">
                         <tr>
-                          <th>Id </th>
-                          <th>Nombre</th>
-                          <th>Avatar</th>
-                          <th>Opciones</th>
+                          <th scope="col">Id</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Avatar</th>
+                          <th scope="col">Opciones</th>
                         </tr>
                     </thead>`;
 
   arrayPersonas.forEach( p => lista.innerHTML += `<tbody>
                                                       <tr>
-                                                        <td>${p.id}</td>
+                                                        <th scope="row">${p.id}</th>
                                                         <td>${p.nombre}</td>
                                                         <td>
                                                             <img src="../img/${p.avatar}" class="tabla-img" alt="Responsive image">
