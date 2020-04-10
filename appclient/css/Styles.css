@@ -5,21 +5,16 @@ body {
 }
 
 main.container {
-  background: #333333;
-  /* max-width: 1024px; */
-  margin: auto;
-  border: 1px solid #aea79f;
-}
+    background: #333333;
+  }
 
 .container-filter {
-  padding: 0.5rem;
-  border: 1px solid #aea79f;
+  margin: 0.5rem;
 }
 
 h1 {
   background: #ee6d40;
   color: inherit;
-  padding: 10px 5px;
   font-size: 1.5em;
 }
 
@@ -36,6 +31,7 @@ label {
     border-color: #aea79f;
     color: #aea79f;
 }
+
 /* FORMULARIO */
 
 .form-control:disabled, .form-control[readonly] {
@@ -81,13 +77,22 @@ label {
 background-color: red;
 }
 
-/* TABLA CRUD */
+/* 
+ * TABLA CRUD
+ */
 
-/* .table{
+.table{
+    color: #ee6d40;
     margin-top: 1rem;
-    background: #333333;
-    margin-bottom: 1rem;
-} */
+}
+
+/* HEAD - FOOTER TABLA */
+.head-tabla, .foot-tabla{
+    background: #ee6d40;
+    color: #FFFFFF;
+    border: 1px solid #aea79f;
+    text-decoration: solid ;
+}
 
 .tabla-img {
   width: 3.5rem;
@@ -100,25 +105,23 @@ background-color: red;
   -webkit-filter:opacity(85%);
 }
 
-/* .page-item.disabled .page-link, .page-item.active .page-link {
-    color: #FFFFFF;
-    background:	#ee6d40;
-    border-color: #333333;
-} */
-
-/* .table td, .table th {
-    vertical-align: middle;
-}    */
-
-.table, .dataTables_info {
-    color: #ee6d40;
-    background:	#333333;
-} 
-    
+/* TABLA HOVER */
 .table-hover tbody tr:hover{
     color: #FFFFFF;
     background: #ee6d40;
 }
+
+.page-item.disabled .page-link, .page-item.active .page-link {
+    color: #FFFFFF;
+    background:	#ee6d40;
+    border-color: #333333;
+}
+
+/* .table td, .table th {
+    vertical-align: middle;
+}    */
+    
+
 /*     
 .dataTables_wrapper {
     font-size: 1rem;
@@ -133,12 +136,7 @@ background-color: red;
     border-color: #cccccc;
 } */
 
-/* HEAD TABLA */
-.head-tabla, .foot-tabla{
-    background: #ee6d40;
-    color: #FFFFFF;
-    border: 1px solid #FFFFFF;
-}
+
     
 /* .btn-add, .btn-edit, .btn-del {
     color: #7c7c7d;
@@ -170,12 +168,4 @@ footer p {
     color: #343740;    
 }
     
-@media (min-width: 1200px) {
-    :not(#sesiones, #clientes) div.dataTables_wrapper div.dataTables_filter input {
-        width: 8em;
-    }
-        
-    #sesiones div.dataTables_wrapper div.dataTables_filter input {
-        width: 20em;
-    }     
-}
+

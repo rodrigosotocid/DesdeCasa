@@ -23,49 +23,48 @@
   <body>
 
     <main class="container">
-        <h1 class="text-center p-3" >Listado Alumnos</h1>
-
-        <div class="container-filter">
-              <p class="font-weight-bold ml-2 mb-2">Buscador</p>
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center m-1 p-3 rounded" >Listado Alumnos</h1>
+        </div>
+      </div>
+      
+      <div class="container-filter">
+        <p class="font-weight-bold ml-2 mb-2">Buscador</p>
+              <div class="row">
+                    <div class="col">
+                        <select id="selectorSexo" class="custom-select custom-select-md mb-3 border" >
+                          <option value="t" selected>Todos</option>
+                          <option value="h">Hombre</option>
+                          <option value="m">Mujer</option>
+                        </select>
+                    </div>
+                    <div class="col">                
+                          <input type="search" id="inombre" placeholder="Escribe el nombre" class="custom-select custom-select-md mb-3 border"/>
+                    </div>
+              </div>
+      </div> 
 
               <div class="row">
-
-                  <div class="col">
-                      <select id="selectorSexo" class="custom-select custom-select-md mb-3 border" >
-                        <option value="t" selected>Todos</option>
-                        <option value="h">Hombre</option>
-                        <option value="m">Mujer</option>
-                      </select>
-                  </div>
-                  <div class="col">                
-                        <input type="search" id="inombre" placeholder="Escribe el nombre" class="custom-select custom-select-md mb-3 border"/>
-                  </div>
-
-              </div>
-        </div> 
-
-        <div class="row">
-                <div class="col">                   
-                  <table 
-                      class="table table-striped table-borderless table-hover table-sm table-responsive-xl" 
-                      id="estudiantes"
-                  >
-                  </table>
-                </div>
-                <div class="col col-md-5 formulario">  
-                  <form>
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1" id="form-crud">Formulario CRUD</label>
-                      <input type="text" class="form-control" id="inputId" placeholder="id" readonly>
-                      <br>
-                      <input type="text" class="form-control" id="inputNombre" placeholder="Escribe nombre">
-                      <br>            
-                      <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
-                      <input type="button" value="Nueva Persona" onclick="seleccionar(0)" class="btn">
+                    <div class="col">                   
+                      <table 
+                          class="table table-striped table-borderless table-hover table-responsive-sm" 
+                          id="estudiantes"
+                      >
+                      </table>
                     </div>
-                  </form> 
-              </div>
-        </div> 
+                    <div class="col col-md-5 formulario">  
+                      <form>
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1" id="form-crud">Formulario CRUD</label>
+                          <input type="text" class="form-control mb-3" id="inputId" placeholder="id" readonly>
+                          <input type="text" class="form-control mb-3" id="inputNombre" placeholder="Escribe el nombre">
+                          <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
+                          <input type="button" value="Nueva Persona" onclick="seleccionar(0)" class="btn">
+                        </div>
+                      </form> 
+                  </div>
+              </div> 
 
         <footer class="d-flex ">
           <p class="copyright col d-flex align-items-center">Alumnos Api Rest &copy;2020  -  Todos los Derechos Reservados</p>
