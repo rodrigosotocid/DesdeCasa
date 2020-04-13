@@ -22,7 +22,7 @@ function init(){
             alert(error);
     });
 
-    console.debug('continua la ejecuion del script de forma sincrona');
+    console.debug('...continua la ejecución del script de forma sincrona');
     // CUIDADO!!!, es asincrono aqui personas estaria sin datos
     // pintarLista( personas );
 
@@ -53,8 +53,9 @@ function listener(){
 function pintarLista( arrayPersonas ){
   
   //seleccionar la lista por id
-  let lista = document.getElementById('estudiantes');
+  let lista = document.getElementById('alumnos');
   lista.innerHTML = ''; // vaciar html 
+  // se agrega el thead de la tabla de esta manera devido errores tipo cuarto milenio
   lista.innerHTML = `<thead class="head-tabla">
                         <tr>
                           <th scope="col">Id</th>
@@ -64,7 +65,7 @@ function pintarLista( arrayPersonas ){
                         </tr>
                     </thead>`;
 
-  arrayPersonas.forEach( p => lista.innerHTML += `<tbody>
+  arrayPersonas.forEach( (p, i) => lista.innerHTML += `<tbody>
                                                       <tr>
                                                         <th scope="row">${p.id}</th>
                                                         <td>${p.nombre}</td>
@@ -74,11 +75,10 @@ function pintarLista( arrayPersonas ){
                                                         <td class="text-center">
                                                             <a class="btn-new btn-lg"><i class="fas fa-plus"></i></a>
                                                             <a class="btn-mod btn-lg"><i class="far fa-edit"></i></a>
-                                                            <a class="btn-del btn-lg"><i class="far fa-trash-alt"></i></a>
+                                                            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                                                         </td>	
                                                       </tr>
                                                   </tbody>
-                                                
                                                         ` );
 
 }

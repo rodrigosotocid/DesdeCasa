@@ -26,13 +26,22 @@ label {
   font-size: 1rem;
   margin: 0;
 }
+
+.custom-select {
+  border-color: #aea79f;
+}
+
 .custom-select {
     background:	#333333;
-    border-color: #aea79f;
+    border-color: #aea79f !important;
     color: #aea79f;
 }
 
 /* FORMULARIO */
+
+.formulario {
+  /* background-color: #aea79f; */
+}
 
 .form-control:disabled, .form-control[readonly] {
     background:	#333333;

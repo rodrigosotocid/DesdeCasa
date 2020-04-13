@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -35,22 +36,28 @@ public class PersonaController {
 		personas.add( new Persona(8,"Peter","avatar8.png", "h") );
 		personas.add( new Persona(9,"José","avatar9.png", "h") );
 		personas.add( new Persona(10,"Arantxa","avatar10.png", "m") );
-		personas.add( new Persona(11,"Jon","avatar11.png", "h") );
-		personas.add( new Persona(12,"Aritz","avatar12.png", "h") );
-		personas.add( new Persona(13,"Ander","avatar13.png", "h") );
-		personas.add( new Persona(14,"Antonio","avatar14.png", "h") );
-		personas.add( new Persona(15,"Idoia","avatar15.png", "m") );
-		personas.add( new Persona(16,"La Yenny","avatar16.png", "m") );
+//		personas.add( new Persona(11,"Jon","avatar11.png", "h") );
+//		personas.add( new Persona(12,"Aritz","avatar12.png", "h") );
+//		personas.add( new Persona(13,"Ander","avatar13.png", "h") );
+//		personas.add( new Persona(14,"Antonio","avatar14.png", "h") );
+//		personas.add( new Persona(15,"Idoia","avatar15.png", "m") );
+//		personas.add( new Persona(16,"La Yenny","avatar16.png", "m") );
 	}
 	
 	public PersonaController() {
 		super();
-		
 	}
 
 	@GET
 	public ArrayList<Persona> getAll() {	
 		LOGGER.info("getAll");
 		return personas;
+	}
+	
+	@POST
+	public Persona insert(Persona persona) {
+		LOGGER.info("...ejecutando POST/Insert de Alumno: " + persona);
+		persona.setNombre(persona.getNombre());
+		return persona;
 	}
 }
