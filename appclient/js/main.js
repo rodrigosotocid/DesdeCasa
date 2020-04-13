@@ -74,7 +74,7 @@ function pintarLista( arrayPersonas ){
                                                         </td>
                                                         <td class="text-center">
                                                             <a class="btn-new btn-lg"><i class="fas fa-plus"></i></a>
-                                                            <a class="btn-mod btn-lg"><i class="far fa-edit"></i></a>
+                                                            <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar()"></i></a>
                                                             <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                                                         </td>	
                                                       </tr>
@@ -94,9 +94,7 @@ function eliminar(indice){
       personas = personas.filter( el => el.id != personaSeleccionada.id) 
       pintarLista(personas);
       //TODO llamada al servicio rest
-
   }
-
 }
 
 function seleccionar(indice){
