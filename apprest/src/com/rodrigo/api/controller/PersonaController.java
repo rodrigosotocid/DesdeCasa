@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -101,12 +102,13 @@ public class PersonaController {
 				break;
 			}
 		}
+		
+		if (id != persona.getId()) {
+			LOGGER.warning("No concuerdan los id: " + id + ", " + persona);
 
-//		if (id != persona.getId()) {
-//			LOGGER.warning("No concuerdan los id: " + id + ", " + persona);
-//
-//			throw new WebApplicationException("No concuerdan los id", Status.BAD_REQUEST);
-//		}
+			throw new WebApplicationException("No concuerdan los id", Status.BAD_REQUEST);
+		}
+		
 //
 //		if (!persona.containsKey(id)) {
 //			LOGGER.warning("No se ha encontrado el id a modificar: " + id + ", " + persona);
@@ -128,9 +130,9 @@ public class PersonaController {
 	@Path("/{id: \\d+}")
 	public Response eliminar(@PathParam("id") int id) {
 		LOGGER.info("Eliminar(" + id + ")");
-		
+
 		Persona persona = null;
-		
+
 		for (int i = 0; i < personas.size(); i++) {
 
 			if (id == personas.get(i).getId()) {
@@ -140,6 +142,11 @@ public class PersonaController {
 			}
 		}
 
-		return Response.status(Status.OK).entity(persona).build();
+		if (persona == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Status.OK).entity(persona).build();
+		}
+
 	}
 }

@@ -62,10 +62,11 @@ label {
 }
 
 #gallery img {
-  height: 2.7rem;
+  height: 3.5rem;
   padding: 3px;
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
+
 }
 
 #gallery img.selected {
