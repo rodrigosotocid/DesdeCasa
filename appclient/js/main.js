@@ -81,7 +81,7 @@ function pintarLista(arrayPersonas) {
                                                             <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
                                                         </td>
                                                         <td class="text-center">
-                                                            <a class="btn-new btn-lg"><i class="fas fa-plus"></i></a>
+                                                            <a class="btn-new btn-lg"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
                                                             <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
                                                             <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                                                         </td>	
@@ -259,7 +259,7 @@ function initGallery() {
   for (let i = 1; i <= 10; i++) {
     divGallery.innerHTML += `<img onclick="selectAvatar(event)" 
                                       class="avatar" 
-                                      data-path="img/avatar${i}.png"
+                                      data-path="avatar${i}.png"
                                       src="img/avatar${i}.png">`;
   }
 }
