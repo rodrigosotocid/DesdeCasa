@@ -7,7 +7,9 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -58,6 +60,11 @@ public class PersonaController {
 		return personas;
 	}
 	
+  /**
+	*   Creamos el método POST, recibimos persona por parámetro,
+	*	actualizamos y luego la añadimos al array 
+	*/
+	
 	@POST
 	public Response insert(Persona persona) {
 		LOGGER.info("...ejecutando POST/Insert de Persona: " + persona);
@@ -70,4 +77,49 @@ public class PersonaController {
 		
 		return Response.status(Status.CREATED).entity(persona).build();
 	}
+	
+	/**
+	 * PUT: modificar, 
+	 *
+	 */
+	
+	@PUT
+	@Path("/{id: \\d+}")
+	public Persona update(@PathParam("id") Integer id, Persona persona) {
+		LOGGER.info("update(" + id + ", " + persona + ")");
+
+		//TODO Validar objeto Persona con javax.validation
+		
+		//TODO Comprobar si no encuentra a la persona
+		
+		for (int i = 0; i < personas.size(); i++) {
+			
+			if(id == personas.get(i).getId()) {
+				personas.remove(i);
+				personas.add(i,persona);
+				break;				
+			}
+		}
+		
+//		if (id != persona.getId()) {
+//			LOGGER.warning("No concuerdan los id: " + id + ", " + persona);
+//
+//			throw new WebApplicationException("No concuerdan los id", Status.BAD_REQUEST);
+//		}
+//
+//		if (!persona.containsKey(id)) {
+//			LOGGER.warning("No se ha encontrado el id a modificar: " + id + ", " + persona);
+//
+//			throw new WebApplicationException("No se ha encontrado el id a modificar", Status.NOT_FOUND);
+//		}
+//
+//		persona.put(id, persona);
+
+		return persona;
+	}
+	
+	/**
+	 * DELETE
+	 *
+	 */
 }

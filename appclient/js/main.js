@@ -173,7 +173,7 @@ function guardar() {
     /* persona.id = ++personas.length;
     personas.push(persona); */
 
-
+    //CREAR
     ajax("POST", endpoint, persona)
       .then((data) => {
 
@@ -194,12 +194,35 @@ function guardar() {
         console.warn("promesa rejectada");
         alert(error);
     });
+
+  // MODIFICAR
   } else {
     console.trace("Modificar persona");
-    personas = personas.map((el) => (el.id == persona.id ? persona : el));
-  }
+    /* personas = personas.map((el) => (el.id == persona.id ? persona : el)); */
 
-  pintarLista(personas);
+    let url = endpoint + persona.id;
+
+    ajax("PUT", url, persona)
+      .then((data) => {
+
+        // Conseguir de nuevo todos los Alumnos
+            ajax("GET", endpoint, undefined)
+            .then((data) => {
+                console.trace("promesa resolve");
+                personas = data;
+                pintarLista(personas);
+            })
+            .catch((error) => {
+                console.warn("promesa rejectada");
+                alert(error);
+            });
+
+      })
+      .catch((error) => {
+        console.warn("No se pudo Actualizar ");
+        alert(error);
+    });
+  }
 }
 
 function busqueda(sexo = "t", nombreBuscar = "") {

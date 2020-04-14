@@ -2,7 +2,7 @@
  * llamada ajax en vanilla javascript
  * @param {*} metodo 
  * @param {*} url 
- * @param {*} datos 
+ * @param {*} datos en formato JSON para el request pero luego hacemos un "stringify"
  * @return Promise
  */
 function ajax( metodo, url, datos ){
