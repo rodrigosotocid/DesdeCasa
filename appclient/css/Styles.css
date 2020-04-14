@@ -43,6 +43,10 @@ label {
   /* background-color: #aea79f; */
 }
 
+#inputAvatar {
+  display: none;
+}
+
 .form-control:disabled, .form-control[readonly] {
     background:	#333333;
 }
