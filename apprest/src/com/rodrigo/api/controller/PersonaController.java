@@ -10,6 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.rodrigo.model.Persona;
 
@@ -19,6 +21,8 @@ import com.rodrigo.model.Persona;
 public class PersonaController {
 
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
+	
+	private static int id = 1;
 	
 	@Context
 	private ServletContext context;
@@ -55,9 +59,15 @@ public class PersonaController {
 	}
 	
 	@POST
-	public Persona insert(Persona persona) {
-		LOGGER.info("...ejecutando POST/Insert de Alumno: " + persona);
-		persona.setNombre(persona.getNombre());
-		return persona;
+	public Response insert(Persona persona) {
+		LOGGER.info("...ejecutando POST/Insert de Persona: " + persona);
+		
+		//TODO validar datos de la persona con javax.validation
+		
+		persona.setId(id);
+		id++;		
+		personas.add(persona);
+		
+		return Response.status(Status.CREATED).entity(persona).build();
 	}
 }

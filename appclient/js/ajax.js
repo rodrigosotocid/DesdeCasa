@@ -31,6 +31,7 @@ function ajax( metodo, url, datos ){
         };// onreadystatechange
 
         xhttp.open( metodo , url , true);
-        xhttp.send();
+        xhttp.setRequestHeader('Content-Type', 'application/json'); //Se define el tipo de contenido de la request es de tipo JSON
+        xhttp.send( JSON.stringify(datos) ); // de debe parsear a string para enviar
     });
 }
