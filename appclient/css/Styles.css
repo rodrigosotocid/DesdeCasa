@@ -57,6 +57,19 @@ label {
     margin: 1rem;
 }
 
+#gallery img {
+  height: 2.7rem;
+  padding: 3px;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+#gallery img.selected {
+    border: 3px solid #ee6d40;
+    filter: grayscale(0);
+    -webkit-filter: grayscale(0);
+}
+
 /* 
  * TABLA CRUD
  */

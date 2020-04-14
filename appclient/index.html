@@ -59,6 +59,22 @@
                           <label for="exampleFormControlInput1" id="form-crud">Formulario CRUD</label>
                           <input type="text" class="form-control mb-3" id="inputId" placeholder="id" readonly>
                           <input type="text" class="form-control mb-3" id="inputNombre" placeholder="Escribe el nombre">
+                          <input type="text" class="form-control mb-3" id="inputAvatar" readonly="readonly" placeholder="url imagen">
+                          
+                          <div id="gallery">                    
+                          </div>
+
+                          <div class="radius-sexlector m-3">
+                            <input checked="checked" type="radio" name="sexo" id="sexoh" value="h">
+                            <label for="sexoh">Hombre
+                            
+                            <input type="radio" name="sexo" id="sexom" value="m">
+                            <label for="sexom">Mujer
+                          </div>
+                         
+                          
+
+                          
                           <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
                           <input type="button" value="Nueva Persona" onclick="seleccionar(0)" class="btn">
                         </div>
