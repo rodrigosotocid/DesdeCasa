@@ -78,7 +78,7 @@ function pintarLista( arrayPersonas ){
                                                         </td>
                                                         <td class="text-center">
                                                             <a class="btn-new btn-lg"><i class="fas fa-plus"></i></a>
-                                                            <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar()"></i></a>
+                                                            <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
                                                             <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                                                         </td>	
                                                       </tr>
@@ -178,7 +178,7 @@ function busqueda( sexo = 't', nombreBuscar = '' ){
 }
 
 /**
- * Carga todas las imagen de los avatares
+ * Carga todas las imagenes de los avatares
  */
 function initGallery(){
     let divGallery =  document.getElementById('gallery');
