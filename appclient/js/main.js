@@ -168,15 +168,19 @@ function seleccionar(indice) {
 }
 
 function guardar() {
+
   console.trace("click guardar");
+
   const id = document.getElementById("inputId").value;
   const nombre = document.getElementById("inputNombre").value;
   const avatar = document.getElementById("inputAvatar").value;
 
-  // Arreglar bug, ahora tenemos 2 radio buttons
+  //BUG Arreglar bug, ahora tenemos 2 radio buttons
+  
   //const sexo = document.getElementById("inputSexo").value;
 
   const sexo = 'h';
+
   // Maquetamos persona en formato JSON
   let persona = {
     id: id,
