@@ -3,7 +3,6 @@ package com.rodrigo.api.controller;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -17,12 +16,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.rodrigo.model.Persona;
+import com.rodrigo.model.dao.PersonaDAO;
 
 @Path("/personas")
 @Produces("application/json")
@@ -32,6 +31,9 @@ public class PersonaController {
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
 
 	private static int id = 1;
+	
+	//TODO implementar patrón singleton, getInstance();
+	private static PersonaDAO personaDAO = new PersonaDAO();
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = factory.getValidator();
@@ -66,8 +68,10 @@ public class PersonaController {
 
 	@GET
 	public ArrayList<Persona> getAll() {
-		LOGGER.info("getAll");
-		return personas;
+		LOGGER.info("getAll");		
+		// return personas;
+		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll(); 
+		return registros;
 	}
 
 	/**
@@ -105,54 +109,49 @@ public class PersonaController {
 		return response;
 	}
 
-	/**
-	 * PUT: modificar,
-	 *
-	 */
-
 	@PUT
 	@Path("/{id: \\d+}")
-	public Persona update(@PathParam("id") Integer id, Persona persona) {
+	public Response update(@PathParam("id") int id, Persona persona) {
 		LOGGER.info("update(" + id + ", " + persona + ")");
 
 		// FIXED Validar objeto Persona (javax.validation CODE:400)
-		Response response = Response.status(Status.BAD_REQUEST).entity(persona).build();
+		Response response = Response.status(Status.NOT_FOUND).entity(persona).build();
 
 		// FIXED Comprobar si no encuentra a la persona (devolver 404)
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
-		if (violations.isEmpty()) {
-
-			for (int i = 0; i < personas.size(); i++) {
-
-				if (id == personas.get(i).getId()) {
-					personas.remove(i);
-					personas.add(i, persona);
-					break;
-				}
-			}
-		} else {
+		if (!violations.isEmpty()) {
 			ArrayList<String> errores = new ArrayList<String>();
-
+			
 			for (ConstraintViolation<Persona> violation : violations) {
-				errores.add(violation.getPropertyPath() + " : " + violation.getMessage());
+				errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
 			}
 			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
-		}
+			
+		}else {
 
-		return persona;
+			for (int i = 0; i < personas.size(); i++) {
+	
+				if (id == personas.get(i).getId()) {
+					personas.remove(i);
+					personas.add(i, persona);					
+					response = Response.status(Status.OK).entity(persona).build();
+					break;
+				}
+			}// for
+			
+		}	
+
+		return response;
 	}
 
-	/**
-	 * DELETE
-	 *
-	 */
 
 	@DELETE
 	@Path("/{id: \\d+}")
 	public Response eliminar(@PathParam("id") int id) {
 		LOGGER.info("Eliminar(" + id + ")");
 
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		Persona persona = null;
 
 		for (int i = 0; i < personas.size(); i++) {
@@ -162,13 +161,13 @@ public class PersonaController {
 				personas.remove(i);
 				break;
 			}
-		}
-		// TODO Quitar los return y dejar solo uno response?!?!
-		if (persona == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		} else {
-			return Response.status(Status.OK).entity(persona).build();
-		}
+		} // for
 
+		if (persona == null) {
+			response = Response.status(Status.NOT_FOUND).build();
+		} else {
+			response = Response.status(Status.OK).entity(persona).build();
+		}
+		return response;
 	}
 }

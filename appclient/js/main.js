@@ -1,11 +1,10 @@
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
-//const endpoint = "http://localhost:8080/apprest/api/personas/";
-//debian-sys-maint
-//o8lAkaNtX91xMUcV
+const endpoint = "http://localhost:8080/apprest/api/personas/";
+
 //endpoint para trabajar desde máquina virtual
-const endpoint = 'http://localhost:8080/apprestDesdeCasa/api/personas/';
+//const endpoint = 'http://localhost:8080/apprestDesdeCasa/api/personas/';
 let personas = [];
 
 window.addEventListener("load", init());
