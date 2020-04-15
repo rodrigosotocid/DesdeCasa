@@ -1,9 +1,14 @@
 package com.rodrigo.api.controller;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,6 +32,9 @@ public class PersonaController {
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
 
 	private static int id = 1;
+
+	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private Validator validator = factory.getValidator();
 
 	@Context
 	private ServletContext context;
@@ -70,14 +78,31 @@ public class PersonaController {
 	@POST
 	public Response insert(Persona persona) {
 		LOGGER.info("...ejecutando POST/Insert de Persona: " + persona);
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 
-		// TODO validar datos de la persona con javax.validation
+		// FIXED validar datos de la persona (javax.validation)
+		// Validación POJO
+		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
-		persona.setId(id);
-		id++;
-		personas.add(persona);
+		if (violations.isEmpty()) {
 
-		return Response.status(Status.CREATED).entity(persona).build();
+			persona.setId(id);
+			id++;
+			personas.add(persona);
+
+			response = Response.status(Status.CREATED).entity(persona).build();
+
+		} else {
+
+			ArrayList<String> errores = new ArrayList<String>();
+
+			for (ConstraintViolation<Persona> violation : violations) {
+				errores.add(violation.getPropertyPath() + " : " + violation.getMessage());
+			}
+			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
+		}
+
+		return response;
 	}
 
 	/**
@@ -90,33 +115,30 @@ public class PersonaController {
 	public Persona update(@PathParam("id") Integer id, Persona persona) {
 		LOGGER.info("update(" + id + ", " + persona + ")");
 
-		// TODO Validar objeto Persona con javax.validation
+		// FIXED Validar objeto Persona (javax.validation CODE:400)
+		Response response = Response.status(Status.BAD_REQUEST).entity(persona).build();
 
-		// TODO Comprobar si no encuentra a la persona
+		// FIXED Comprobar si no encuentra a la persona (devolver 404)
+		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
-		for (int i = 0; i < personas.size(); i++) {
+		if (violations.isEmpty()) {
 
-			if (id == personas.get(i).getId()) {
-				personas.remove(i);
-				personas.add(i, persona);
-				break;
+			for (int i = 0; i < personas.size(); i++) {
+
+				if (id == personas.get(i).getId()) {
+					personas.remove(i);
+					personas.add(i, persona);
+					break;
+				}
 			}
-		}
-		
-		if (id != persona.getId()) {
-			LOGGER.warning("No concuerdan los id: " + id + ", " + persona);
+		} else {
+			ArrayList<String> errores = new ArrayList<String>();
 
-			throw new WebApplicationException("No concuerdan los id", Status.BAD_REQUEST);
+			for (ConstraintViolation<Persona> violation : violations) {
+				errores.add(violation.getPropertyPath() + " : " + violation.getMessage());
+			}
+			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
 		}
-		
-//
-//		if (!persona.containsKey(id)) {
-//			LOGGER.warning("No se ha encontrado el id a modificar: " + id + ", " + persona);
-//
-//			throw new WebApplicationException("No se ha encontrado el id a modificar", Status.NOT_FOUND);
-//		}
-//
-//		persona.put(id, persona);
 
 		return persona;
 	}
@@ -141,7 +163,7 @@ public class PersonaController {
 				break;
 			}
 		}
-
+		// TODO Quitar los return y dejar solo uno response?!?!
 		if (persona == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		} else {

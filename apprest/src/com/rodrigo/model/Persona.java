@@ -1,10 +1,21 @@
 package com.rodrigo.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Persona {
 
 	private int id;
+	
+	@Size( min=2, max=50, message= "mínimo 2 & máximo 50 caracteres" )
 	private String nombre;
+	
+	@NotEmpty
 	private String avatar;
+	
+	//TODO Expresión Regular para "h" o "m"
+	@Pattern(regexp = "")
 	private String sexo;
 	
 	public Persona() {
