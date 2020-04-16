@@ -62,4 +62,6 @@ function pintarListaRest(PersonasRest){
     }    
 });
 
+ /*     personas = personas.filter((el) => el.id != personaSeleccionada.id);
+    pintarLista(personas); */
 

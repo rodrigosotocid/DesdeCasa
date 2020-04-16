@@ -82,42 +82,35 @@ function pintarLista(arrayPersonas) {
   );
 }
 
+/* 
+ *ELIMINAR 
+ */
 function eliminar(indice) {
   let personaSeleccionada = personas[indice];
   console.debug("click eliminar persona %o", personaSeleccionada);
   const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
 
   if (confirm(mensaje)) {
-    /*     personas = personas.filter((el) => el.id != personaSeleccionada.id);
-    pintarLista(personas); */
-
+   
     const url = endpoint + personaSeleccionada.id;
-    //TODO Refactorizar código
+    
     ajax("DELETE", url, undefined)
       .then((data) => {
-        // OBTENER TODOS
-        ajax("GET", endpoint, data)
-        .then((data) => {
-          console.trace("promesa resolve");
-          personas = data;
-          pintarLista(personas);
-        })
-        .catch((error) => {
-          console.warn("promesa rejectada");
-          alert(error);
-        });
+        GetAll(data);
       })
       
       .catch((error) => {
         console.warn("No se pudo Actualizar ");
         alert(error);
       });
-      GetAll();
   }
 }
 
-function GetAll() {
-  // OBTENER TODOS
+/* 
+ * OBTENER TODOS!
+ */
+function GetAll(data) {
+  
   ajax("GET", endpoint, data)
   .then((data) => {
     console.trace("promesa resolve");
@@ -128,7 +121,6 @@ function GetAll() {
     console.warn("promesa rejectada");
     alert(error);
   });
-
 }
 
 function seleccionar(indice) {
@@ -145,7 +137,7 @@ function seleccionar(indice) {
 
   console.debug("click guardar persona %o", personaSeleccionada);
 
-  //rellernar formulario
+  //rellenar formulario
   document.getElementById("inputId").value = personaSeleccionada.id;
   document.getElementById("inputNombre").value = personaSeleccionada.nombre;
   document.getElementById("inputAvatar").value = personaSeleccionada.avatar;
@@ -205,16 +197,7 @@ function guardar() {
     ajax("POST", endpoint, persona)
       .then((data) => {
        
-        ajax("GET", endpoint, undefined)
-          .then((data) => {
-            console.trace("promesa resolve");
-            personas = data;
-            pintarLista(personas);
-          })
-          .catch((error) => {
-            console.warn("promesa rejectada");
-            alert(error);
-          });
+        GetAll(data);
       })
       .catch((error) => {
         console.warn("promesa rejectada");
@@ -230,17 +213,7 @@ function guardar() {
 
     ajax("PUT", url, persona)
       .then((data) => {
-        // Conseguir de nuevo todos los Alumnos
-        ajax("GET", endpoint, undefined)
-          .then((data) => {
-            console.trace("promesa resolve");
-            personas = data;
-            pintarLista(personas);
-          })
-          .catch((error) => {
-            console.warn("promesa rejectada");
-            alert(error);
-          });
+            GetAll(data);
       })
       .catch((error) => {
         console.warn("No se pudo Actualizar ");
