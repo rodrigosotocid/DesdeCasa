@@ -60,6 +60,7 @@ public class PersonaController {
 
 	@POST
 	public Response insert(Persona persona) {
+		
 		LOGGER.info("...ejecutando POST/Insert de Persona: " + persona);
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 
@@ -74,7 +75,7 @@ public class PersonaController {
 //			personas.add(persona);
 
 			try {
-				personaDAO.insert(persona);
+				persona = personaDAO.insert(persona);
 				response = Response.status(Status.CREATED).entity(persona).build();
 			} catch (Exception e) {
 				response = Response.status(Status.CONFLICT).entity(persona).build();

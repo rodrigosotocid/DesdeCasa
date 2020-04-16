@@ -78,20 +78,20 @@ function pintarLista(arrayPersonas) {
   arrayPersonas.forEach(
     (p, i) =>
       (lista.innerHTML += `<tbody>
-                                                      <tr>
-                                                        <th scope="row">${p.id}</th>
-                                                        <td>${p.nombre}</td>
-                                                        <td>
-                                                            <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <a class="btn-new btn-lg"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                                                            <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
-                                                            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
-                                                        </td>	
-                                                      </tr>
-                                                  </tbody>
-                                                        `)
+                              <tr>
+                                  <th scope="row">${p.id}</th>
+                                  <td>${p.nombre}</td>
+                                  <td>
+                                    <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
+                                  </td>
+                                  <td class="text-center">
+                                    <a class="btn-new btn-lg" href="#form-crud"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
+                                    <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
+                                    <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
+                                  </td>	
+                              </tr>
+                           </tbody>
+                                   `)
   );
 }
 
@@ -105,7 +105,7 @@ function eliminar(indice) {
     pintarLista(personas); */
 
     const url = endpoint + personaSeleccionada.id;
-    //TODO Porque no entra a OBTENER TODOS
+    //TODO Refactorizar código
     ajax("DELETE", url, undefined)
       .then((data) => {
         // OBTENER TODOS
@@ -208,8 +208,6 @@ function guardar() {
 
   console.debug("persona a guardar %o", persona);
 
-  //TODO llamar servicio REST
-
   if (id == 0) {
     console.trace("Crear nueva persona");
 
@@ -236,7 +234,7 @@ function guardar() {
         alert(error);
       });
 
-    // MODIFICAR
+  // MODIFICAR
   } else {
     console.trace("Modificar persona");
     /* personas = personas.map((el) => (el.id == persona.id ? persona : el)); */

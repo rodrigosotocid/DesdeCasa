@@ -19,7 +19,7 @@ public class PersonaDAO implements IDAO<Persona> {
 	private static String SQL_GET_ALL = "SELECT id, nombre, avatar,sexo FROM persona ORDER BY id DESC LIMIT 500;";
 	private static String SQL_GET_BY_ID = "SELECT id, nombre, avatar, sexo FROM persona WHERE id = ?;";
 	private static String SQL_DELETE = "DELETE FROM persona WHERE id = ?;";
-	private static String SQL_INSERT = "INSERT INTO persona (nombre, avatar, sexo) VALUES(?,?,?);";
+	private static String SQL_INSERT = "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
 	private static String SQL_UPDATE = "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
 
 	// constructor privado
@@ -124,12 +124,10 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona insert(Persona pojo) throws Exception, SQLException {
 
-		LOGGER.info("Insert");
+		LOGGER.info("InsertDAO");
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-		// al PreparedStatement le pasamos un segundo parámetro para que nos devuelva la
-		// clave generada automáticamente
 		) {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
@@ -144,7 +142,10 @@ public class PersonaDAO implements IDAO<Persona> {
 
 				// recuperar ID generado automáticamente
 				ResultSet rs = pst.getGeneratedKeys();
-				pojo.setId(rs.getInt(1));
+				
+				if(rs.next()) {
+					pojo.setId(rs.getInt(1));					
+				}
 
 			} else {
 				throw new Exception("No se puede Modificar el registro con id : " + pojo);
