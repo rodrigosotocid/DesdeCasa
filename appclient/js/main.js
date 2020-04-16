@@ -83,7 +83,7 @@ function pintarLista(arrayPersonas) {
 }
 
 /* 
- *ELIMINAR 
+ * ELIMINAR 
  */
 function eliminar(indice) {
   let personaSeleccionada = personas[indice];
@@ -123,6 +123,9 @@ function GetAll(data) {
   });
 }
 
+/* 
+ * SELECCIONAR
+ */
 function seleccionar(indice) {
   let personaSeleccionada = {
     id: 0,
@@ -164,6 +167,9 @@ function seleccionar(indice) {
   }
 }
 
+/* 
+ * GUARDAR
+ */
 function guardar() {
   console.trace("click guardar");
 
@@ -173,9 +179,13 @@ function guardar() {
 
   //BUG Arreglar bug, ahora tenemos 2 radio buttons
 
-  //const sexo = document.getElementById("inputSexo").value;
-
+  //const sexo = document.getElementById("sexom").value;
   const sexo = "h";
+
+/*   let hombre = document.getElementById("sexoh").value;
+  console.log('sexo:  %o', hombre); 
+  let mujer = document.getElementById("sexom").value;
+  console.log('sexo:  %o', mujer);  */
 
   // Maquetamos persona en formato JSON
   let persona = {
@@ -222,6 +232,9 @@ function guardar() {
   }
 }
 
+/* 
+ * BUSQUEDA SEXO
+ */
 function busqueda(sexo = "t", nombreBuscar = "") {
   console.info("Busqueda sexo %o nombre %o", sexo, nombreBuscar);
 }
