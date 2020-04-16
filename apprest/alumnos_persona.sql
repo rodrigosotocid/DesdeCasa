@@ -28,7 +28,7 @@ CREATE TABLE `persona` (
   `avatar` varchar(250) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'avatar1.png',
   `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'h',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(11,'Markel','avatar2.png','h'),(12,'Iker','avatar3.png','h'),(13,'María','avatar4.png','m'),(14,'Zuriñe','avatar5.png','m'),(15,'Robert','avatar6.png','h'),(16,'Eneritz','avatar7.png','m'),(17,'Peter','avatar8.png','h'),(18,'José','avatar9.png','h'),(19,'Matxalen','avatar10.png','m');
+INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(11,'Markel','avatar2.png','h'),(12,'Iker','avatar3.png','h'),(13,'María','avatar4.png','m'),(14,'Zuriñe','avatar5.png','m'),(15,'Robert','avatar6.png','h'),(16,'Eneritz','avatar7.png','m'),(17,'Peter','avatar8.png','h'),(18,'José','avatar9.png','h'),(19,'Matxalen','avatar10.png','m'),(20,'Jon','avatar11.png','h'),(21,'Aritz','avatar12.png','h'),(22,'Ander','avatar13.png','h'),(23,'Antonio','avatar14.png','h'),(24,'Idoia','avatar15.png','m'),(25,'La Yenny','avatar16.png','m');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-16  9:47:24
+-- Dump completed on 2020-04-16 11:32:29

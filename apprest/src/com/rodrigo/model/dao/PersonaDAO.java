@@ -49,7 +49,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			LOGGER.info(pst.toString());
 
 			while (rs.next()) {
-				//devuelve una persona y lo añade a la lista
+				// devuelve una persona y lo añade a la lista
 				registros.add(mapper(rs));
 			}
 		} catch (SQLException e) {
@@ -62,9 +62,8 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona getById(int id) throws Exception {
-		
-		LOGGER.info("getById");
 
+		LOGGER.info("getById");
 		Persona registro = null;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -74,13 +73,13 @@ public class PersonaDAO implements IDAO<Persona> {
 			pst.setInt(1, id);
 			LOGGER.info(pst.toString());
 
-			try(ResultSet rs = pst.executeQuery()){
-				
+			try (ResultSet rs = pst.executeQuery()) {
+
 				if (rs.next()) {
-					
+
 					registro = mapper(rs);
-					
-				}else {
+
+				} else {
 					throw new Exception("Registro no encontrado para Id " + id);
 				}
 			}
@@ -94,25 +93,110 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+
+		LOGGER.info("Delete");
+		Persona registro = null;
+
+		// Recuperamos Persona antes de eliminar
+		registro = getById(id);
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_DELETE);
+
+		) {
+			pst.setInt(1, id);
+			LOGGER.info(pst.toString());
+
+			// eliminamos la Persona
+			int affectedRows = pst.executeUpdate();
+
+			if (affectedRows != 1) {
+				throw new Exception("No se puede Eliminar el registro con id : " + id);
+			}
+		} catch (SQLException e) {
+			// getMessage(): lanzaría violate constraint exception
+			throw new Exception("No se puede Eliminar el registro: " + e.getMessage());
+		}
+
+		return registro;
 	}
 
 	@Override
 	public Persona insert(Persona pojo) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+
+		LOGGER.info("Insert");
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+		// al PreparedStatement le pasamos un segundo parámetro para que nos devuelva la
+		// clave generada automáticamente
+		) {
+			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getAvatar());
+			pst.setString(3, pojo.getSexo());
+
+			LOGGER.info(pst.toString());
+
+			// eliminamos la Persona
+			int affectedRows = pst.executeUpdate();
+
+			if (affectedRows == 1) {
+
+				// recuperar ID generado automáticamente
+				ResultSet rs = pst.getGeneratedKeys();
+				pojo.setId(rs.getInt(1));
+
+			} else {
+				throw new Exception("No se puede Modificar el registro con id : " + pojo);
+			}
+		} catch (SQLException e) {
+			// getMessage(): lanzaría violate constraint exception
+			throw new Exception("No se puede Modificar el registro: " + e.getMessage());
+		}
+
+		return pojo;
 	}
 
 	@Override
 	public Persona update(Persona pojo) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		//throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		
+		LOGGER.info("Update");
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);
+		) {
+			
+			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getAvatar());
+			pst.setString(3, pojo.getSexo());
+			pst.setInt(4, pojo.getId());
+
+			LOGGER.info(pst.toString());
+
+			// eliminamos la Persona
+			int affectedRows = pst.executeUpdate();
+
+			if (affectedRows != 1) {
+				throw new Exception("No se puede Actualizar el registro con id : " + pojo);
+			}
+			
+		} catch (SQLException e) {
+			// getMessage(): lanzaría violate constraint exception
+			throw new Exception("No se puede Actualizar el registro: " + e.getMessage());
+		}
+
+		return pojo;
 	}
-	
+
 	private Persona mapper(ResultSet rs) throws SQLException {
+		
 		Persona p = new Persona();
 		p.setId(rs.getInt("id"));
 		p.setNombre(rs.getString("nombre"));
 		p.setAvatar(rs.getString("avatar"));
 		p.setSexo(rs.getString("sexo"));
+		
 		return p;
 	}
 
