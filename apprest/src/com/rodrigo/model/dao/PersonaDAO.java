@@ -11,6 +11,23 @@ import com.rodrigo.model.Persona;
 
 public class PersonaDAO implements IDAO<Persona> {
 
+	//SINGLETON
+	private static PersonaDAO INSTANCE = null;
+	
+	// constructor privado
+	private PersonaDAO() {
+		super();
+	}
+
+	public synchronized static PersonaDAO getInstance() {
+		if(INSTANCE ==null) {
+			INSTANCE = new PersonaDAO();
+		}
+		return INSTANCE;
+	}
+	// FIN SINGLETON
+	
+	
 	@Override
 	public List<Persona> getAll() {
 
@@ -32,10 +49,7 @@ public class PersonaDAO implements IDAO<Persona> {
 				p.setSexo(rs.getString("sexo"));
 				
 				registros.add(p);
-				
 			}
-			
-			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -43,6 +57,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		return registros;
 	}
+
 
 	@Override
 	public Persona getById(int id) throws Exception {

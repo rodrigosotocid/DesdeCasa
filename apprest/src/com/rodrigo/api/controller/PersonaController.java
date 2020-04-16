@@ -3,6 +3,8 @@ package com.rodrigo.api.controller;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javax.security.auth.login.Configuration;
 import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -32,8 +34,7 @@ public class PersonaController {
 
 	private static int id = 1;
 	
-	//TODO implementar patrón singleton, getInstance();
-	private static PersonaDAO personaDAO = new PersonaDAO();
+	private static PersonaDAO personaDAO = PersonaDAO.getInstance();
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = factory.getValidator();
