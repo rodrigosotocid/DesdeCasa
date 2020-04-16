@@ -74,7 +74,7 @@ function pintarLista(arrayPersonas) {
                              </td>
                              <td class="text-center">
                                 <a class="btn-new btn-lg" href="#form-crud"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                                <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
+                                <a class="btn-mod btn-lg" href="#form-crud"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
                                 <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                              </td>	
                           </tr>
