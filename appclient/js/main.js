@@ -73,8 +73,8 @@ function pintarLista(arrayPersonas) {
                                 <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
                              </td>
                              <td class="text-center">
-                                <a class="btn-new btn-lg" href="#form-crud"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                                <a class="btn-mod btn-lg" href="#form-crud"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
+                                <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
+                                <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
                                 <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
                              </td>	
                           </tr>
@@ -231,7 +231,7 @@ function busqueda(sexo = "t", nombreBuscar = "") {
  */
 function initGallery() {
   let divGallery = document.getElementById("gallery");
-  for (let i = 1; i <= 14; i++) {
+  for (let i = 1; i <= 16; i++) {
     divGallery.innerHTML += `<img onclick="selectAvatar(event)" 
                                       class="avatar" 
                                       data-path="avatar${i}.png"

@@ -61,12 +61,23 @@ label {
     margin: 1rem;
 }
 
+#gallery  {
+  border: 1px solid #aea79f;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  text-align: center;
+}
+
 #gallery img {
-  height: 3.5rem;
+  height: 6rem;
+  margin: 3px;
   padding: 3px;
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
-
 }
 
 #gallery img.selected {
