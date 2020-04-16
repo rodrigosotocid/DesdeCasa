@@ -1,10 +1,9 @@
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
+
 const endpoint = "http://localhost:8080/apprest/api/personas/";
 
-//endpoint para trabajar desde máquina virtual
-//const endpoint = 'http://localhost:8080/apprestDesdeCasa/api/personas/';
 let personas = [];
 
 window.addEventListener("load", init());
@@ -37,6 +36,7 @@ function init() {
  * Inicializamos los listener de index.hml
  */
 function listener() {
+
   let selectorSexo = document.getElementById("selectorSexo");
   let inputNombre = document.getElementById("inombre");
 
@@ -64,6 +64,8 @@ function pintarLista(arrayPersonas) {
   let lista = document.getElementById("alumnos");
   lista.innerHTML = ""; // vaciar html
 
+
+  //TODO Mejorar código de tabla
   // se inserta el thead de la tabla de esta manera por errores de tipo cuarto milenio
   lista.innerHTML = `<thead class="head-tabla">
                         <tr>
@@ -99,6 +101,7 @@ function eliminar(indice) {
   let personaSeleccionada = personas[indice];
   console.debug("click eliminar persona %o", personaSeleccionada);
   const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
+  
   if (confirm(mensaje)) {
     
 /*     personas = personas.filter((el) => el.id != personaSeleccionada.id);
@@ -206,6 +209,7 @@ function guardar() {
     ajax("POST", endpoint, persona)
       .then((data) => {
 
+        //TODO Refactorizar llamadada ajax GetAll
         // Conseguir de nuevo todos los Alumnos
             ajax("GET", endpoint, undefined)
             .then((data) => {
