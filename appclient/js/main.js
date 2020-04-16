@@ -64,33 +64,20 @@ function pintarLista(arrayPersonas) {
   let lista = document.getElementById("alumnos");
   lista.innerHTML = ""; // vaciar html
 
-  //TODO Mejorar código de tabla
-  // se inserta el thead de la tabla de esta manera por errores de tipo cuarto milenio
-  lista.innerHTML = `<thead class="head-tabla">
-                        <tr>
-                          <th scope="col">Id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Avatar</th>
-                          <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>`;
-
   arrayPersonas.forEach(
     (p, i) =>
-      (lista.innerHTML += `<tbody>
-                              <tr>
-                                  <th scope="row">${p.id}</th>
-                                  <td>${p.nombre}</td>
-                                  <td>
-                                    <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
-                                  </td>
-                                  <td class="text-center">
-                                    <a class="btn-new btn-lg" href="#form-crud"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                                    <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
-                                    <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
-                                  </td>	
-                              </tr>
-                           </tbody>
+      (lista.innerHTML += `<tr>
+                             <th scope="row">${p.id}</th>
+                             <td>${p.nombre}</td>
+                             <td>
+                                <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
+                             </td>
+                             <td class="text-center">
+                                <a class="btn-new btn-lg" href="#form-crud"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
+                                <a class="btn-mod btn-lg"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
+                                <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
+                             </td>	
+                          </tr>
                                    `)
   );
 }
