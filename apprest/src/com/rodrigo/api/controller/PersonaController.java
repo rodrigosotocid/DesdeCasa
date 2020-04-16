@@ -113,7 +113,7 @@ public class PersonaController {
 
 		} else {
 			try {
-				personaDAO.update(persona);
+				persona = personaDAO.update(persona);
 				response = Response.status(Status.OK).entity(persona).build();
 
 			} catch (Exception e) {
@@ -134,7 +134,7 @@ public class PersonaController {
 		try {
 			
 			//Sí intenta borrar y no lo encuentra lanza la Excepción de SQL
-			personaDAO.delete(id);
+			persona = personaDAO.delete(id);
 			response = Response.status(Status.OK).entity(persona).build();
 			
 		} catch (SQLException e) {
