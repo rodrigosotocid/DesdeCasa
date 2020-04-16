@@ -15,7 +15,7 @@ public class Persona {
 	private String avatar;
 	
 	//TODO Expresión Regular para "h" o "m"
-	@Pattern(regexp = "")
+	//@Pattern(regexp = "")
 	private String sexo;
 	
 	public Persona() {
