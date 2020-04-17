@@ -1,3 +1,12 @@
+//LISTA DE TAREAS
+//FIXME Buscador, por nombre y sexo
+//FIXME pintarLista() meter dentro la llamada Ajax
+//TODO meter LOGGERs en App cliente y REST
+//FIXME BUG sexo
+//TODO Exception NOMBRE unico en la BBDD
+//TODO Probar bien todo el CRUD
+//TODO y si funciona crear TAG version 1.0
+
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
@@ -107,7 +116,7 @@ function eliminar(indice) {
 }
 
 /* 
- * OBTENER TODOS!
+ * OBTENER TODOS BBDD
  */
 function GetAll(data) {
   
@@ -264,3 +273,9 @@ function selectAvatar(evento) {
   //@see: https://developer.mozilla.org/es/docs/Learn/HTML/como/Usando_atributos_de_datos
   iAvatar.value = evento.target.dataset.path;
 }
+
+/* 
+ * NOMBRE ÚNICO
+ */
+//TODO Nombre único
+

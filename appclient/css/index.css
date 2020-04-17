@@ -1,0 +1,176 @@
+body {
+  background: #aea79f;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+}
+
+main.container-fluid {
+    width: 80%;
+    background: #333333;
+  }
+
+.container-filter {
+  margin: 0.5rem;
+}
+
+h1 {
+  background: #ee6d40;
+  color: inherit;
+  font-size: 1.5em;
+}
+
+p {
+  color: inherit;
+}
+
+label {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.custom-select {
+  border-color: #aea79f;
+}
+
+.custom-select {
+    background:	#333333;
+    border-color: #aea79f !important;
+    color: #aea79f;
+}
+
+/* FORMULARIO */
+
+#inputAvatar {
+  display: none;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background:	#333333;
+}
+.form-control, .form-group {
+    background:	#333333;
+    border-color: #aea79f;
+    color: #aea79f;
+}
+
+#form-crud {
+    font-size: 1.3rem;
+    margin: 1rem;
+}
+
+#gallery  {
+  border: 1px solid #aea79f;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  text-align: center;
+}
+
+#gallery img {
+  height: 4rem;
+  margin: 1px;
+  padding: 2px;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+#gallery img.selected {
+    border: 3px solid #ee6d40;
+    filter: grayscale(0);
+    -webkit-filter: grayscale(0);
+}
+
+/* 
+ * TABLA CRUD
+ */
+
+.table{
+    color: #ee6d40; 
+    margin-top: 1rem;
+}
+
+/* HEAD - FOOTER TABLA */
+.head-tabla, .foot-tabla{
+    background: #ee6d40;
+    color: #FFFFFF;
+    border: 1px solid #aea79f;
+    text-decoration: solid ;
+}
+
+.tabla-img {
+  width: 3.5rem;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  filter:opacity(85%);
+  -webkit-filter:opacity(85%);
+}
+
+/* TABLA HOVER */
+.table-hover tbody tr:hover{
+    color: #FFFFFF;
+    background: #ee6d40;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}       
+
+/* BOTONES TABLA CRUD */
+
+.btn {
+    background-color: #ee6d40;
+    color: #ffffff;
+  }
+  
+  .btn-lg {
+    padding: 0.3rem 0.7rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+  
+  .btn-new, .btn-mod, .btn-del  {
+      background: #333333;
+    color: inherit;
+  }
+  .btn-new:hover {
+      background-color: #c76d61
+  }
+  
+  .btn-mod:hover {
+      background-color: #7897cc;
+  }
+  
+  .btn-del:hover {
+  background-color: red;
+  }
+
+/*
+ * FOOTER
+ */
+    
+footer {
+    background: #ee6d40;
+    padding: 10px;
+    text-align: center;	
+    margin-left: -15px;
+    margin-right: -15px;
+}
+    
+footer p {
+    color: #333333; 
+    margin: 0 auto;
+}
+    
+.redes {
+    font-size:35px;
+    color: #343740;
+    margin-left: 5px;    
+}
+    
+

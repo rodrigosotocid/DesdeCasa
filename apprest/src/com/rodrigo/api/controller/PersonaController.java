@@ -118,7 +118,7 @@ public class PersonaController {
 				response = Response.status(Status.OK).entity(persona).build();
 
 			} catch (Exception e) {
-				response = Response.status(Status.CONFLICT).entity(persona).build();
+				response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
 			}
 		}
 		return response;
@@ -136,12 +136,22 @@ public class PersonaController {
 			
 			//Sí intenta borrar y no lo encuentra lanza la Excepción de SQL
 			persona = personaDAO.delete(id);
+			
+			ResponseBody rb = new ResponseBody(); 
+			rb.setData(persona);
+			rb.setInformacion("Persona eliminada");
+			rb.addError("Esto es una prueba");
+			rb.addError("Esto es una segunda prueba");
+			
+			rb.getHypermedias().add(new Hipermedia("Lista de Personas", "GET", "http://localhost:8080/apprest/api/personas/"));
+			rb.getHypermedias().add(new Hipermedia("Detalle de Personas", "GET", "http://localhost:8080/apprest/api/personas/"));
+			
 			response = Response.status(Status.OK).entity(persona).build();
 			
 		} catch (SQLException e) {
-			response = Response.status(Status.CONFLICT).entity(persona).build();
+			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
 		} catch (Exception e) {
-			response = Response.status(Status.NOT_FOUND).entity(persona).build();
+			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
 		}
 
 		return response;
