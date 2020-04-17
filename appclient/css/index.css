@@ -5,9 +5,11 @@ body {
 }
 
 main.container-fluid {
-    width: 80%;
+    /* width: 95%; */
     background: #333333;
-  }
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
 
 .container-filter {
   margin: 0.5rem;
@@ -17,6 +19,20 @@ h1 {
   background: #ee6d40;
   color: inherit;
   font-size: 1.5em;
+  padding: 5px;
+}
+
+.cabecera {
+  margin: 1rem;
+  border: 1px solid #aea79f;
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem; 
+}
+
+#titulo-cabera {
+  font-size: 2rem;
+  background: #333333;
+  margin: 5rem;
 }
 
 p {
@@ -70,7 +86,7 @@ label {
 }
 
 #gallery img {
-  height: 4rem;
+  height: 2.7rem;
   margin: 1px;
   padding: 2px;
   filter: grayscale(100%);
@@ -90,6 +106,7 @@ label {
 .table{
     color: #ee6d40; 
     margin-top: 1rem;
+    margin-bottom: 5rem;
 }
 
 /* HEAD - FOOTER TABLA */
@@ -101,7 +118,7 @@ label {
 }
 
 .tabla-img {
-  width: 3.5rem;
+  width: 2.7rem;
   border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
   -moz-border-radius: 0.3rem;
@@ -149,6 +166,24 @@ label {
   .btn-del:hover {
   background-color: red;
   }
+/* 
+ * TABLA CRUD
+ */
+.cursos {
+  /* background: #aea79f; */
+}
+
+.h2-curso {
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+.p-curso {
+  color:#aea79f; 
+  text-align: justify;
+  text-indent: 30px;
+  line-height: 1.8;
+}
 
 /*
  * FOOTER
@@ -156,10 +191,11 @@ label {
     
 footer {
     background: #ee6d40;
-    padding: 10px;
+    padding: 3px;
     text-align: center;	
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-top: 2rem;
+   /*  margin-left: -15px;
+    margin-right: -15px; */
 }
     
 footer p {
@@ -171,6 +207,10 @@ footer p {
     font-size:35px;
     color: #343740;
     margin-left: 5px;    
+}
+
+.redes-sociales {
+  margin-right: 15px;
 }
     
 

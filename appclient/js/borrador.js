@@ -65,3 +65,31 @@ function pintarListaRest(PersonasRest){
  /*     personas = personas.filter((el) => el.id != personaSeleccionada.id);
     pintarLista(personas); */
 
+
+     /*  const promesa = ajax("GET", endpoint, undefined);
+
+  promesa
+    .then((data) => {
+      console.trace("promesa resolve");
+      personas = data;
+      pintarLista(personas);
+    })
+    .catch((error) => {
+      console.warn("promesa rejectada");
+      alert(error);
+    }); */
+
+
+
+    /*   inputNombre.addEventListener("keyup", function () {
+    const busqueda = inputNombre.value.toLowerCase();
+    console.debug("tecla pulsada, valor input " + busqueda);
+    if (busqueda) {
+      const personasFiltradas = personas.filter((el) =>
+        el.nombre.toLowerCase().includes(busqueda)
+      );
+      pintarLista(personasFiltradas);
+    } else {
+      pintarLista(personas);
+    }
+  }); */

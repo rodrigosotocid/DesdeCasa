@@ -24,29 +24,30 @@
     <main class="container-fluid" id="top">
       <!-- Cabecera -->
       <div class="row">
-        <div class="col">
-          <h1 class="text-center font-weight-bold m-1 p-3 rounded" >Listado de Alumnos</h1>
+        <div class="cabecera col">
+          <h1 class="text-center font-weight-bold m-1 p-3 rounded" id="titulo-cabera">Listado de Alumnos</h1>
         </div>
       </div>
-      <!-- Filtros  -->
-      <div class="container-filter">
-        <p class="font-weight-bold ml-2 mb-2">Buscador</p>
-        <div class="row">
-          <div class="col">
-            <select id="selectorSexo" class="custom-select custom-select-md mb-3 border" >
-              <option value="t" selected>Todos</option>
-              <option value="h">Hombre</option>
-              <option value="m">Mujer</option>
-            </select>
-          </div>
-          <div class="col">                
-            <input type="search" id="inombre" placeholder="Escribe el nombre" class="custom-select custom-select-md mb-3 border"/>
-          </div>
-        </div>
-      </div> 
       <!-- Tabla de Alumnos -->
       <div class="row">
-        <div class="col">                   
+        <div class="col col-md-4">   
+          <h1 class="rounded-right mb-3">Alumnos </h1> 
+          <!-- Filtros  -->
+          <div class="container-filter">
+            <p class="font-weight-bold ml-2 mb-2">Buscador</p>
+            <div class="row">
+              <div class="col">
+                <select id="selectorSexo" class="custom-select custom-select-md mb-3 border" >
+                  <option value="t" selected>Todos</option>
+                  <option value="h">Hombre</option>
+                  <option value="m">Mujer</option>
+                </select>
+              </div>
+              <div class="col">                
+                <input type="search" id="inombre" placeholder="Escribe el nombre" class="custom-select custom-select-md mb-3 border"/>
+              </div>
+            </div>
+          </div>                
           <table class="table table-striped table-hover table-borderless table-responsive-sm">
             <thead class="head-tabla">
               <tr>
@@ -70,16 +71,22 @@
           </table>
         </div>
         <!-- Formulario C.R.U.D. -->
-        <div class="col col-md-5 formulario">  
+        <div class="col col-md-4 formulario">  
           <form>
+            <h1 class="rounded-right mb-4">Formulario CRUD </h1>
             <div class="form-group">
-              <label for="exampleFormControlInput1" id="form-crud" class="font-weight-bold">Formulario CRUD </label>
-              <br>
-              <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Id: </label>
-              <input type="text" class="form-control mb-3" id="inputId" placeholder="id" readonly>
-              <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Nombre: </label> 
-              <input type="text" class="form-control mb-3" id="inputNombre" placeholder="Escribe el nombre">
-              <input type="text" class="form-control mb-3" id="inputAvatar" readonly="readonly" placeholder="url imagen">
+              <!-- Datos Alumno -->
+              <div class="row">
+                <div class="col col-md-3">
+                  <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Id: </label>
+                  <input type="text" class="form-control mb-3" id="inputId" placeholder="id" readonly>
+                </div>
+                <div class="col col-md-9">
+                  <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Nombre: </label> 
+                  <input type="text" class="form-control mb-3" id="inputNombre" placeholder="Escribe el nombre">
+                  <input type="text" class="form-control mb-3" id="inputAvatar" readonly="readonly" placeholder="url imagen">
+                </div>
+              </div>
               <!-- Galería de Avatares -->        
               <div id="gallery">                    
               </div>
@@ -97,9 +104,25 @@
             </div>
           </form> 
         </div>
+        <div class="cursos col col-md-4">
+          <h1 class="rounded-right mb-4">Cursos</h1>
+          <h2 class="h2-curso">Lorem, ipsum dolor.</h2>
+
+          <p class="p-curso">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ipsam dolore culpa delectus cum praesentium harum dolores. 
+            Adipisci ex ut explicabo officia repellendus minima iusto, quidem iste architecto quaerat dolores!</p>
+            <br>
+            <p class="p-curso">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ipsam dolore culpa delectus cum praesentium harum dolores. 
+              Adipisci ex ut explicabo officia repellendus minima iusto, quidem iste architecto quaerat dolores!</p>
+              <br>
+          <p class="p-curso">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ipsam dolore culpa delectus cum praesentium harum dolores. 
+            Adipisci ex ut explicabo officia repellendus minima iusto, quidem iste architecto quaerat dolores!</p>
+            <br>
+            <p class="p-curso">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ipsam dolore culpa delectus cum praesentium harum dolores. 
+              Adipisci ex ut explicabo officia repellendus minima iusto, quidem iste architecto quaerat dolores!</p>
+        </div>
       </div> 
       <!-- Footer -->
-      <footer class="d-flex ">
+      <footer class="d-flex fixed-bottom"">
         <p class="copyright col d-flex align-items-center">Alumnos Api Rest &copy;2020  -  Todos los Derechos Reservados</p>
         <p class="redes-sociales col text-right">
           <i class="redes fab fa-facebook-square"></i> 
