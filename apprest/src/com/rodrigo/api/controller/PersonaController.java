@@ -54,7 +54,7 @@ public class PersonaController {
 
 	@GET
 	@Path("/{id}")
-	public Object getPersona(@PathParam("id") int id) {
+	public Object getById(@PathParam("id") int id) {
 		LOGGER.info("getPersona");
 		ArrayList<String> errores = new ArrayList<String>();
 		Response response = null;

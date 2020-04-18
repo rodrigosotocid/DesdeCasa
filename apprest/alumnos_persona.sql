@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `alumnos` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `alumnos`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: alumnos
@@ -28,7 +30,7 @@ CREATE TABLE `persona` (
   `avatar` varchar(250) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'avatar1.png',
   `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'h',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +39,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(11,'Markel','avatar2.png','h'),(12,'Iker','avatar3.png','h'),(13,'María','avatar4.png','m'),(14,'Zuriñe','avatar5.png','m'),(15,'Robert','avatar6.png','h'),(16,'Eneritz','avatar7.png','m'),(17,'Peter','avatar8.png','h'),(18,'José','avatar9.png','h'),(19,'Matxalen','avatar10.png','m'),(20,'Jon','avatar11.png','h'),(21,'Aritz','avatar12.png','h'),(22,'Ander','avatar13.png','h'),(23,'Antonio','avatar14.png','h'),(24,'Idoia','avatar15.png','m'),(25,'La Yenny','avatar16.png','m');
+INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(11,'Markel','avatar2.png','h'),(37,'Juan','avatar13.png','h'),(51,'Titae Marquez','avatar11.png','h'),(52,'Álvaro Henriquez','avatar9.png','h'),(54,'Charo Diaz','avatar10.png','m'),(55,'Manolo Carabolo','avatar13.png','h'),(56,'Leticia Latorre','avatar7.png','m'),(57,'Rodrigo Soto Cid','avatar14.png','h'),(58,'Ramón Farías','avatar6.png','h'),(59,'Ron Damon','avatar8.png','h'),(60,'Angélica','avatar12.png','m'),(61,'Ximena','avatar16.png','m'),(62,'Estela','avatar15.png','m'),(63,'Lenny','avatar6.png','h'),(64,'Dr Watson','avatar14.png','h'),(65,'Mariela','avatar7.png','m'),(66,'Juan','avatar2.png','h'),(67,'Pedrín','avatar13.png','h'),(69,'Ramiro','avatar3.png','h');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-16 11:32:29
+-- Dump completed on 2020-04-19  1:45:31
