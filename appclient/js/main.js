@@ -1,8 +1,5 @@
 //LISTA DE TAREAS
-//FIXME Buscador, por nombre y sexo
-//FIXME pintarLista() meter dentro la llamada Ajax
 //TODO meter LOGGERs en App cliente y REST
-//FIXME BUG sexo
 //TODO Exception NOMBRE unico en la BBDD
 //TODO Probar bien todo el CRUD
 //TODO y si funciona crear TAG version 1.0
@@ -12,7 +9,9 @@
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
 
 const endpoint = "http://localhost:8080/apprest/api/personas/";
+const endpointCursos = "http://localhost:8080/apprest/api/cursos/";
 let personas = [];
+let cursos = [];
 
 window.addEventListener("load", init());
 
@@ -25,6 +24,7 @@ function init() {
   listener();
   initGallery();
   pintarLista();
+  pintarListaCurso()
 
   console.debug("...continua la ejecución del script de forma sincrona");
 } //init
@@ -150,6 +150,7 @@ function GetAll(data) {
       console.trace("promesa resolve");
       personas = data;
       pintarLista(personas);
+      console.log('GET: Registros obtenidos correctamente! %o', personas);
     })
     .catch((error) => {
       console.warn("promesa rejectada");
@@ -161,6 +162,7 @@ function GetAll(data) {
  * SELECCIONAR
  */
 function seleccionar(indice) {
+
   let personaSeleccionada = {
     id: 0,
     nombre: "sin nombre",
@@ -189,37 +191,33 @@ function seleccionar(indice) {
   });
 
   const sexo = personaSeleccionada.sexo;
-  let checkHombre = document.getElementById("sexoh");
-  let checkMujer = document.getElementById("sexom");
+    let checkHombre = document.getElementById('sexoh');
+    let checkMujer = document.getElementById('sexom');
 
-  if (sexo == "h") {
-    checkHombre.checked = "checked";
-    checkMujer.checked = "";
-  } else {
-    checkHombre.checked = "";
-    checkMujer.checked = "checked";
-  }
+    if ( sexo == "h"){
+        checkHombre.checked = 'checked';
+        checkMujer.checked = '';
+
+    }else{
+        checkHombre.checked = '';
+        checkMujer.checked = 'checked';
+    }
 }
 
-/*
+/**
  * GUARDAR
+ * Llama al servicio Rest para hacer un POST ( id == 0) o PUT ( id != 0 )
  */
 function guardar() {
+
   console.trace("click guardar");
 
   const id = document.getElementById("inputId").value;
   const nombre = document.getElementById("inputNombre").value;
   const avatar = document.getElementById("inputAvatar").value;
 
-  //BUG Arreglar bug, ahora tenemos 2 radio buttons
-
-  //const sexo = document.getElementById("sexom").value;
-  const sexo = "h";
-
-  /*   let hombre = document.getElementById("sexoh").value;
-  console.log('sexo:  %o', hombre); 
-  let mujer = document.getElementById("sexom").value;
-  console.log('sexo:  %o', mujer);  */
+  // verificamos al radio que esté checado para elegir opción
+  let sexo = (document.getElementById('sexoh').checked ) ? 'h' : 'm';
 
   // Maquetamos persona en formato JSON
   let persona = {
@@ -232,25 +230,32 @@ function guardar() {
   console.debug("persona a guardar %o", persona);
 
   if (id == 0) {
-    console.trace("Crear nueva persona");
-
-    /* persona.id = ++personas.length;
-    personas.push(persona); */
+    console.trace("POST/INSERT: Persona");
 
     //CREAR
     ajax("POST", endpoint, persona)
-      .then((data) => {
+      .then(data => {
+        alert( persona.nombre + ' bienvenid@');
+        //limpiar formulario
+        document.getElementById('inputId').value = 0;
+        document.getElementById('inputNombre').value = '';               
+        document.getElementById('inputAvatar').value = 'img/avatar1.png';
+        document.getElementById('sexoh').checked = true;
+        document.getElementById('sexom').checked = false;
+
         GetAll(data);
+        
+
       })
       .catch((error) => {
-        console.warn("promesa rejectada");
+        console.warn("POST - No ejecutado!");
         alert(error);
       });
 
     // MODIFICAR
   } else {
-    console.trace("Modificar persona");
-    /* personas = personas.map((el) => (el.id == persona.id ? persona : el)); */
+
+    console.trace("PUT/UPDATE: Persona");
 
     let url = endpoint + persona.id;
 
@@ -259,17 +264,10 @@ function guardar() {
         GetAll(data);
       })
       .catch((error) => {
-        console.warn("No se pudo Actualizar ");
+        console.warn("PUT - No ejecutado!");
         alert(error);
       });
   }
-}
-
-/*
- * BUSQUEDA SEXO
- */
-function busqueda(sexo = "t", nombreBuscar = "") {
-  console.info("Busqueda sexo %o nombre %o", sexo, nombreBuscar);
 }
 
 /**
@@ -284,11 +282,16 @@ function initGallery() {
                                       src="img/avatar${i}.png">`;
   }
 }
-
+/**
+ * 
+ * @param {*} evento 
+ */
 function selectAvatar(evento) {
+
   console.trace("click avatar");
+
   const avatares = document.querySelectorAll("#gallery img");
-  //eliminamos la clases 'selected' a todas las imagenes del div#gallery
+  //eliminamos la clase 'selected' a todas las imagenes del div#gallery
   avatares.forEach((el) => el.classList.remove("selected"));
   // ponemos clase 'selected' a la imagen que hemos hecho click ( evento.target )
   evento.target.classList.add("selected");
@@ -298,7 +301,65 @@ function selectAvatar(evento) {
   iAvatar.value = evento.target.dataset.path;
 }
 
-/*
- * NOMBRE ÚNICO
- */
-//TODO Nombre único
+class Curso {
+
+  constructor(id, titulo, imagen, precio) {
+    this.id = id;
+    this.titulo = titulo;
+    this.imagen = imagen;
+    this.precio = precio;
+  }
+}
+
+class VistaCurso {
+  
+  addCurso(cursos){
+    const listaCurso = document.getElementById('lista-curso');
+    listaCurso.innerHTML = ""; // vaciar html
+    cursos.forEach((c, i) =>(listaCurso.innerHTML = `
+    <div class="card text-center mb-4">
+        <div class="card-body">
+            <strong>Curso</strong>: ${c.id} -
+            <strong>Título</strong>: ${c.titulo} - 
+            <strong>Imagen</strong>: ${c.imagen} - 
+            <strong>Imagen</strong>: ${c.precio} - 
+            <a href="#" class="btn btn-danger" name="delete">Eliminar</a>
+        </div>
+    </div>`
+    ));
+    //const element = document.createElement('div');
+    
+    
+        
+  }
+
+  resetForm(){
+
+  }
+
+  deleteCurso(){
+
+  }
+
+  mostrarMensaje(){
+
+  }
+}
+
+function pintarListaCurso() {
+  console.trace("pintarLista");
+
+  const promesa = ajax("GET", endpointCursos, undefined);
+  promesa
+    .then((data) => {
+      console.trace("promesa resolve");
+      cursos = data;
+      console.log('LISTADO DE CURSOS %o', cursos);
+      const vistaCurso = new VistaCurso();
+      vistaCurso.addCurso(cursos);
+    })
+    .catch((error) => {
+      console.warn("promesa rejectada");
+      alert(error);
+    });
+}

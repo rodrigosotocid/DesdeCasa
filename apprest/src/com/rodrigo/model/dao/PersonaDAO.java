@@ -37,11 +37,12 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public List<Persona> getAll() {
 
-		LOGGER.info("getAll");
+		LOGGER.info("Get-All Persona SQL");
 
 		ArrayList<Persona> registros = new ArrayList<Persona>();
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();
 

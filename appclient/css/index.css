@@ -76,7 +76,7 @@ label {
 
 #gallery  {
   border: 1px solid #aea79f;
-  padding: 1rem;
+  padding: 0.4rem;
   border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
   -moz-border-radius: 0.3rem;
@@ -86,7 +86,7 @@ label {
 }
 
 #gallery img {
-  height: 2.7rem;
+  height: 3rem;
   margin: 1px;
   padding: 2px;
   filter: grayscale(100%);
@@ -97,6 +97,18 @@ label {
     border: 3px solid #ee6d40;
     filter: grayscale(0);
     -webkit-filter: grayscale(0);
+}
+
+#gallery img:hover {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+  filter:none;
+  -webkit-filter:none;
 }
 
 /* 
@@ -113,7 +125,6 @@ label {
 .head-tabla, .foot-tabla{
     background: #ee6d40;
     color: #FFFFFF;
-    border: 1px solid #aea79f;
     text-decoration: solid ;
 }
 
@@ -167,10 +178,11 @@ label {
   background-color: red;
   }
 /* 
- * TABLA CRUD
+ * CURSOS
  */
 .cursos {
   /* background: #aea79f; */
+  color: inherit;
 }
 
 .h2-curso {
@@ -185,6 +197,19 @@ label {
   line-height: 1.8;
 }
 
+.image-curso {
+  width: 15rem;
+  background: #ee6d40;
+  transition: width 2s, height 4s;
+}
+
+.image-curso:hover {
+  width: 30rem;
+}
+
+#lista-curso {
+  color: #333333;
+}
 /*
  * FOOTER
  */
