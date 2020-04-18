@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.security.auth.login.Configuration;
 import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -53,6 +52,30 @@ public class PersonaController {
 		return registros;
 	}
 
+	@GET
+	@Path("/{id}")
+	public Object getPersona(@PathParam("id") int id) {
+		LOGGER.info("getPersona");
+		ArrayList<String> errores = new ArrayList<String>();
+		Response response = null;
+
+		Persona persona;
+		try {
+			persona = personaDAO.getById(id);
+
+			if (persona != null) {
+				response = Response.status(Status.OK).entity(persona).build();
+			}
+		} catch (SQLException e) {
+			errores.add(e.getMessage());
+			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(errores).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			errores.add("No se ha encontrado ninguna persona con ese id.");
+			response = Response.status(Status.NOT_FOUND).entity(errores).build();
+		}
+		return response;
+	}
 	/**
 	 * Creamos el método POST, recibimos persona por parámetro, actualizamos y luego
 	 * la añadimos al array

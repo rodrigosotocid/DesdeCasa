@@ -41,8 +41,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		ArrayList<Persona> registros = new ArrayList<Persona>();
 
-		try (
-				Connection con = ConnectionManager.getConnection();
+		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();
 

@@ -18,21 +18,33 @@ public class Persona {
 	//@Pattern(regexp = "")
 	private String sexo;
 	
+	private CursoContratado cursoContratado;
+	
 	public Persona() {
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.avatar = "avatar1.png";
 		this.sexo = "";
+		this.cursoContratado = new CursoContratado();
 	}
 
-	public Persona(int id, String nombre, String avatar, String sexo) {		
+	public Persona(int id, String nombre, String avatar, String sexo, CursoContratado cursoContratado) {		
 		this();
 		this.id = id;
 		this.nombre = nombre;
 		this.avatar = avatar;
 		this.sexo = sexo;
+		this.cursoContratado = new CursoContratado();
 		
+	}
+
+	public CursoContratado getCursoContratado() {
+		return cursoContratado;
+	}
+
+	public void setCursoContratado(CursoContratado cursoContratado) {
+		this.cursoContratado = cursoContratado;
 	}
 
 	public int getId() {
@@ -69,7 +81,8 @@ public class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo
+				+ ", cursoContratado=" + cursoContratado + "]";
 	}
 
 	@Override
@@ -77,6 +90,7 @@ public class Persona {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
+		result = prime * result + ((cursoContratado == null) ? 0 : cursoContratado.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
@@ -97,6 +111,11 @@ public class Persona {
 				return false;
 		} else if (!avatar.equals(other.avatar))
 			return false;
+		if (cursoContratado == null) {
+			if (other.cursoContratado != null)
+				return false;
+		} else if (!cursoContratado.equals(other.cursoContratado))
+			return false;
 		if (id != other.id)
 			return false;
 		if (nombre == null) {
@@ -112,6 +131,6 @@ public class Persona {
 		return true;
 	}
 
-
+	
 	
 }
