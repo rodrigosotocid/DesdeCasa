@@ -316,19 +316,29 @@ class VistaCurso {
   addCurso(cursos){
     const listaCurso = document.getElementById('lista-curso');
     listaCurso.innerHTML = ""; // vaciar html
-    cursos.forEach((c, i) =>(listaCurso.innerHTML = `
-    <div class="card text-center mb-4">
-        <div class="card-body">
-            <strong>Curso</strong>: ${c.id} -
-            <strong>Título</strong>: ${c.titulo} - 
-            <strong>Imagen</strong>: ${c.imagen} - 
-            <strong>Imagen</strong>: ${c.precio} - 
-            <a href="#" class="btn btn-danger" name="delete">Eliminar</a>
-        </div>
-    </div>`
+    cursos.forEach((c) =>
+      (listaCurso.innerHTML += `
+        <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="img/${c.imagen}" class="card-img" alt="curso">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">${c.titulo}</h5>
+                <p class="card-text"><span class="font-weight-bold">Precio:</span> ${c.precio} €</p>
+                <a href="#" class="btn btn-danger mt-3" name="nuevo"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
+                <a href="#" class="btn btn-danger mt-3" name="delete">Eliminar</a>
+              </div>
+            </div>
+          </div>
+        </div>`
+                                                      
     ));
     //const element = document.createElement('div');
-    
+    cursos.forEach(c => {
+      console.log('TODOS LOS CURSOS EN ADD-CURSO %o', c.titulo );
+    });
     
         
   }
@@ -354,7 +364,7 @@ function pintarListaCurso() {
     .then((data) => {
       console.trace("promesa resolve");
       cursos = data;
-      console.log('LISTADO DE CURSOS %o', cursos);
+      console.log('LISTADO DE CURSOS PINTAR CURSO%o', cursos);
       const vistaCurso = new VistaCurso();
       vistaCurso.addCurso(cursos);
     })

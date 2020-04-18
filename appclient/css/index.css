@@ -208,7 +208,28 @@ label {
 }
 
 #lista-curso {
-  color: #333333;
+  
+}
+
+#card-cursos {
+  color:#aea79f; 
+  background: #333333;
+  border: 1px solid #ee6d40;
+  
+}
+
+.card-img {
+  width: 150px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  color:#FFFFFF;
+}
+
+#p-card {
+  text-decoration: solid;
 }
 /*
  * FOOTER
