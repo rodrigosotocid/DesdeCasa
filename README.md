@@ -5,4 +5,6 @@ Aplicación creada desde casa en tiempo de cuarentena y finalizando formación e
   
   https://raw.githubusercontent.com/istikis/DesdeCasa/master/CRUD%20-%20Alumnos.png
   
+  https://github.com/istikis/DesdeCasa/blob/master/CRUD%20-%20Alumnos.png
+  
   
