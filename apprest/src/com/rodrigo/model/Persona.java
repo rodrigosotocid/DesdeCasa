@@ -38,6 +38,13 @@ public class Persona {
 		this.cursoContratado = new CursoContratado();
 		
 	}
+	public Persona(int id, String nombre, String avatar, String sexo) {		
+		this();
+		this.id = id;
+		this.nombre = nombre;
+		this.avatar = avatar;
+		this.sexo = sexo;
+	}
 
 	public CursoContratado getCursoContratado() {
 		return cursoContratado;
