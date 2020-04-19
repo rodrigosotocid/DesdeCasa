@@ -1,6 +1,4 @@
 //LISTA DE TAREAS
-//TODO meter LOGGERs en App cliente y REST
-//TODO Exception NOMBRE unico en la BBDD
 //TODO Probar bien todo el CRUD y si funciona crear TAG version 1.0
 
 "use strict";
@@ -91,7 +89,7 @@ function pintarLista() {
     .then((data) => {
       console.trace("promesa resolve");
       personas = data;
-      maquetarLista(personas);
+      maquetarLista(personas); 
     })
     .catch((error) => {
       console.warn("promesa rejectada");
@@ -131,33 +129,31 @@ function maquetarLista(elementos) {
  * Se ejecuta al pulsar el boton de la papeleray llama al servicio rest para DELETE
  * @param {*} indice posicion del alumno dentro del array personas
  */
-function eliminar(indice){
+function eliminar(indice) {
   let personaSeleccionada = personas[indice];
-  console.debug('click eliminar persona %o', personaSeleccionada);
+  console.debug("click eliminar persona %o", personaSeleccionada);
   const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
-  if ( confirm(mensaje) ){
-
-      const url = endpoint + personaSeleccionada.id;
-      ajax('DELETE', url, undefined)
-          .then( data =>  pintarLista() )
-          .catch( error => {
-              console.warn('promesa rejectada');
-              alert(error);
-          });
-
+  if (confirm(mensaje)) {
+    const url = endpoint + personaSeleccionada.id;
+    ajax("DELETE", url, undefined)
+      .then((data) => pintarLista())
+      .catch((error) => {
+        console.warn("promesa rejectada");
+        alert(error);
+      });
   }
 } // eliminar
 
 /*
  * OBTENER TODOS BBDD
  */
-function GetAll(data) {
+function getAll(data) {
   ajax("GET", endpoint, data)
     .then((data) => {
       console.trace("promesa resolve");
       personas = data;
       pintarLista(personas);
-      console.log('GET: Registros obtenidos correctamente! %o', personas);
+      console.log("GET: Registros obtenidos correctamente! %o", personas);
     })
     .catch((error) => {
       console.warn("promesa rejectada");
@@ -169,7 +165,6 @@ function GetAll(data) {
  * SELECCIONAR
  */
 function seleccionar(indice) {
-
   let personaSeleccionada = {
     id: 0,
     nombre: "sin nombre",
@@ -181,7 +176,6 @@ function seleccionar(indice) {
     personaSeleccionada = personas[indice];
   }
 
-  
   console.debug("click guardar persona %o", personaSeleccionada);
 
   //rellenar formulario
@@ -199,21 +193,20 @@ function seleccionar(indice) {
   });
 
   const sexo = personaSeleccionada.sexo;
-    let checkHombre = document.getElementById('sexoh');
-    let checkMujer = document.getElementById('sexom');
+  let checkHombre = document.getElementById("sexoh");
+  let checkMujer = document.getElementById("sexom");
 
-    if ( sexo == "h"){
-        checkHombre.checked = 'checked';
-        checkMujer.checked = '';
+  if (sexo == "h") {
+    checkHombre.checked = "checked";
+    checkMujer.checked = "";
+  } else {
+    checkHombre.checked = "";
+    checkMujer.checked = "checked";
+  }
 
-    }else{
-        checkHombre.checked = '';
-        checkMujer.checked = 'checked';
-    }
-
-    //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
+  //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
   //pintarListaCurso()
-  pintarListaContratados()
+  pintarListaContratados();
 }
 
 /**
@@ -221,7 +214,6 @@ function seleccionar(indice) {
  * Llama al servicio Rest para hacer un POST ( id == 0) o PUT ( id != 0 )
  */
 function guardar() {
-
   console.trace("click guardar");
 
   const id = document.getElementById("inputId").value;
@@ -229,7 +221,7 @@ function guardar() {
   const avatar = document.getElementById("inputAvatar").value;
 
   // verificamos al radio que esté checado para elegir opción
-  let sexo = (document.getElementById('sexoh').checked ) ? 'h' : 'm';
+  let sexo = document.getElementById("sexoh").checked ? "h" : "m";
 
   // Maquetamos persona en formato JSON
   let persona = {
@@ -240,53 +232,59 @@ function guardar() {
   };
 
   console.debug("persona a guardar %o", persona);
+  
+  //TODO console.log('persona nombre %o',persona.nombre);
+  nombreUnico(persona.nombre);
+  
+    if (id == 0) {
+      console.trace("POST/INSERT: Persona");
 
-  if (id == 0) {
-    console.trace("POST/INSERT: Persona");
+      //CREAR
+      ajax("POST", endpoint, persona)
+        .then((data) => {
+          alert(persona.nombre + " bienvenid@");
+          //limpiar formulario
+          document.getElementById("inputId").value = 0;
+          document.getElementById("inputNombre").value = "";
+          document.getElementById("inputAvatar").value = "img/avatar1.png";
+          document.getElementById("sexoh").checked = true;
+          document.getElementById("sexom").checked = false;
 
-    //CREAR
-    ajax("POST", endpoint, persona)
-      .then(data => {
-        alert( persona.nombre + ' bienvenid@');
-        //limpiar formulario
-        document.getElementById('inputId').value = 0;
-        document.getElementById('inputNombre').value = '';               
-        document.getElementById('inputAvatar').value = 'img/avatar1.png';
-        document.getElementById('sexoh').checked = true;
-        document.getElementById('sexom').checked = false;
+          getAll(data);
+        })
+        .catch((error) => {
+          console.warn("POST - No ejecutado!");
+          alert(error);
+        });
 
-        GetAll(data);
-        
+      // MODIFICAR
+    } else {
+      console.trace("PUT/UPDATE: Persona");
 
-      })
-      .catch((error) => {
-        console.warn("POST - No ejecutado!");
-        alert(error);
-      });
+      let url = endpoint + persona.id;
 
-    // MODIFICAR
-  } else {
+      ajax("PUT", url, persona)
+        .then((data) => {
+          getAll(data);
+        })
+        .catch((error) => {
+          console.warn("PUT - No ejecutado!");
+          alert(error);
+        });
+    }
+/*   } else {
+    alert("Lo siento! El nombre " + persona.nombre + " ya está en uso, prueba con otro!");
+  } */
+}
 
-    console.trace("PUT/UPDATE: Persona");
+function nombreUnico(iNombre, listaNombre) {
 
-    let url = endpoint + persona.id;
-
-    ajax("PUT", url, persona)
-      .then((data) => {
-        GetAll(data);
-      })
-      .catch((error) => {
-        console.warn("PUT - No ejecutado!");
-        alert(error);
-      });
-  }
 }
 
 /**
  * Carga todas las imagenes de los avatares
  */
 function initGallery() {
-
   let divGallery = document.getElementById("gallery");
 
   for (let i = 1; i <= 16; i++) {
@@ -300,11 +298,10 @@ function initGallery() {
   }
 }
 /**
- * 
- * @param {*} evento 
+ *
+ * @param {*} evento
  */
 function selectAvatar(evento) {
-
   console.trace("click avatar");
 
   const avatares = document.querySelectorAll("#gallery img");
@@ -330,23 +327,25 @@ function pintarListaCurso() {
     .then((data) => {
       console.trace("promesa resolve");
       cursos = data;
-      console.log('pintarListaCurso() => Ejecutado con éxito! %o ', cursos);
+      console.log("pintarListaCurso() => Ejecutado con éxito! %o ", cursos);
       maquetaCursos(cursos);
     })
     .catch((error) => {
       console.warn("promesa rejectada");
       alert(error);
     });
-} 
+}
 
 /**
  * Llamada a la API Rest para obtener lista de los Cursos
- * @param {cursos} cursos 
- */  
-  function maquetaCursos(cursos){
-    const listaCurso = document.getElementById('lista-curso');
-    listaCurso.innerHTML = ""; // vaciar html
-    cursos.forEach((c) =>
+ * @param {cursos} cursos
+ */
+
+function maquetaCursos(cursos) {
+  const listaCurso = document.getElementById("lista-curso");
+  listaCurso.innerHTML = ""; // vaciar html
+  cursos.forEach(
+    (c) =>
       (listaCurso.innerHTML += `
         <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
           <div class="row no-gutters">
@@ -356,19 +355,21 @@ function pintarListaCurso() {
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title font-weight-bold">${c.titulo}</h5>
-                <p class="card-text"><span class="font-weight-bold">Precio:</span> ${c.precio} €</p>
-                <a href="#" class="btn btn-danger mt-3" name="nuevo"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                <a href="#" class="btn btn-danger mt-3" name="delete">Eliminar</a>
+                <p class="card-text">
+                  <span class="font-weight-bold">Precio:</span>
+                  <span class="c-precio">${c.precio}</span> €
+                </p>
+                <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
               </div>
             </div>
           </div>
-        </div>`                                             
-    ));
-    //const element = document.createElement('div');
-    cursos.forEach(c => {
-      console.log('Maquetado correcto en maquetaCursos() para:%o', c.titulo );
-    });    
-  }
+        </div>`)
+  );
+  //const element = document.createElement('div');
+  cursos.forEach((c) => {
+    console.log("Maquetado correcto en maquetaCursos() para:%o", c.titulo);
+  });
+}
 
 /* ********************** CURSOS CONTRATADOS ********************** */
 function pintarListaContratados() {
@@ -379,39 +380,46 @@ function pintarListaContratados() {
     .then((data) => {
       console.trace("promesa resolve");
       contratados = data;
-      console.log('pintarListaContratados() => Ejecutado con éxito! %o ', contratados);
+      console.log(
+        "pintarListaContratados() => Ejecutado con éxito! %o ",
+        contratados
+      );
       maquetaContratados(contratados);
     })
     .catch((error) => {
       console.warn("promesa rejectada");
       alert(error);
     });
-} 
+}
 
-function maquetaContratados(contratados){
-  const listaContratados = document.getElementById('contratados');
+function maquetaContratados(contratados) {
+  const listaContratados = document.getElementById("contratados");
   listaContratados.innerHTML = ""; // vaciar html
-  contratados.forEach((cc) =>
-    (listaContratados.innerHTML += `
+  contratados.forEach(
+    (cc) =>
+      (listaContratados.innerHTML += `
       <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="img/${cc.curso.imagen}" class="card-img" alt="curso">
+            <img src="img/android.png" class="card-img" alt="curso">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title font-weight-bold">${cc.nombre}bfdb</h5>
-              <p class="card-text"><span class="font-weight-bold">Precio:</span> ${cc.sexo}dfbb €</p>
+              <h5 class="card-title font-weight-bold">Curso Android</h5>
+              <p class="card-text"><span class="font-weight-bold">Precio:</span> 300 €</p>
               <a href="#" class="btn btn-danger mt-3" onclick="pintarListaCurso()"><i class="fas fa-plus"></i> Ver Cursos</a>
               <a href="#" class="btn btn-danger mt-3" name="delete">Eliminar</a>
             </div>
           </div>
         </div>
-      </div>`                                             
-  ));
+      </div>`)
+  );
   //const element = document.createElement('div');
-  contratados.forEach(cc => {
-    console.log('Maquetado correcto en maquetaContratados() para:%o', cc.persona );
-    console.log('Maquetado correcto en maquetaContratados() para:%o', cc.curso );
-  });    
+  contratados.forEach((cc) => {
+    console.log(
+      "Maquetado correcto en maquetaContratados() para:%o",
+      cc.persona
+    );
+    console.log("Maquetado correcto en maquetaContratados() para:%o", cc.curso);
+  });
 }
