@@ -16,7 +16,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	private static PersonaDAO INSTANCE = null;
 
-	private static String SQL_GET_ALL = "SELECT id, nombre, avatar,sexo FROM persona ORDER BY id DESC LIMIT 500;";
+	private static String SQL_GET_ALL = "SELECT id, nombre, avatar, sexo FROM persona ORDER BY id DESC LIMIT 500;";
 	private static String SQL_GET_BY_ID = "SELECT id, nombre, avatar, sexo FROM persona WHERE id = ?;";
 	private static String SQL_DELETE = "DELETE FROM persona WHERE id = ?;";
 	private static String SQL_INSERT = "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";

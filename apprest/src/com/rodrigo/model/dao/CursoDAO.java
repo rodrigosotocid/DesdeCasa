@@ -17,11 +17,11 @@ public class CursoDAO implements IDAO<Curso> {
 
 	private static CursoDAO INSTANCE = null;
 
-	private static String SQL_GET_ALL = "SELECT id, titulo, imagen, precio FROM cursos ORDER BY id DESC LIMIT 500;";
-	private static String SQL_GET_BY_ID = "SELECT id, titulo, imagen, precio FROM cursos WHERE id = ?;";
-	private static String SQL_DELETE = "DELETE FROM cursos WHERE id = ?;";
-	private static String SQL_INSERT = "INSERT INTO cursos ( titulo, imagen, precio) VALUES ( ?, ?, ? ); ";
-	private static String SQL_UPDATE = "UPDATE cursos SET titulo = ?, imagen = ?, precio = ? WHERE id = ?;";
+	private static String SQL_GET_ALL = "SELECT id, nombre, imagen, precio FROM curso ORDER BY id DESC LIMIT 500;";
+	//private static String SQL_GET_BY_ID = "SELECT id, nombre, imagen, precio FROM curso WHERE id = ?;";
+	//private static String SQL_DELETE = "DELETE FROM curso WHERE id = ?;";
+	//private static String SQL_INSERT = "INSERT INTO curso ( nombre, imagen, precio) VALUES ( ?, ?, ? ); ";
+	//private static String SQL_UPDATE = "UPDATE curso SET nombre = ?, imagen = ?, precio = ? WHERE id = ?;";
 
 	private CursoDAO() {
 		super();
@@ -37,7 +37,7 @@ public class CursoDAO implements IDAO<Curso> {
 	@Override
 	public List<Curso> getAll() {
 		
-		LOGGER.info("Get-All Curso SQL");
+		LOGGER.info("Get-All Curso DAO");
 		ArrayList<Curso> registros = new ArrayList<Curso>();
 		
 		try (
@@ -81,7 +81,7 @@ public class CursoDAO implements IDAO<Curso> {
 		Curso c = new Curso();
 		
 		c.setId(rs.getInt("id"));
-		c.setTitulo(rs.getString("titulo"));
+		c.setTitulo(rs.getString("nombre"));
 		c.setImagen(rs.getString("imagen"));
 		c.setPrecio(rs.getDouble("precio"));
 		

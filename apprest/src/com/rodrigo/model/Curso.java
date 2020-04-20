@@ -16,7 +16,7 @@ public class Curso {
 	}
 	
 	public Curso() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public int getId() {

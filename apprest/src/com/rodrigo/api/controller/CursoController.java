@@ -37,7 +37,7 @@ public class CursoController {
 	
 	@GET
 	public ArrayList<Curso> GetAll() {
-		LOGGER.info("GET: getAll from Curso Rest Service");
+		LOGGER.info("@GET: All Curso");
 		ArrayList<Curso> registros = (ArrayList<Curso>) cursoDAO.getAll();
 		
 		return registros;		
