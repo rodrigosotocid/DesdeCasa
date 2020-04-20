@@ -18,11 +18,7 @@ public class CursoDAO implements IDAO<Curso> {
 	private static CursoDAO INSTANCE = null;
 
 	private static String SQL_GET_ALL = "SELECT id, nombre, imagen, precio FROM curso ORDER BY id DESC LIMIT 500;";
-	//private static String SQL_GET_BY_ID = "SELECT id, nombre, imagen, precio FROM curso WHERE id = ?;";
-	//private static String SQL_DELETE = "DELETE FROM curso WHERE id = ?;";
-	//private static String SQL_INSERT = "INSERT INTO curso ( nombre, imagen, precio) VALUES ( ?, ?, ? ); ";
-	//private static String SQL_UPDATE = "UPDATE curso SET nombre = ?, imagen = ?, precio = ? WHERE id = ?;";
-
+	
 	private CursoDAO() {
 		super();
 	}
