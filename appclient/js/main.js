@@ -342,34 +342,39 @@ function pintarListaCurso() {
  */
 
 function maquetaCursos(cursos) {
-  const listaCurso = document.getElementById("lista-curso");
+  const listaCurso = document.getElementById("cursillos");
   listaCurso.innerHTML = ""; // vaciar html
   cursos.forEach(
     (c) =>
       (listaCurso.innerHTML += `
-        <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="img/${c.imagen}" class="card-img" alt="curso">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">${c.nombre}</h5>
-                <p class="card-text">
-                  <span class="font-weight-bold">Precio:</span>
-                  <span class="c-precio">${c.precio}</span> €
-                </p>
-                <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
-              </div>
+      <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
+      <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="img/${c.imagen}" class="card-img" alt="curso">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">${c.nombre}</h5>
+              <p class="card-text">
+                <span class="font-weight-bold">Precio:</span>
+                <span class="c-precio">${c.precio}</span> €
+              </p>
+              <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
             </div>
           </div>
-        </div>`)
+      </div>
+    </div>
+        `)
   );
   //const element = document.createElement('div');
   cursos.forEach((c) => {
-    console.log("Maquetado correcto en maquetaCursos() para:%o", c.titulo);
+    console.log("Maquetado correcto en maquetaCursos() para:%o", c.nombre);
   });
 }
+
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
 
 /* ********************** CURSOS CONTRATADOS ********************** */
 /* function pintarListaContratados() {

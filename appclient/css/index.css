@@ -180,6 +180,13 @@ label {
 /* 
  * CURSOS
  */
+
+ .modal-content{
+  background: #333333; 
+  border: 1px solid #c76d61;
+    
+ }
+
 .cursos {
   /* background: #aea79f; */
   color: inherit;
@@ -207,14 +214,17 @@ label {
   width: 30rem;
 }
 
-#lista-curso {
-  
+.c-precio {
+  color:#ffffff; 
+  background: red;
+  padding: 5px;
+  margin-left: 3px;
 }
 
 #card-cursos {
-  color:#aea79f; 
-  background: #333333;
-  border: 1px solid #ee6d40;
+  color: #aea79f;
+  background: #333333; 
+  border: 1px solid #c76d61;
   
 }
 
