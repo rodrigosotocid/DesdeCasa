@@ -3,14 +3,15 @@ package com.rodrigo.model;
 public class Curso {
 
 	private int id;
-	private String titulo;
+	private String nombre;
 	private String imagen;
 	private double precio;
 	
-	public Curso(int id, String titulo, String imagen, double precio) {
+	
+	public Curso(int id, String nombre, String imagen, double precio) {
 		super();
 		this.id = id;
-		this.titulo = titulo;
+		this.nombre = nombre;
 		this.imagen = imagen;
 		this.precio = precio;
 	}
@@ -27,12 +28,12 @@ public class Curso {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getImagen() {
@@ -57,10 +58,10 @@ public class Curso {
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((imagen == null) ? 0 : imagen.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(precio);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
 
@@ -80,22 +81,20 @@ public class Curso {
 				return false;
 		} else if (!imagen.equals(other.imagen))
 			return false;
-		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
-			return false;
-		if (titulo == null) {
-			if (other.titulo != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!titulo.equals(other.titulo))
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Curso [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", precio=" + precio + "]";
+		return "Curso [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio + "]";
 	}
-	
-	
-	
+
 	
 }

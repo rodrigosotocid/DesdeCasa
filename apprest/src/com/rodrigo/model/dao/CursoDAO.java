@@ -81,7 +81,7 @@ public class CursoDAO implements IDAO<Curso> {
 		Curso c = new Curso();
 		
 		c.setId(rs.getInt("id"));
-		c.setTitulo(rs.getString("nombre"));
+		c.setNombre(rs.getString("nombre"));
 		c.setImagen(rs.getString("imagen"));
 		c.setPrecio(rs.getDouble("precio"));
 		

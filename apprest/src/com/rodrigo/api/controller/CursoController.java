@@ -34,7 +34,7 @@ public class CursoController {
 	public CursoController() {
 		super();
 	}
-	
+
 	@GET
 	public ArrayList<Curso> GetAll() {
 		LOGGER.info("@GET: All Curso");

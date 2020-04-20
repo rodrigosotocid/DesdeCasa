@@ -354,7 +354,7 @@ function maquetaCursos(cursos) {
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title font-weight-bold">${c.titulo}</h5>
+                <h5 class="card-title font-weight-bold">${c.nombre}</h5>
                 <p class="card-text">
                   <span class="font-weight-bold">Precio:</span>
                   <span class="c-precio">${c.precio}</span> €
@@ -372,7 +372,7 @@ function maquetaCursos(cursos) {
 }
 
 /* ********************** CURSOS CONTRATADOS ********************** */
-function pintarListaContratados() {
+/* function pintarListaContratados() {
   console.trace("Ejecutando => pintarListaCurso()");
 
   const promesa = ajax("GET", epContratados, undefined);
@@ -407,7 +407,6 @@ function maquetaContratados(contratados) {
             <div class="card-body">
               <h5 class="card-title font-weight-bold">Curso Android</h5>
               <p class="card-text"><span class="font-weight-bold">Precio:</span> 300 €</p>
-              <a href="#" class="btn btn-danger mt-3" onclick="pintarListaCurso()"><i class="fas fa-plus"></i> Ver Cursos</a>
               <a href="#" class="btn btn-danger mt-3" name="delete">Eliminar</a>
             </div>
           </div>
@@ -422,4 +421,4 @@ function maquetaContratados(contratados) {
     );
     console.log("Maquetado correcto en maquetaContratados() para:%o", cc.curso);
   });
-}
+} */
