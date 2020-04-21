@@ -52,7 +52,11 @@ public class CursoDAO implements IDAO<Curso> {
 			}
 		return registros;
 	}
-	
+	/** 
+	 * Busca cursos por nombre que coincidan LIKE con el parametro busqueda
+	 * @param busqueda String: Término a buscar dentro de la columna nombre 
+	 * @return List<Curso>
+	 */
 	public List<Curso> getAllLikeNombre(String busqueda) {
 		
 		LOGGER.info("getAll Curso DAO %or%");

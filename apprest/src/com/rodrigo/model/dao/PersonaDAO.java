@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
 
 public class PersonaDAO implements IDAO<Persona> {
@@ -16,11 +18,38 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	private static PersonaDAO INSTANCE = null;
 
-	private static String SQL_GET_ALL = "SELECT id, nombre, avatar, sexo FROM persona ORDER BY id DESC LIMIT 500;";
-	private static String SQL_GET_BY_ID = "SELECT id, nombre, avatar, sexo FROM persona WHERE id = ?;";
-	private static String SQL_DELETE = "DELETE FROM persona WHERE id = ?;";
-	private static String SQL_INSERT = "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
-	private static String SQL_UPDATE = "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
+	//TODO Convertir consultas en Procedimientos Almacenados!
+	private static String SQL_GET_ALL			= "  SELECT \n" + 
+											      "  p.id as persona_id,\n" + 
+											      "  p.nombre as persona_nombre,\n" + 
+											      "  p.avatar as persona_avatar,\n" + 
+											      "  p.sexo as persona_sexo,\n" + 
+											      "  c.id as curso_id,\n" + 
+											      "	 c.nombre as curso_nombre,\n" + 
+											      "	 c.precio as curso_precio,\n" + 
+											      "	 c.imagen  as curso_imagen\n" + 
+											      "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.id_persona)\n" + 
+											      "  LEFT JOIN curso c ON pc.id_curso = c.id LIMIT 500;  ";
+
+	private static String SQL_GET_BY_ID		= "  SELECT \n" + 
+												  "	 p.id as persona_id,\n" + 
+												  "	 p.nombre as persona_nombre,\n" + 
+												  "	 p.avatar as persona_avatar,\n" + 
+												  "  p.sexo as persona_sexo,\n" + 
+												  "	 c.id as curso_id,\n" + 
+												  "	 c.nombre as curso_nombre,\n" + 
+												  "	 c.precio as curso_precio,\n" + 
+												  "	 c.imagen  as curso_imagen\n" + 
+												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.id_persona)\n" + 
+												  "  LEFT JOIN curso c ON pc.id_curso = c.id WHERE p.id = ? ;   ";
+
+
+	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
+	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
+	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
+	private static String SQL_ASIGNAR_CURSO	= "INSERT INTO persona_has_curso (id_persona, id_curso) VALUES ( ?, ?); ";
+	private static String SQL_ELIMINAR_CURSO	= "DELETE FROM persona_has_curso WHERE id_persona = ? AND id_curso = ?;  ";
+	
 
 	// constructor privado
 	private PersonaDAO() {
@@ -37,11 +66,13 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public List<Persona> getAll() {
 
-		LOGGER.info("Get-All Persona SQL");
+		LOGGER.info("Get-All DAO Persona ");
 
 		ArrayList<Persona> registros = new ArrayList<Persona>();
+		HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();
 
@@ -50,23 +81,26 @@ public class PersonaDAO implements IDAO<Persona> {
 
 			while (rs.next()) {
 				// devuelve una persona y lo añade a la lista
-				registros.add(mapper(rs));
+				mapper(rs, hmPersonas);
 			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 
+		// convert hashmap to array
+		registros = new ArrayList<Persona> ( hmPersonas.values() );
 		return registros;
 	}
 
 	@Override
 	public Persona getById(int id) throws Exception {
 
-		LOGGER.info("getById");
+		LOGGER.info("getById DAO Persona");
 		Persona registro = null;
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID);
 
 		) {
@@ -75,12 +109,13 @@ public class PersonaDAO implements IDAO<Persona> {
 
 			try (ResultSet rs = pst.executeQuery()) {
 
+				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
 				if (rs.next()) {
 
-					registro = mapper(rs);
+					registro = mapper(rs, hmPersonas);
 
 				} else {
-					throw new Exception("Registro no encontrado para Id " + id);
+					throw new Exception("Ups! Registro NO encontrado para Id " + id);
 				}
 			}
 		} catch (SQLException e) {
@@ -94,13 +129,14 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
 
-		LOGGER.info("Delete");
+		LOGGER.info("DELETE DAO Persona");
 		Persona registro = null;
 
 		// Recuperamos Persona antes de eliminar
 		registro = getById(id);
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_DELETE);
 
 		) {
@@ -111,11 +147,11 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
-				throw new Exception("No se puede Eliminar el registro con id : " + id);
+				throw new Exception("Ups! No se puede Eliminar el registro con id : " + id);
 			}
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
-			throw new Exception("No se puede Eliminar el registro: " + e.getMessage());
+			throw new Exception("Ups! No se puede Eliminar el registro: " + e.getMessage());
 		}
 
 		return registro;
@@ -124,9 +160,10 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona insert(Persona pojo) throws Exception, SQLException {
 
-		LOGGER.info("InsertDAO");
+		LOGGER.info("INSERT DAO Persona");
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 		) {
 			pst.setString(1, pojo.getNombre());
@@ -148,11 +185,11 @@ public class PersonaDAO implements IDAO<Persona> {
 				}
 
 			} else {
-				throw new Exception("No se puede Modificar el registro con id : " + pojo);
+				throw new Exception("Ups! No se puede Modificar el registro con id : " + pojo);
 			}
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
-			throw new Exception("No se puede Modificar el registro: " + e.getMessage());
+			throw new Exception("Ups! No se puede Modificar el registro: " + e.getMessage());
 		}
 
 		return pojo;
@@ -162,9 +199,10 @@ public class PersonaDAO implements IDAO<Persona> {
 	public Persona update(Persona pojo) throws Exception, SQLException {
 		//throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
 		
-		LOGGER.info("Update");
+		LOGGER.info("UPDATE DAO Persona");
 
-		try (Connection con = ConnectionManager.getConnection();
+		try (
+				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);
 		) {
 			
@@ -179,24 +217,100 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
-				throw new Exception("No se puede Actualizar el registro con id : " + pojo);
+				throw new Exception("Ups! No se puede Actualizar el registro con id : " + pojo);
 			}
 			
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
-			throw new Exception("No se puede Actualizar el registro: " + e.getMessage());
+			throw new Exception("Ups! No se puede Actualizar el registro: " + e.getMessage());
 		}
 
 		return pojo;
 	}
 
-	private Persona mapper(ResultSet rs) throws SQLException {
+	public boolean asignarCurso(int idPersona, int idCurso) throws Exception, SQLException {
 		
-		Persona p = new Persona();
-		p.setId(rs.getInt("id"));
-		p.setNombre(rs.getString("nombre"));
-		p.setAvatar(rs.getString("avatar"));
-		p.setSexo(rs.getString("sexo"));
+		boolean resul = false;
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_ASIGNAR_CURSO);
+				
+			){
+			pst.setInt(1, idPersona);
+			pst.setInt(2, idCurso);
+			LOGGER.info(pst.toString());
+			
+			//Eliminamos a la Persona
+			int affectedRows = pst.executeUpdate();
+			if(affectedRows == 1) {
+				resul = true;
+			} else {
+				resul = false;
+			}
+		}
+		
+		return resul;
+	}
+	
+	public boolean eliminarCurso(int idPersona, int idCurso) throws Exception, SQLException {
+		
+		boolean resul = false;
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_ELIMINAR_CURSO);
+				
+			) {
+			pst.setInt(1, idPersona);
+			pst.setInt(2, idCurso);
+			LOGGER.info(pst.toString());
+			
+			//eliminamos la persona
+			int affetedRows = pst.executeUpdate();	
+			if (affetedRows == 1) {
+				resul = true;
+			}else {
+				throw new Exception("No se encontrado registro id_persona =" + idPersona + " id_curso=" + idCurso );		
+			}
+			
+		}
+		
+		return resul;
+	}
+	
+	
+	
+	private Persona mapper(ResultSet rs, HashMap<Integer,Persona> hm) throws SQLException {
+		
+		int key = rs.getInt("persona_id");
+		
+		Persona p = hm.get(key);
+		
+		//Si no existe en el HashMap se crea
+		if( p == null) {
+			
+			p = new Persona();
+			p.setId(key);
+			p.setNombre( rs.getString("persona_nombre"));
+			p.setAvatar( rs.getString("persona_avatar"));
+			p.setSexo( rs.getString("persona_sexo"));
+		}
+		
+		//Se añade el Curso
+		int idCurso = rs.getInt("curso_id");
+		
+		if ( idCurso != 0) {
+			Curso c = new Curso();
+			c.setId(idCurso);
+			c.setNombre(rs.getString("curso_nombre"));
+			c.setPrecio( rs.getFloat("curso_precio"));
+			c.setImagen(rs.getString("curso_imagen"));			
+			p.getCursos().add(c);
+		}	
+		
+		//Actualizar HashMap
+		hm.put(key, p);
 		
 		return p;
 	}

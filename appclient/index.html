@@ -69,7 +69,7 @@
               </tr>
             </tfoot>
           </table>
-        </div>
+      </div>
         <!-- Formulario C.R.U.D. -->
         <div class="col  formulario">  
           <form>
@@ -111,31 +111,40 @@
               </div>
           </div> 
           <!-- / Mis Cursos -->
-        </div>
-
-        
-       
+      </!DOCTYPE>
+      </div>
       <!-- Modal -->
       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
+           
+            <!-- Header -->
             <div class="modal-header">
-              <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
               <h1 class="rounded-right" id="exampleModalLongTitle">Cursos</h1>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <form class="form-inline">
+                <input id="filtroCurso" class="form-control mr-sm-2" type="search" placeholder="Escribe nombre del Curso" aria-label="Search">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </form>
+
             </div>
             <div class="modal-body">
-              <div id="cursillos"></div>
-            </div>
+              <!-- Lista general de Cursos --> 
+              <div id="listaCursos"></div>
+              </div>
+              <!-- / Lista general de Cursos -->
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
             </div>
           </div>
         </div>
-      </div><!-- /Modal -->      
+      </div>
+      <!-- /Modal -->
+
       <!-- Footer -->
       <footer class="d-flex fixed-bottom">
         <p class="copyright col d-flex align-items-center">Alumnos Api Rest &copy;2020  -  Todos los Derechos Reservados</p>

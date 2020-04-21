@@ -13,7 +13,6 @@ const endpoint = "http://localhost:8080/apprest/api/";
 //* Declaración de arrays
 let personas = [];
 let cursos = [];
-let contratados = [];
 
 window.addEventListener("load", init());
 
@@ -26,6 +25,7 @@ function init() {
   listener();
   initGallery();
   pintarLista();
+  //pintarListaCurso();
   //pintarListaContratados()
 
   console.debug("...continua la ejecución del script de forma sincrona");
@@ -35,6 +35,7 @@ function init() {
  * Inicializamos los listener de index.hml
  */
 function listener() {
+
   let selectorSexo = document.getElementById("selectorSexo");
   let inputNombre = document.getElementById("inombre");
 
@@ -317,22 +318,23 @@ function selectAvatar(evento) {
 
 /*-******************************** CURSO ********************************-*/
 
-function pintarListaCurso() {
+function pintarListaCurso(filtro = '') {
 
   console.trace("Ejecutando => pintarListaCurso()");
 
-  const urlCurso = endpoint + "cursos/";
+  const urlCurso = endpoint + 'cursos/?filtro=' + filtro;
   const promesa = ajax("GET", urlCurso, undefined);
-  
+
   promesa
     .then((data) => {
       console.trace("promesa resolve");
       cursos = data;
-      console.log("pintarListaCurso() => Ejecutado con éxito! %o ", cursos);
+
+      console.log("pintarListaCurso: Ejecutado con éxito! %o ", cursos);
       maquetaCursos(cursos);
     })
     .catch((error) => {
-      console.warn("promesa rejectada al intentar pintar list CURSO");
+      console.warn("promesa rejectada al intentar pintar lista CURSO");
       alert(error);
     });
 }
@@ -342,7 +344,8 @@ function pintarListaCurso() {
  * @param {cursos} cursos
  */
 function maquetaCursos(cursos) {
-  const listaCurso = document.getElementById("cursillos");
+
+  const listaCurso = document.getElementById("listaCursos");
   listaCurso.innerHTML = ""; // vaciar html
   cursos.forEach(
     (c) =>

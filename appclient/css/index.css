@@ -195,6 +195,14 @@ label {
   color: inherit;
 }
 
+.form.inline, #filtroCurso, .form-control {
+  margin-right: 0 !important;
+}
+
+#basic-addon1 {
+  height: 2.4rem;
+}
+
 .h2-curso {
   font-size: 2rem;
   margin: 1rem;
