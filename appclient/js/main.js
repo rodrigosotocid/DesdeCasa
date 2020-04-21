@@ -8,9 +8,7 @@
 /**
  * URL's Api Rest
  */
-const endpoint = "http://localhost:8080/apprest/api/personas/";
-const epCursos = "http://localhost:8080/apprest/api/cursos/";
-const epContratados = "http://localhost:8080/apprest/api/contratados/";
+const endpoint = "http://localhost:8080/apprest/api/";
 
 //* Declaración de arrays
 let personas = [];
@@ -83,7 +81,9 @@ function filtro() {
 function pintarLista() {
   console.trace("pintarLista");
 
-  const promesa = ajax("GET", endpoint, undefined);
+  const urlPersonas = endpoint + "personas/";
+  const promesa = ajax("GET", urlPersonas, undefined);
+
   promesa
     .then((data) => {
       console.trace("promesa resolve");
@@ -91,7 +91,7 @@ function pintarLista() {
       maquetarLista(personas); 
     })
     .catch((error) => {
-      console.warn("promesa rejectada");
+      console.warn("promesa: Error al pintar lista de Personas");
       alert(error);
     });
 } // pintarLista
@@ -130,14 +130,14 @@ function maquetarLista(elementos) {
  */
 function eliminar(indice) {
   let personaSeleccionada = personas[indice];
-  console.debug("click eliminar persona %o", personaSeleccionada);
+  console.debug("Click: Eliminar Persona %o", personaSeleccionada);
   const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
   if (confirm(mensaje)) {
     const url = endpoint + personaSeleccionada.id;
     ajax("DELETE", url, undefined)
       .then((data) => pintarLista())
       .catch((error) => {
-        console.warn("promesa rejectada");
+        console.warn("promesa rejectada al intentar eliminar");
         alert(error);
       });
   }
@@ -155,7 +155,7 @@ function getAll(data) {
       console.log("GET: Registros obtenidos correctamente! %o", personas);
     })
     .catch((error) => {
-      console.warn("promesa rejectada");
+      console.warn("promesa rejectada al intentar obtener todas las personas getAll");
       alert(error);
     });
 }
@@ -175,7 +175,7 @@ function seleccionar(indice) {
     personaSeleccionada = personas[indice];
   }
 
-  console.debug("click guardar persona %o", personaSeleccionada);
+  console.debug("Click: Guardar Persona %o", personaSeleccionada);
 
   //rellenar formulario
   document.getElementById("inputId").value = personaSeleccionada.id;
@@ -212,7 +212,7 @@ function seleccionar(indice) {
  * Llama al servicio Rest para hacer un POST ( id == 0) o PUT ( id != 0 )
  */
 function guardar() {
-  console.trace("click guardar");
+  console.trace("Click: Guardar");
 
   const id = document.getElementById("inputId").value;
   const nombre = document.getElementById("inputNombre").value;
@@ -300,7 +300,7 @@ function initGallery() {
  * @param {*} evento
  */
 function selectAvatar(evento) {
-  console.trace("click avatar");
+  console.trace("Click: Avatar");
 
   const avatares = document.querySelectorAll("#gallery img");
 
@@ -315,12 +315,15 @@ function selectAvatar(evento) {
   iAvatar.value = evento.target.dataset.path;
 }
 
-/* ********************** CURSO ********************** */
+/*-******************************** CURSO ********************************-*/
 
 function pintarListaCurso() {
+
   console.trace("Ejecutando => pintarListaCurso()");
 
-  const promesa = ajax("GET", epCursos, undefined);
+  const urlCurso = endpoint + "cursos/";
+  const promesa = ajax("GET", urlCurso, undefined);
+  
   promesa
     .then((data) => {
       console.trace("promesa resolve");
@@ -329,7 +332,7 @@ function pintarListaCurso() {
       maquetaCursos(cursos);
     })
     .catch((error) => {
-      console.warn("promesa rejectada");
+      console.warn("promesa rejectada al intentar pintar list CURSO");
       alert(error);
     });
 }
@@ -338,31 +341,30 @@ function pintarListaCurso() {
  * Llamada a la API Rest para obtener lista de los Cursos
  * @param {cursos} cursos
  */
-
 function maquetaCursos(cursos) {
   const listaCurso = document.getElementById("cursillos");
   listaCurso.innerHTML = ""; // vaciar html
   cursos.forEach(
     (c) =>
       (listaCurso.innerHTML += `
-      <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
-      <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="img/${c.imagen}" class="card-img" alt="curso">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title font-weight-bold">${c.nombre}</h5>
-              <p class="card-text">
-                <span class="font-weight-bold">Precio:</span>
-                <span class="c-precio">${c.precio}</span> €
-              </p>
-              <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
+        <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="img/${c.imagen}" class="card-img" alt="curso">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">${c.nombre}</h5>
+                <p class="card-text">
+                  <span class="font-weight-bold">Precio:</span>
+                  <span class="c-precio">${c.precio}</span> €
+                </p>
+                <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
+              </div>
             </div>
           </div>
-      </div>
-    </div>
-        `)
+        </div>
+      `)
   );
   //const element = document.createElement('div');
   cursos.forEach((c) => {
@@ -370,11 +372,12 @@ function maquetaCursos(cursos) {
   });
 }
 
-/* ********************** CURSOS CONTRATADOS ********************** */
+/*-******************************** CURSOS CONTRATADOS ********************************-*/
+/* 
 function pintarListaContratados() {
 
   console.trace("Ejecutando => pintarListaCurso()");
-
+  maquetaContratados(contratados);
   const promesa = ajax("GET", epContratados, undefined);
   promesa
     .then((data) => {
@@ -387,9 +390,9 @@ function pintarListaContratados() {
       maquetaContratados(contratados);
     })
     .catch((error) => {
-      console.warn("promesa rejectada");
+      console.warn("promesa rejectada al pintar lista contratados");
       alert(error);
-    });
+    }); 
 }
 
 function maquetaContratados(contratados) {
@@ -423,3 +426,4 @@ function maquetaContratados(contratados) {
     console.log("Maquetado correcto en maquetaContratados() para:%o", cc.curso);
   });
 } 
+*/
