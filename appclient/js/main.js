@@ -104,6 +104,7 @@ function restPersonas() {
       console.trace("promesa resolve");
       personas = data;
       layoutPersonas(personas); 
+      misCursos(personas);
     })
     .catch((error) => {
       console.warn("promesa: Error al pintar lista de Personas");
@@ -126,14 +127,15 @@ function layoutPersonas(elementos) {
       (lista.innerHTML += `
         <tr>
           <th scope="row">${p.id}</th>
-          <td onclick="seleccionar(${i})">${p.nombre}</td>
-          <td onclick="seleccionar(${i})">
+          <td onclick="seleccionar(${p.id})">${p.nombre}</td>
+          <td onclick="seleccionar(${p.id})">
             <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
           </td>
+          <td><span class="fright" >${p.cursos.length} cursos</span></td>
           <td class="text-center">
-            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-            <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
-            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
+            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar(${p.id})"></i></a>
+            <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
+            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${p.id})"></i></a>
           </td>	
         </tr>
                             `)
@@ -163,15 +165,19 @@ function eliminar(id = 0) {
   }
 } // eliminar
 
-/*
+/**
  * SELECCIONAR
+ * Se ejecuta al pulsar el boton de editar(al lado de la papelera) o boton 'Nueva Persona'
+ * Rellena el formulario con los datos de la persona
+ * @param {*} id id del alumno, si no existe en el array usa personaSeleccionada
+ * @see personaSeleccionada = { "id":0, "nombre": "sin nombre" , "avatar" : "img/avatar7.png", "sexo": "h" };
  */
 function seleccionar(id = 0) {
 
   //Utilizamos find() para hacer busquedas por índice
   const personaSeleccionada = personas.find(p => p.id = id);
 
-  if(personaSeleccionada){
+  if(!personaSeleccionada){
 
     personaSeleccionada = {
       "id": 0,
@@ -209,9 +215,9 @@ function seleccionar(id = 0) {
     checkHombre.checked = "";
     checkMujer.checked = "checked";
   }
-
+  
   //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
-  //restMisCursos();
+  //restPersonas();
 
 }// SELECCIONAR
 
@@ -334,6 +340,7 @@ function restCursos(filtro = '') {
 
       console.log("restCursos: Ejecutado con éxito! %o ", cursos);
       layoutCursos(cursos);
+      
     })
     .catch((error) => {
       console.warn("promesa rejectada al intentar pintar lista CURSO");
@@ -342,7 +349,7 @@ function restCursos(filtro = '') {
 }
 
 /**
- * Llamada a la API Rest para obtener lista de los Cursos
+ * Llamada a la API Rest para obtener lista de los Cursos desplegado en MODAL
  * @param {cursos} cursos
  */
 function layoutCursos(cursos) {
@@ -359,7 +366,7 @@ function layoutCursos(cursos) {
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title font-weight-bold">${c.nombre}</h5>
+                <h5 class="card-title font-weight-bold">${c.nombre}hh</h5>
                 <p class="card-text">
                   <span class="font-weight-bold">Precio:</span>
                   <span class="c-precio">${c.precio}</span> €
@@ -377,3 +384,67 @@ function layoutCursos(cursos) {
   });
 }
 
+/**
+ * ELIMINAR CURSO
+ * @param {*} idPersona 
+ * @param {*} idCurso 
+ */
+function eliminarCurso( idPersona, idCurso ){
+
+  console.debug(`click eliminarCurso idPersona=${idPersona} idCurso=${idCurso}`);
+
+  const url = endpoint + 'personas/' + idPersona + "/curso/" + idCurso;
+
+  ajax('DELETE', url, undefined)
+  .then( data => {
+      alert('Curso Eliminado');
+
+      //FIXME falta quitar curso del formulario, problema Asincronismo
+      restPersonas();
+      seleccionar(idPersona);
+  })
+  .catch( error => alert(error));
+
+}//eliminarCurso
+
+/**
+ * ASIGNAR CURSO
+ * @param {*} idPersona 
+ * @param {*} idCurso 
+ */
+function asignarCurso( idPersona = 0, idCurso ){
+
+  idPersona = (idPersona != 0) ? idPersona : personaSeleccionada.id;
+
+  console.debug(`click asignarCurso idPersona=${idPersona} idCurso=${idCurso}`);
+
+  const url = endpoint + 'personas/' + idPersona + "/curso/" + idCurso;
+
+  ajax('POST', url, undefined)
+  .then( data => {
+      alert('Curso Asignado');
+
+      //FIXME falta pintar curso del formulario, problema Asincronismo
+      restPersonas();
+      seleccionar(idPersona);
+  })
+  .catch( error => alert(error));
+
+}//asignarCurso
+
+function misCursos(elementos){
+
+  console.trace("misCursos");
+
+  let lista = document.getElementById("misCursos");
+  lista.innerHTML = ""; // vaciar html
+
+  elementos.forEach(
+    (p, i) =>
+      (lista.innerHTML += `
+        <li><img src="img/${p.avatar}" class="tabla-img" alt="Responsive image"></li>
+        <li>${p.nombre}</li>
+        <li>${p.cursos.forEach(el => el)}</li>
+              `)
+  );
+}

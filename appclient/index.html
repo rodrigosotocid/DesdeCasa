@@ -54,6 +54,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Avatar</th>
+                <th scope="col">Cursos</th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
@@ -65,6 +66,7 @@
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Avatar</th>
+                <th>Cursos</th>
                 <th>Opciones</th>
               </tr>
             </tfoot>
@@ -106,8 +108,11 @@
           <!-- Despliegue Mis Cursos -->
           <div>
               <h1 class="rounded-right mb-4">Mis Cursos</h1> <!-- llevar a javascript -->
-              <div id="contratados">
-                <h5>...Selecciona a un alumno para ver los cursos contratados</h5>
+              <div>
+                <ul id="misCursos">
+                  <h5>...Selecciona a un alumno para ver los cursos contratados</h5>
+
+                </ul>
               </div>
           </div> 
           <!-- / Mis Cursos -->
@@ -132,9 +137,10 @@
             </div>
             <div class="modal-body">
               <!-- Lista general de Cursos --> 
-              <div id="listaCursos"></div>
+              <div id="listaCursos">
+
               </div>
-              <!-- / Lista general de Cursos -->
+            </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
