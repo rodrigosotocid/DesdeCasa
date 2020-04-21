@@ -1,6 +1,3 @@
-//LISTA DE TAREAS
-//TODO Probar bien todo el CRUD y si funciona crear TAG version 1.0
-
 "use strict";
 // este array se carga de forma asincrona mediante Ajax
 //const endpoint = 'http://127.0.0.1:5500/js/data/personas.json';
@@ -13,6 +10,7 @@ const endpoint = "http://localhost:8080/apprest/api/";
 //* Declaración de arrays
 let personas = [];
 let cursos = [];
+let personaSeleccionada = {};
 
 window.addEventListener("load", init());
 
@@ -24,29 +22,44 @@ function init() {
 
   listener();
   initGallery();
-  pintarLista();
-  //pintarListaCurso();
-  //pintarListaContratados()
+  restPersonas();
+  restCursos();
 
   console.debug("...continua la ejecución del script de forma sincrona");
 } //init
 
 /**
  * Inicializamos los listener de index.hml
+ * 1) Selector de 'sexo' y busqueda por nombre
+ * 2) Filtro de Cursos
+ * @see function filtro
  */
 function listener() {
 
+   //1) selector de sexo y busqueda por nombre
   let selectorSexo = document.getElementById("selectorSexo");
   let inputNombre = document.getElementById("inombre");
 
   selectorSexo.addEventListener("change", filtro);
   inputNombre.addEventListener("keyup", filtro);
+
+  //2) Filtro de Cursos
+  let filtroCursos = document.getElementById('filtroCurso');
+
+  filtroCursos.addEventListener('keyup', function(event) {
+    let filtroValor = filtroCursos.value.trim();
+    if(filtroValor.length >= 3) {
+      console.debug('filtroCursos keyup' + filtroValor);
+      restCursos();
+    }
+  });
 }
 
 /**
  * Filtra las personas cuando se buscan por sexo y nombre
  */
 function filtro() {
+
   let selectorSexo = document.getElementById("selectorSexo");
   let inputNombre = document.getElementById("inombre");
 
@@ -73,14 +86,15 @@ function filtro() {
     console.debug("filtrado por nombre %o", personasFiltradas);
   }
 
-  maquetarLista(personasFiltradas);
+  layoutPersonas(personasFiltradas);
 } // filtro
 
+/*-******************************** PERSONAS : ALUMNOS ********************************-*/
 /**
  * Obtiene los datos del servicio rest y pinta la lista de Alumnos
  */
-function pintarLista() {
-  console.trace("pintarLista");
+function restPersonas() {
+  console.trace("restPersonas");
 
   const urlPersonas = endpoint + "personas/";
   const promesa = ajax("GET", urlPersonas, undefined);
@@ -89,54 +103,59 @@ function pintarLista() {
     .then((data) => {
       console.trace("promesa resolve");
       personas = data;
-      maquetarLista(personas); 
+      layoutPersonas(personas); 
     })
     .catch((error) => {
       console.warn("promesa: Error al pintar lista de Personas");
       alert(error);
     });
-} // pintarLista
+} // restPersonas
 
 /**
  * Maqueta el listado de Alumnos
  * @param {*} elementos alumnos a pintar
  */
-function maquetarLista(elementos) {
-  console.trace("maquetarLista");
+function layoutPersonas(elementos) {
+  console.trace("layoutPersonas");
 
   let lista = document.getElementById("alumnos");
   lista.innerHTML = ""; // vaciar html
 
   elementos.forEach(
     (p, i) =>
-      (lista.innerHTML += `<tr>
-                              <th scope="row">${p.id}</th>
-                              <td onclick="seleccionar(${i})">${p.nombre}</td>
-                              <td onclick="seleccionar(${i})">
-                                <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
-                              </td>
-                              <td class="text-center">
-                                <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-                                <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
-                                <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
-                              </td>	
-                            </tr>`)
+      (lista.innerHTML += `
+        <tr>
+          <th scope="row">${p.id}</th>
+          <td onclick="seleccionar(${i})">${p.nombre}</td>
+          <td onclick="seleccionar(${i})">
+            <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
+          </td>
+          <td class="text-center">
+            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
+            <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${i})"></i></a>
+            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${i})"></i></a>
+          </td>	
+        </tr>
+                            `)
   );
-} //maquetarLista
+} //layoutPersonas
 
 /**
  * ELIMINAR
- * Se ejecuta al pulsar el boton de la papeleray llama al servicio rest para DELETE
- * @param {*} indice posicion del alumno dentro del array personas
+ * Se ejecuta al pulsar el botón de la papelera y llama al Servicio REST para DELETE
+ * @param {*} id corresponde al Id del Alumno
  */
-function eliminar(indice) {
-  let personaSeleccionada = personas[indice];
+function eliminar(id = 0) {
+
+  let personaSeleccionada = personas.find( p => p.id == id);
   console.debug("Click: Eliminar Persona %o", personaSeleccionada);
-  const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
+  const mensaje = `¿Estas seguro que quieres eliminar a ${personaSeleccionada.nombre} ?`;
+
   if (confirm(mensaje)) {
-    const url = endpoint + personaSeleccionada.id;
+    
+    const url = endpoint + 'personas/' + personaSeleccionada.id;
     ajax("DELETE", url, undefined)
-      .then((data) => pintarLista())
+      .then((data) => restPersonas())
       .catch((error) => {
         console.warn("promesa rejectada al intentar eliminar");
         alert(error);
@@ -145,38 +164,25 @@ function eliminar(indice) {
 } // eliminar
 
 /*
- * OBTENER TODOS BBDD
- */
-function getAll(data) {
-  ajax("GET", endpoint, data)
-    .then((data) => {
-      console.trace("promesa resolve");
-      personas = data;
-      pintarLista(personas);
-      console.log("GET: Registros obtenidos correctamente! %o", personas);
-    })
-    .catch((error) => {
-      console.warn("promesa rejectada al intentar obtener todas las personas getAll");
-      alert(error);
-    });
-}
-
-/*
  * SELECCIONAR
  */
-function seleccionar(indice) {
-  let personaSeleccionada = {
-    id: 0,
-    nombre: "sin nombre",
-    avatar: "avatar7.png",
-    sexo: "h",
-  };
+function seleccionar(id = 0) {
 
-  if (indice > -1) {
-    personaSeleccionada = personas[indice];
+  //Utilizamos find() para hacer busquedas por índice
+  const personaSeleccionada = personas.find(p => p.id = id);
+
+  if(personaSeleccionada){
+
+    personaSeleccionada = {
+      "id": 0,
+      "nombre": "sin nombre",
+      "avatar": "avatar7.png",
+      "sexo": "h",
+      "cursos": []
+    };
   }
 
-  console.debug("Click: Guardar Persona %o", personaSeleccionada);
+  console.debug("Click: Seleccionar Persona %o", personaSeleccionada);
 
   //rellenar formulario
   document.getElementById("inputId").value = personaSeleccionada.id;
@@ -205,14 +211,16 @@ function seleccionar(indice) {
   }
 
   //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
-  pintarListaContratados();
-}
+  //restMisCursos();
+
+}// SELECCIONAR
 
 /**
  * GUARDAR
  * Llama al servicio Rest para hacer un POST ( id == 0) o PUT ( id != 0 )
  */
 function guardar() {
+
   console.trace("Click: Guardar");
 
   const id = document.getElementById("inputId").value;
@@ -224,61 +232,55 @@ function guardar() {
 
   // Maquetamos persona en formato JSON
   let persona = {
-    id: id,
-    nombre: nombre,
-    avatar: avatar,
-    sexo: sexo,
+
+    "id": id,
+    "nombre": nombre,
+    "avatar": avatar,
+    "sexo": sexo
   };
 
   console.debug("persona a guardar %o", persona);
   
-  //TODO console.log('persona nombre %o',persona.nombre);
-  nombreUnico(persona.nombre);
-  
+    //CREAR
     if (id == 0) {
-      console.trace("POST/INSERT: Persona");
 
-      //CREAR
-      ajax("POST", endpoint, persona)
+      console.trace("POST/INSERT: Persona");
+      const url = endpoint + 'personas/';
+
+      ajax("POST", url, persona)
         .then((data) => {
-          alert(persona.nombre + " bienvenid@");
+          alert("Hola " + persona.nombre + " bienvenid@");
           //limpiar formulario
           document.getElementById("inputId").value = 0;
-          document.getElementById("inputNombre").value = "";
-          document.getElementById("inputAvatar").value = "img/avatar1.png";
+          document.getElementById("inputNombre").value = '';
+          document.getElementById("inputAvatar").value = 'img/avatar1.png';
           document.getElementById("sexoh").checked = true;
           document.getElementById("sexom").checked = false;
 
-          getAll(data);
+          restPersonas();
         })
         .catch((error) => {
-          console.warn("POST - No ejecutado!");
-          alert(error);
+          console.warn("Ups! POST No ejecutado! %o" , error);
+          alert(error.informacion);
         });
 
       // MODIFICAR
     } else {
-      console.trace("PUT/UPDATE: Persona");
 
-      let url = endpoint + persona.id;
+      console.trace("PUT/UPDATE: Persona");
+      const url = endpoint + 'personas/' + persona.id;
 
       ajax("PUT", url, persona)
-        .then((data) => {
-          getAll(data);
-        })
+      .then( data => {
+        alert( persona.nombre + ' modificado con exito ');
+        restPersonas();
+    })
         .catch((error) => {
-          console.warn("PUT - No ejecutado!");
-          alert(error);
+          console.warn("PUT - No ejecutado! %o" , error);
+          alert(error.informacion);
         });
     }
-/*   } else {
-    alert("Lo siento! El nombre " + persona.nombre + " ya está en uso, prueba con otro!");
-  } */
-}
-
-function nombreUnico(iNombre, listaNombre) {
-
-}
+}// GUARDAR
 
 /**
  * Carga todas las imagenes de los avatares
@@ -297,7 +299,7 @@ function initGallery() {
   }
 }
 /**
- *
+ * Evento de selección de Avatar
  * @param {*} evento
  */
 function selectAvatar(evento) {
@@ -318,9 +320,9 @@ function selectAvatar(evento) {
 
 /*-******************************** CURSO ********************************-*/
 
-function pintarListaCurso(filtro = '') {
+function restCursos(filtro = '') {
 
-  console.trace("Ejecutando => pintarListaCurso()");
+  console.trace("Ejecutando => restCursos()");
 
   const urlCurso = endpoint + 'cursos/?filtro=' + filtro;
   const promesa = ajax("GET", urlCurso, undefined);
@@ -330,8 +332,8 @@ function pintarListaCurso(filtro = '') {
       console.trace("promesa resolve");
       cursos = data;
 
-      console.log("pintarListaCurso: Ejecutado con éxito! %o ", cursos);
-      maquetaCursos(cursos);
+      console.log("restCursos: Ejecutado con éxito! %o ", cursos);
+      layoutCursos(cursos);
     })
     .catch((error) => {
       console.warn("promesa rejectada al intentar pintar lista CURSO");
@@ -343,7 +345,7 @@ function pintarListaCurso(filtro = '') {
  * Llamada a la API Rest para obtener lista de los Cursos
  * @param {cursos} cursos
  */
-function maquetaCursos(cursos) {
+function layoutCursos(cursos) {
 
   const listaCurso = document.getElementById("listaCursos");
   listaCurso.innerHTML = ""; // vaciar html
@@ -371,62 +373,7 @@ function maquetaCursos(cursos) {
   );
   //const element = document.createElement('div');
   cursos.forEach((c) => {
-    console.log("Maquetado correcto en maquetaCursos() para:%o", c.nombre);
+    console.log("Maquetado correcto en layoutCursos() para:%o", c.nombre);
   });
 }
 
-/*-******************************** CURSOS CONTRATADOS ********************************-*/
-/* 
-function pintarListaContratados() {
-
-  console.trace("Ejecutando => pintarListaCurso()");
-  maquetaContratados(contratados);
-  const promesa = ajax("GET", epContratados, undefined);
-  promesa
-    .then((data) => {
-      console.trace("promesa resolve");
-      contratados = data;
-      console.log(
-        "pintarListaContratados() => Ejecutado con éxito! %o ",
-        contratados
-      );
-      maquetaContratados(contratados);
-    })
-    .catch((error) => {
-      console.warn("promesa rejectada al pintar lista contratados");
-      alert(error);
-    }); 
-}
-
-function maquetaContratados(contratados) {
-
-  const listaContratados = document.getElementById("contratados");
-  listaContratados.innerHTML = ""; // vaciar html
-  contratados.forEach(
-    (cc) =>
-      (listaContratados.innerHTML += `
-      <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="img/android.png" class="card-img" alt="curso">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title font-weight-bold">Curso Android</h5>
-              <p class="card-text"><span class="font-weight-bold">Precio:</span> 300 €</p>
-              <a href="#" class="btn btn-danger mt-3" name="delete">Eliminar</a>
-            </div>
-          </div>
-        </div>
-      </div>`)
-  );
-  //const element = document.createElement('div');
-  contratados.forEach((cc) => {
-    console.log(
-      "Maquetado correcto en maquetaContratados() para:%o",
-      cc.persona
-    );
-    console.log("Maquetado correcto en maquetaContratados() para:%o", cc.curso);
-  });
-} 
-*/

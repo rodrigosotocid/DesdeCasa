@@ -19,17 +19,18 @@ public class PersonaDAO implements IDAO<Persona> {
 	private static PersonaDAO INSTANCE = null;
 
 	//TODO Convertir consultas en Procedimientos Almacenados!
-	private static String SQL_GET_ALL			= "  SELECT \n" + 
-											      "  p.id as persona_id,\n" + 
-											      "  p.nombre as persona_nombre,\n" + 
-											      "  p.avatar as persona_avatar,\n" + 
-											      "  p.sexo as persona_sexo,\n" + 
-											      "  c.id as curso_id,\n" + 
-											      "	 c.nombre as curso_nombre,\n" + 
-											      "	 c.precio as curso_precio,\n" + 
-											      "	 c.imagen  as curso_imagen\n" + 
-											      "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.id_persona)\n" + 
-											      "  LEFT JOIN curso c ON pc.id_curso = c.id LIMIT 500;  ";
+	//ATENTO!! Que los IDs de las tablas intermedias SQL los generó al revés de lo que lo hizo Ander
+	private static String SQL_GET_ALL			= "  SELECT \r\n" + 
+												  "  p.id as persona_id,\r\n" + 
+												  "  p.nombre as persona_nombre,\r\n" + 
+											      "  p.avatar as persona_avatar,\r\n" + 
+												  "  p.sexo as persona_sexo,\r\n" + 
+												  "  c.id as curso_id,\r\n" + 
+												  "  c.nombre as curso_nombre,  \r\n" + 
+												  "  c.precio as curso_precio, \r\n" + 
+												  "  c.imagen  as curso_imagen\r\n" + 
+												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
+												  "  LEFT JOIN curso c ON pc.curso_id = c.id; ";
 
 	private static String SQL_GET_BY_ID		= "  SELECT \n" + 
 												  "	 p.id as persona_id,\n" + 
@@ -40,15 +41,15 @@ public class PersonaDAO implements IDAO<Persona> {
 												  "	 c.nombre as curso_nombre,\n" + 
 												  "	 c.precio as curso_precio,\n" + 
 												  "	 c.imagen  as curso_imagen\n" + 
-												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.id_persona)\n" + 
-												  "  LEFT JOIN curso c ON pc.id_curso = c.id WHERE p.id = ? ;   ";
+												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
+												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.id = ? ;   ";
 
 
 	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
 	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
 	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
-	private static String SQL_ASIGNAR_CURSO	= "INSERT INTO persona_has_curso (id_persona, id_curso) VALUES ( ?, ?); ";
-	private static String SQL_ELIMINAR_CURSO	= "DELETE FROM persona_has_curso WHERE id_persona = ? AND id_curso = ?;  ";
+	private static String SQL_ASIGNAR_CURSO	= "INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?); ";
+	private static String SQL_ELIMINAR_CURSO	= "DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?; ";
 	
 
 	// constructor privado
