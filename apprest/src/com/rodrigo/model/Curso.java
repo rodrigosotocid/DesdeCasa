@@ -10,10 +10,10 @@ public class Curso {
 	
 	public Curso(int id, String nombre, String imagen, double precio) {
 		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.imagen = imagen;
-		this.precio = precio;
+		this.id = 0;
+		this.nombre = "";
+		this.imagen = "";
+		this.precio = 0;
 	}
 	
 	public Curso() {

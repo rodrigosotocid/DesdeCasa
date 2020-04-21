@@ -28,7 +28,6 @@ function init() {
   listener();
   initGallery();
   pintarLista();
-  //pintarListaCurso()
   //pintarListaContratados()
 
   console.debug("...continua la ejecución del script de forma sincrona");
@@ -205,7 +204,6 @@ function seleccionar(indice) {
   }
 
   //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
-  //pintarListaCurso()
   pintarListaContratados();
 }
 
@@ -372,12 +370,9 @@ function maquetaCursos(cursos) {
   });
 }
 
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-
 /* ********************** CURSOS CONTRATADOS ********************** */
-/* function pintarListaContratados() {
+function pintarListaContratados() {
+
   console.trace("Ejecutando => pintarListaCurso()");
 
   const promesa = ajax("GET", epContratados, undefined);
@@ -398,6 +393,7 @@ $('#myModal').on('shown.bs.modal', function () {
 }
 
 function maquetaContratados(contratados) {
+
   const listaContratados = document.getElementById("contratados");
   listaContratados.innerHTML = ""; // vaciar html
   contratados.forEach(
@@ -426,4 +422,4 @@ function maquetaContratados(contratados) {
     );
     console.log("Maquetado correcto en maquetaContratados() para:%o", cc.curso);
   });
-} */
+} 

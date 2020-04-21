@@ -5,8 +5,8 @@ body {
 }
 
 main.container-fluid {
-    /* width: 95%; */
-    background: #333333;
+    width: 80%;
+    background: #363636;
     padding-left: 2rem;
     padding-right: 2rem;
 }
@@ -16,7 +16,7 @@ main.container-fluid {
 }
 
 h1 {
-  background: #ee6d40;
+  background: #db7843;
   color: inherit;
   font-size: 1.5em;
   padding: 5px;
@@ -31,7 +31,7 @@ h1 {
 
 #titulo-cabera {
   font-size: 2rem;
-  background: #333333;
+  background: #363636;
   margin: 5rem;
 }
 
@@ -49,7 +49,7 @@ label {
 }
 
 .custom-select {
-    background:	#333333;
+    background:	#363636;
     border-color: #aea79f !important;
     color: #aea79f;
 }
@@ -61,10 +61,10 @@ label {
 }
 
 .form-control:disabled, .form-control[readonly] {
-    background:	#333333;
+    background:	#363636;
 }
 .form-control, .form-group {
-    background:	#333333;
+    background:	#363636;
     border-color: #aea79f;
     color: #aea79f;
 }
@@ -86,7 +86,7 @@ label {
 }
 
 #gallery img {
-  height: 3rem;
+  height: 3.2rem;
   margin: 1px;
   padding: 2px;
   filter: grayscale(100%);
@@ -94,7 +94,7 @@ label {
 }
 
 #gallery img.selected {
-    border: 3px solid #ee6d40;
+    border: 3px solid #db7843;
     filter: grayscale(0);
     -webkit-filter: grayscale(0);
 }
@@ -116,14 +116,14 @@ label {
  */
 
 .table{
-    color: #ee6d40; 
+    color: #db7843;
     margin-top: 1rem;
     margin-bottom: 5rem;
 }
 
 /* HEAD - FOOTER TABLA */
 .head-tabla, .foot-tabla{
-    background: #ee6d40;
+    background: #db7843;
     color: #FFFFFF;
     text-decoration: solid ;
 }
@@ -142,7 +142,7 @@ label {
 /* TABLA HOVER */
 .table-hover tbody tr:hover{
     color: #FFFFFF;
-    background: #ee6d40;
+    background: #db7843;
 }
 
 .table td, .table th {
@@ -152,7 +152,7 @@ label {
 /* BOTONES TABLA CRUD */
 
 .btn {
-    background-color: #ee6d40;
+    background-color: #db7843;
     color: #ffffff;
   }
   
@@ -163,7 +163,7 @@ label {
   }
   
   .btn-new, .btn-mod, .btn-del  {
-      background: #333333;
+      background: #363636;
     color: inherit;
   }
   .btn-new:hover {
@@ -182,9 +182,12 @@ label {
  */
 
  .modal-content{
-  background: #333333; 
-  border: 1px solid #c76d61;
-    
+  background: #363636; 
+  border: 1px solid #c76d61; 
+ }
+
+ .modal-header, .modal-footer {
+   border: none;
  }
 
 .cursos {
@@ -205,8 +208,8 @@ label {
 }
 
 .image-curso {
-  width: 15rem;
-  background: #ee6d40;
+  height: 5rem;
+  background: #db7843;
   transition: width 2s, height 4s;
 }
 
@@ -216,14 +219,14 @@ label {
 
 .c-precio {
   color:#ffffff; 
-  background: red;
+  background: #2487bc;
   padding: 5px;
   margin-left: 3px;
 }
 
 #card-cursos {
   color: #aea79f;
-  background: #333333; 
+  background: #363636;
   border: 1px solid #c76d61;
   
 }
@@ -246,7 +249,8 @@ label {
  */
     
 footer {
-    background: #ee6d40;
+    background: #db7843;
+    border-top: 2px solid #c76d61;
     padding: 3px;
     text-align: center;	
     margin-top: 2rem;
@@ -255,13 +259,13 @@ footer {
 }
     
 footer p {
-    color: #333333; 
+    color: #ffffff;
     margin: 0 auto;
 }
     
 .redes {
     font-size:35px;
-    color: #343740;
+    color: #363636;
     margin-left: 5px;    
 }
 

@@ -20,10 +20,12 @@ public class ConnectionManager {
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mydb");
 
 			if (ds == null) {
+				LOGGER.fatal("Data source no encontrado!");
 				throw new Exception("Data source no encontrado!");
 			}
 
 			conn = ds.getConnection();
+			LOGGER.info("Conexión Establecida!");
 
 		} catch (Exception e) {
 
