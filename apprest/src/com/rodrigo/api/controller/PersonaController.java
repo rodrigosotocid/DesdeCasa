@@ -22,7 +22,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
+import com.rodrigo.model.dao.CursoDAO;
 import com.rodrigo.model.dao.PersonaDAO;
 
 @Path("/personas")
@@ -33,6 +35,7 @@ public class PersonaController {
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
 
 	private static PersonaDAO personaDAO = PersonaDAO.getInstance();
+	private static CursoDAO cursoDAO = CursoDAO.getInstance();
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = factory.getValidator();
@@ -46,16 +49,18 @@ public class PersonaController {
 
 	@GET
 	public ArrayList<Persona> getAll() {
-		LOGGER.info("getAll");
-		// return personas;
+		
+		LOGGER.info("@GET: getAll");
 		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+		
 		return registros;
 	}
 
 	@GET
 	@Path("/{id}")
 	public Object getById(@PathParam("id") int id) {
-		LOGGER.info("getPersona");
+		
+		LOGGER.info("@GET: getPersona");
 		ArrayList<String> errores = new ArrayList<String>();
 		Response response = null;
 
@@ -76,6 +81,7 @@ public class PersonaController {
 		}
 		return response;
 	}
+	
 	/**
 	 * Creamos el método POST, recibimos persona por parámetro, actualizamos y luego
 	 * la añadimos al array
@@ -84,11 +90,10 @@ public class PersonaController {
 	@POST
 	public Response insert(Persona persona) {
 		
-		LOGGER.info("...ejecutando POST/Insert de Persona: " + persona);
+		LOGGER.info("@POST: Insert de Persona: " + persona);
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 
-		// FIXED validar datos de la persona (javax.validation)
-		// Validación POJO
+		// Validación POJO (javax.validation)
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
 		if (violations.isEmpty()) {
@@ -98,10 +103,15 @@ public class PersonaController {
 //			personas.add(persona);
 
 			try {
+				
 				persona = personaDAO.insert(persona);
 				response = Response.status(Status.CREATED).entity(persona).build();
+				
 			} catch (Exception e) {
-				response = Response.status(Status.CONFLICT).entity(persona).build();
+				
+				ResponseBody responseBody = new ResponseBody();
+				responseBody.setInformacion("nombre duplicado!");
+				response = Response.status(Status.CONFLICT).entity(responseBody).build();
 			}
 		} else {
 
@@ -119,15 +129,17 @@ public class PersonaController {
 	@PUT
 	@Path("/{id: \\d+}")
 	public Response update(@PathParam("id") int id, Persona persona) {
-		LOGGER.info("update(" + id + ", " + persona + ")");
+		 
+		LOGGER.info("@PUT: Update (" + id + ", " + persona + ")");
 
-		// FIXED Validar objeto Persona (javax.validation CODE:400)
+		//Valida objeto Persona (javax.validation CODE:400)
 		Response response = Response.status(Status.NOT_FOUND).entity(persona).build();
 
-		// FIXED Comprobar si no encuentra a la persona (devolver 404)
+		//Comprueba si no encuentra a la persona (devolver 404)
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
 		if (!violations.isEmpty()) {
+			
 			ArrayList<String> errores = new ArrayList<String>();
 
 			for (ConstraintViolation<Persona> violation : violations) {
@@ -141,7 +153,10 @@ public class PersonaController {
 				response = Response.status(Status.OK).entity(persona).build();
 
 			} catch (Exception e) {
-				response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
+				
+				ResponseBody responseBody = new ResponseBody();
+				responseBody.setInformacion("nombre duplicado");
+				response = Response.status(Status.CONFLICT).entity(responseBody).build();
 			}
 		}
 		return response;
@@ -150,33 +165,92 @@ public class PersonaController {
 	@DELETE
 	@Path("/{id: \\d+}")
 	public Response eliminar(@PathParam("id") int id) {
-		LOGGER.info("Eliminar(" + id + ")");
+		
+		LOGGER.info("@DELETE: Eliminar (" + id + ")");
 
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
 		Persona persona = null;
 
 		try {
 			
 			//Sí intenta borrar y no lo encuentra lanza la Excepción de SQL
 			persona = personaDAO.delete(id);
+			 
+			responseBody.setData(persona);
+			responseBody.setInformacion("Persona eliminada");
+			responseBody.addError("Esto es una prueba");
+			responseBody.addError("Esto es una segunda prueba");
 			
-			ResponseBody rb = new ResponseBody(); 
-			rb.setData(persona);
-			rb.setInformacion("Persona eliminada");
-			rb.addError("Esto es una prueba");
-			rb.addError("Esto es una segunda prueba");
+			responseBody.getHypermedias().add(new Hipermedia("Lista de Personas", "GET", "http://localhost:8080/apprest/api/personas/"));
+			responseBody.getHypermedias().add(new Hipermedia("Detalle de Personas", "GET", "http://localhost:8080/apprest/api/personas/{id}"));
 			
-			rb.getHypermedias().add(new Hipermedia("Lista de Personas", "GET", "http://localhost:8080/apprest/api/personas/"));
-			rb.getHypermedias().add(new Hipermedia("Detalle de Personas", "GET", "http://localhost:8080/apprest/api/personas/"));
-			
-			response = Response.status(Status.OK).entity(persona).build();
+			response = Response.status(Status.OK).entity(responseBody).build();
 			
 		} catch (SQLException e) {
-			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
+			responseBody.setInformacion("No se puede eliminar porque tiene cursos activos");
+			response = Response.status(Status.CONFLICT).entity(responseBody).build();
 		} catch (Exception e) {
-			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
+			responseBody.setInformacion("¡Persona no encontrada!");
+			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
 		}
 
 		return response;
 	}
+	
+	@POST
+	@Path("/{idPersona}/curso/{idCurso}")
+	public Response asignarCurso(@PathParam("idPersona") int idPersona, @PathParam("idCurso") int idCurso) {
+		
+		LOGGER.info("asignarCurso idPersona=" + idPersona + " idCurso= " + idCurso);
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
+		
+		try {	
+			
+			personaDAO.asignarCurso(idPersona, idCurso);
+			Curso c = cursoDAO.getById(idCurso);
+			
+			responseBody.setInformacion("curso asigando con exito");
+			responseBody.setData(c);
+			response = Response.status(Status.CREATED).entity(responseBody).build();
+			
+		} catch (Exception e) {	
+				
+			responseBody.setInformacion(e.getMessage());
+			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+		}
+
+		return response;
+		
+	}
+	
+	@DELETE
+	@Path("/{idPersona}/curso/{idCurso}")
+	public Response eliminarCurso(@PathParam("idPersona") int idPersona, @PathParam("idCurso") int idCurso) {
+		
+		LOGGER.info("eliminarCurso idPersona=" + idPersona + " idCurso= " + idCurso);
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
+
+		try {	
+			
+			personaDAO.eliminarCurso(idPersona, idCurso);
+			Persona p = personaDAO.getById(idPersona);
+			
+			responseBody.setInformacion("curso eliminado con exito");
+			responseBody.setData(p);
+			response = Response.status(Status.OK).entity(responseBody).build();
+			
+		} catch (Exception e) {			
+				responseBody.setInformacion(e.getMessage());
+				response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+		}
+
+		return response;
+
+	}
+	
 }
+
+	

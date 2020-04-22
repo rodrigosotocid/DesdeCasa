@@ -252,6 +252,34 @@ label {
 #p-card {
   text-decoration: solid;
 }
+
+/*MIS CURSOS*/
+.m-cursos-cont {
+
+
+}
+#misCursos {
+  border: 1px solid #db7843;
+  background: #363636;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+}
+
+#misCursos img, h5, i {
+padding: 5px;
+}
+
+#liCursos {
+  border: 1px solid #c76d61;
+}
+
+
+
+
+
 /*
  * FOOTER
  */

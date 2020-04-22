@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/index.css" />
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/d4a3f3b590.js"	crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d4a3f3b590.js" crossorigin="anonymous"></script>
     <!-- Google Font (Ubuntu) -->
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   
@@ -102,18 +102,17 @@
               </div>
               <!-- Botones 'Guardar & Ver Cursos' -->
               <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
-              <a href="#" class="btn" data-toggle="modal" data-target="#exampleModalLong" onclick="pintarListaCurso()"> Ver Cursos</a>
+              <a href="#" class="btn" data-toggle="modal" data-target="#exampleModalLong" onclick="cargarCursos()"> Ver Cursos</a>
             </div>
           </form>
           <!-- Despliegue Mis Cursos -->
-          <div>
+          <div class="m-cursos-cont col">
               <h1 class="rounded-right mb-4">Mis Cursos</h1> <!-- llevar a javascript -->
-              <div>
-                <ul id="misCursos">
+              
+                <ul id="misCursos" >
                   <h5>...Selecciona a un alumno para ver los cursos contratados</h5>
-
                 </ul>
-              </div>
+             
           </div> 
           <!-- / Mis Cursos -->
       </div>

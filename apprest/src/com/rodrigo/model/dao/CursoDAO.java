@@ -17,6 +17,7 @@ public class CursoDAO implements IDAO<Curso> {
 	private static CursoDAO INSTANCE = null;
 
 	private static String SQL_GET_ALL = "SELECT id, nombre, imagen, precio FROM curso ORDER BY id DESC LIMIT 100;";
+	private static String SQL_GET_BY_ID   = "SELECT id, nombre, imagen, precio FROM curso WHERE id = ?; ";
 	private static String SQL_GET_LIKE_NOMBRE   = "SELECT id, nombre, precio, imagen FROM curso WHERE nombre LIKE ? ORDER BY id DESC LIMIT 100; ";
 	
 	private CursoDAO() {
@@ -52,6 +53,7 @@ public class CursoDAO implements IDAO<Curso> {
 			}
 		return registros;
 	}
+	
 	/** 
 	 * Busca cursos por nombre que coincidan LIKE con el parametro busqueda
 	 * @param busqueda String: Término a buscar dentro de la columna nombre 
@@ -88,22 +90,44 @@ public class CursoDAO implements IDAO<Curso> {
 	
 	@Override
 	public Curso getById(int id) throws Exception {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		
+		Curso registro = null;
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID)
+			  ){
+			
+			pst.setInt(1, id);
+			LOGGER.info(pst.toString());
+			
+			try (ResultSet rs = pst.executeQuery()) {
+				if(rs.next()) {
+					registro = mapper(rs);
+				} else {
+					throw new Exception("Ups! Registro no encontrado para Id: " + id);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}                                                                                                              
+		return registro;
 	}
 
 	@Override
 	public Curso delete(int id) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
 	}
 
 	@Override
 	public Curso insert(Curso pojo) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
 	}
 
 	@Override
 	public Curso update(Curso pojo) throws Exception, SQLException {
-		throw new UnsupportedOperationException("NO ESTA IMPLEMENTADO");
+		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
 	}
 	
 	private Curso mapper(ResultSet rs) throws SQLException {

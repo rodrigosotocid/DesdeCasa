@@ -10,7 +10,12 @@ const endpoint = "http://localhost:8080/apprest/api/";
 //* Declaración de arrays
 let personas = [];
 let cursos = [];
-let personaSeleccionada = {};
+let personaSeleccionada = { "id":0, 
+                            "nombre": "sin nombre" , 
+                            "avatar" : "img/avatar7.png", 
+                            "sexo": "h",
+                            "cursos": []
+                          };
 
 window.addEventListener("load", init());
 
@@ -22,8 +27,7 @@ function init() {
 
   listener();
   initGallery();
-  restPersonas();
-  restCursos();
+  cargarAlumnos();
 
   console.debug("...continua la ejecución del script de forma sincrona");
 } //init
@@ -50,7 +54,9 @@ function listener() {
     let filtroValor = filtroCursos.value.trim();
     if(filtroValor.length >= 3) {
       console.debug('filtroCursos keyup' + filtroValor);
-      restCursos();
+      cargarCursos(filtroValor);
+    } else {
+      cargarCursos();
     }
   });
 }
@@ -86,15 +92,15 @@ function filtro() {
     console.debug("filtrado por nombre %o", personasFiltradas);
   }
 
-  layoutPersonas(personasFiltradas);
+  maquetarLista(personasFiltradas);
 } // filtro
 
 /*-******************************** PERSONAS : ALUMNOS ********************************-*/
 /**
  * Obtiene los datos del servicio rest y pinta la lista de Alumnos
  */
-function restPersonas() {
-  console.trace("restPersonas");
+function cargarAlumnos() {
+  console.trace("cargarAlumnos");
 
   const urlPersonas = endpoint + "personas/";
   const promesa = ajax("GET", urlPersonas, undefined);
@@ -103,21 +109,20 @@ function restPersonas() {
     .then((data) => {
       console.trace("promesa resolve");
       personas = data;
-      layoutPersonas(personas); 
-      misCursos(personas);
+      maquetarLista(personas);
     })
     .catch((error) => {
       console.warn("promesa: Error al pintar lista de Personas");
       alert(error);
     });
-} // restPersonas
+} // cargarAlumnos
 
 /**
  * Maqueta el listado de Alumnos
  * @param {*} elementos alumnos a pintar
  */
-function layoutPersonas(elementos) {
-  console.trace("layoutPersonas");
+function maquetarLista(elementos) {
+  console.trace("maquetarLista");
 
   let lista = document.getElementById("alumnos");
   lista.innerHTML = ""; // vaciar html
@@ -126,21 +131,24 @@ function layoutPersonas(elementos) {
     (p, i) =>
       (lista.innerHTML += `
         <tr>
-          <th scope="row">${p.id}</th>
+          <th>${p.id}</th>
           <td onclick="seleccionar(${p.id})">${p.nombre}</td>
+
           <td onclick="seleccionar(${p.id})">
             <img src="img/${p.avatar}" class="tabla-img" alt="Responsive image">
           </td>
-          <td><span class="fright" >${p.cursos.length} cursos</span></td>
-          <td class="text-center">
-            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar(${p.id})"></i></a>
+
+          <td onclick="seleccionar(${p.id})">${p.cursos.length} cursos</td>
+
+          <td class="text-center p-0">
+            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
             <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
             <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${p.id})"></i></a>
           </td>	
         </tr>
                             `)
   );
-} //layoutPersonas
+} //maquetarLista
 
 /**
  * ELIMINAR
@@ -157,7 +165,7 @@ function eliminar(id = 0) {
     
     const url = endpoint + 'personas/' + personaSeleccionada.id;
     ajax("DELETE", url, undefined)
-      .then((data) => restPersonas())
+      .then((data) => cargarAlumnos())
       .catch((error) => {
         console.warn("promesa rejectada al intentar eliminar");
         alert(error);
@@ -172,37 +180,39 @@ function eliminar(id = 0) {
  * @param {*} id id del alumno, si no existe en el array usa personaSeleccionada
  * @see personaSeleccionada = { "id":0, "nombre": "sin nombre" , "avatar" : "img/avatar7.png", "sexo": "h" };
  */
-function seleccionar(id = 0) {
+function seleccionar( id = 0 ) {
+
+/*   //TODO animacion??
+  let cntFormulario = document.getElementById('content-formulario');
+  cntFormulario.style.display = 'block';
+  cntFormulario.classList.add('animated','fadeInRight'); */
 
   //Utilizamos find() para hacer busquedas por índice
-  const personaSeleccionada = personas.find(p => p.id = id);
-
-  if(!personaSeleccionada){
-
-    personaSeleccionada = {
-      "id": 0,
-      "nombre": "sin nombre",
-      "avatar": "avatar7.png",
-      "sexo": "h",
-      "cursos": []
-    };
-  }
+  personaSeleccionada = personas.find( el=> el.id == id);
+    if ( !personaSeleccionada ){
+        personaSeleccionada = { "id":0, 
+                                "nombre": "sin nombre" , 
+                                "avatar" : "img/avatar7.png", 
+                                "sexo": "h",
+                                "cursos": []
+                             };
+    }
 
   console.debug("Click: Seleccionar Persona %o", personaSeleccionada);
 
   //rellenar formulario
-  document.getElementById("inputId").value = personaSeleccionada.id;
-  document.getElementById("inputNombre").value = personaSeleccionada.nombre;
-  document.getElementById("inputAvatar").value = personaSeleccionada.avatar;
+  document.getElementById('inputId').value = personaSeleccionada.id;
+  document.getElementById('inputNombre').value = personaSeleccionada.nombre;    
+  document.getElementById('inputAvatar').value = personaSeleccionada.avatar;
 
   //seleccionar Avatar
-  const avatares = document.querySelectorAll("#gallery img");
-  avatares.forEach((el) => {
-    el.classList.remove("selected");
-    if ("img/" + personaSeleccionada.avatar == el.dataset.path) {
-      el.classList.add("selected");
-    }
-  });
+  const avatares = document.querySelectorAll('#gallery img');
+    avatares.forEach( el => {
+        el.classList.remove('selected');
+        if ( "img/"+personaSeleccionada.avatar == el.dataset.path ){
+            el.classList.add('selected');
+        }
+    });
 
   const sexo = personaSeleccionada.sexo;
   let checkHombre = document.getElementById("sexoh");
@@ -216,8 +226,24 @@ function seleccionar(id = 0) {
     checkMujer.checked = "checked";
   }
   
-  //TODO Test: despliega la lista de todos los cursos, luego será solo los que tiene el alumno
-  //restPersonas();
+  //Cursos del Alumno
+  let misCursos = document.getElementById("misCursos");
+  misCursos.innerHTML = ""; // vaciar html
+
+  personaSeleccionada.cursos.forEach( el => {
+    misCursos.innerHTML += `
+      <li id="liCursos">
+        <div class="row m-0 d-flex justify-content-between">
+         <img src="img/${el.imagen}" class="card-img" style="max-width: 50px;" alt="...">
+         <h5 class="card-title pt-3">${el.nombre}</h5>
+         <a class="btn-del btn-lg pt-3">
+           <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${personaSeleccionada.id},${el.id})"></i>
+         </a>
+       </div>
+      </li>
+    `;
+  });
+  
 
 }// SELECCIONAR
 
@@ -263,7 +289,7 @@ function guardar() {
           document.getElementById("sexoh").checked = true;
           document.getElementById("sexom").checked = false;
 
-          restPersonas();
+          cargarAlumnos();
         })
         .catch((error) => {
           console.warn("Ups! POST No ejecutado! %o" , error);
@@ -279,7 +305,7 @@ function guardar() {
       ajax("PUT", url, persona)
       .then( data => {
         alert( persona.nombre + ' modificado con exito ');
-        restPersonas();
+        cargarAlumnos();
     })
         .catch((error) => {
           console.warn("PUT - No ejecutado! %o" , error);
@@ -325,64 +351,53 @@ function selectAvatar(evento) {
 }
 
 /*-******************************** CURSO ********************************-*/
+/**
+ * CARGA TODOS LOS CURSOS EN VENTANA MODAL
+ * @param {*} filtro por nombre de curso, busca coincidencias
+ */
+function cargarCursos(filtro = '') {
 
-function restCursos(filtro = '') {
+  console.trace("Ejecutando => cargarCursos()");
 
-  console.trace("Ejecutando => restCursos()");
-
-  const urlCurso = endpoint + 'cursos/?filtro=' + filtro;
-  const promesa = ajax("GET", urlCurso, undefined);
+  const url = endpoint + 'cursos/?filtro=' + filtro;
+  const promesa = ajax("GET", url, undefined);
 
   promesa
     .then((data) => {
       console.trace("promesa resolve");
       cursos = data;
-
-      console.log("restCursos: Ejecutado con éxito! %o ", cursos);
-      layoutCursos(cursos);
+      const listaCurso = document.getElementById("listaCursos");
+      listaCurso.innerHTML = ""; // vaciar html
+      
+      cursos.forEach(el =>
+          listaCurso.innerHTML += `
+            <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="img/${el.imagen}" class="card-img" alt="curso">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title font-weight-bold">${el.nombre}</h5>
+                    <p class="card-text">
+                      <span class="font-weight-bold">Precio:</span>
+                      <span class="c-precio">${el.precio}</span> €
+                    </p>
+                    <a href="#" class="btn btn-danger mt-3" name="delete" onClick="asignarCurso( 0, ${el.id})" >Añadir Curso</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+      );
+      seleccionar(personaSeleccionada.id); 
       
     })
     .catch((error) => {
-      console.warn("promesa rejectada al intentar pintar lista CURSO");
-      alert(error);
+      console.warn("promesa rejectada al intentar pintar lista de CURSOS");
+      alert('No se pueden cargar cursos' + error);
     });
-}
-
-/**
- * Llamada a la API Rest para obtener lista de los Cursos desplegado en MODAL
- * @param {cursos} cursos
- */
-function layoutCursos(cursos) {
-
-  const listaCurso = document.getElementById("listaCursos");
-  listaCurso.innerHTML = ""; // vaciar html
-  cursos.forEach(
-    (c) =>
-      (listaCurso.innerHTML += `
-        <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="img/${c.imagen}" class="card-img" alt="curso">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">${c.nombre}hh</h5>
-                <p class="card-text">
-                  <span class="font-weight-bold">Precio:</span>
-                  <span class="c-precio">${c.precio}</span> €
-                </p>
-                <a href="#" class="btn btn-danger mt-3" name="delete">Añadir Curso</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      `)
-  );
-  //const element = document.createElement('div');
-  cursos.forEach((c) => {
-    console.log("Maquetado correcto en layoutCursos() para:%o", c.nombre);
-  });
-}
+}//cargarCursos
 
 /**
  * ELIMINAR CURSO
@@ -400,7 +415,7 @@ function eliminarCurso( idPersona, idCurso ){
       alert('Curso Eliminado');
 
       //FIXME falta quitar curso del formulario, problema Asincronismo
-      restPersonas();
+      cargarAlumnos();
       seleccionar(idPersona);
   })
   .catch( error => alert(error));
@@ -423,28 +438,12 @@ function asignarCurso( idPersona = 0, idCurso ){
   ajax('POST', url, undefined)
   .then( data => {
       alert('Curso Asignado');
+      alert(data.informacion);
 
       //FIXME falta pintar curso del formulario, problema Asincronismo
-      restPersonas();
+      cargarAlumnos();
       seleccionar(idPersona);
   })
   .catch( error => alert(error));
 
 }//asignarCurso
-
-function misCursos(elementos){
-
-  console.trace("misCursos");
-
-  let lista = document.getElementById("misCursos");
-  lista.innerHTML = ""; // vaciar html
-
-  elementos.forEach(
-    (p, i) =>
-      (lista.innerHTML += `
-        <li><img src="img/${p.avatar}" class="tabla-img" alt="Responsive image"></li>
-        <li>${p.nombre}</li>
-        <li>${p.cursos.forEach(el => el)}</li>
-              `)
-  );
-}
