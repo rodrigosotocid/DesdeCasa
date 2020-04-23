@@ -24,9 +24,9 @@
       - fwefwesfwef
       - efaffeafea
   2. Lógica de Cliente
-      -vwrvwrsvwwerwce
-      -weffwefwe
-      -wefwefeafe
+      - vwrvwrsvwwerwce
+      - weffwefwe
+      - wefwefeafe
 
 ### Tecnología Usada
 
