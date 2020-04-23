@@ -171,7 +171,7 @@ function eliminar(id = 0) {
         alert(error);
       });
   }
-} // eliminar
+} //eliminar
 
 /**
  * SELECCIONAR
@@ -249,7 +249,7 @@ function seleccionar( id = 0 ) {
   
   misCursos.appendChild(ulElement);
 
-}// SELECCIONAR
+}//seleccionar
 
 /**
  * GUARDAR
@@ -316,7 +316,7 @@ function guardar() {
           alert(error.informacion);
         });
     }
-}// GUARDAR
+}//guardar
 
 /**
  * Carga todas las imagenes de los avatares
@@ -333,7 +333,8 @@ function initGallery() {
         src="img/avatar${i}.png"
       >`;
   }
-}
+}//initGallery
+
 /**
  * Evento de selección de Avatar
  * @param {*} evento
@@ -418,10 +419,8 @@ function eliminarCurso( event, idPersona, idCurso  ){
   .then( data => {
       alert(`Correcto! ${data.informacion}`);
 
-      //FIXME falta quitar curso del formulario, problema Asincronismo
-
-
-      //event.target.parentElement.classList.add('animated', 'bounceOut');
+      event.target.parentElement.parentElement.parentElement.remove();
+  
       cargarAlumnos();
   })
   .catch( error => alert(error));

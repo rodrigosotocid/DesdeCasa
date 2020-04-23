@@ -19,81 +19,29 @@
    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-             <!-- Formulario C.R.U.D. -->
-        <div class="col  formulario">  
-            <form>
-              <h1 class="rounded-right mb-4">Formulario CRUD </h1>
-              <div class="form-group">
-                <!-- Datos Alumno -->
-                <div class="row">
-                  <div class="col col-md-3">
-                    <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Id: </label>
-                    <input type="text" class="form-control mb-3" id="inputId" placeholder="id" readonly>
-                  </div>
-                  <div class="col col-md-9">
-                    <label for="exampleFormControlInput1" class="font-weight-bold mb-1">Nombre: </label> 
-                    <input type="text" class="form-control mb-3" id="inputNombre" placeholder="Escribe el nombre">
-                    <input type="text" class="form-control mb-3" id="inputAvatar" readonly="readonly" placeholder="url imagen">
-                  </div>
-                </div>
-                <!-- Galería de Avatares -->        
-                <div id="gallery">                    
-                </div>
-                <!-- Selector Sexo -->
-                <div class="radius-sexlector m-3" >
-                  <label for="exampleFormControlInput1" class="font-weight-bold mr-3"><b>Sexo: </b></label> 
-                  <input checked="checked" type="radio" name="sexo" id="sexoh" value="h">
-                  <label for="sexoh">Hombre
-                  <input type="radio" name="sexo" id="sexom" value="m">
-                  <label for="sexom">Mujer
-                </div>
-                <!-- Botones 'Guardar & Ver Cursos' -->
-                <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
-                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModalLong" onclick="pintarListaCurso()"> Ver Cursos</a>
-              </div>
-            </form>
-            <!-- Despliegue Mis Cursos -->
-            <div>
-                <h1 class="rounded-right mb-4">Mis Cursos</h1> <!-- llevar a javascript -->
-                <div id="contratados">
-                  <h5>...Selecciona a un alumno para ver los cursos contratados</h5>
-                </div>
-            </div> 
-            <!-- / Mis Cursos -->
+    <h1>hrtdhrtd</h1>
+<script>
 
+  // Crear una lista
+var ul = document.createElement('ul');
+document.body.appendChild(ul);
 
-            <ul>
-              <li>
-                    <img src="../img/avatar1.png" class="card-img" style="max-width: 40px;" alt="...">
-                    <h5 class="card-title">Curso Parogramacion</h5>
-                    <p class="card-text">Precio 456 €</p>
-                    <a href="" type="button"></a>
-              </li>
-            
-            </ul>
+var li1 = document.createElement('li');
+var li2 = document.createElement('li');
+ul.appendChild(li1);
+ul.appendChild(li2);
 
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img src="..." class="card-img" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+function hide(e){
+  // e.target se refiere cuando se clickea el elemento <li>
+  // Esto es diferente de e.currentTarget que se referiría al padre <ul> en este contexto
+  e.target.style.visibility = 'hidden';
+}
 
+// Incluir el 'listener' a la lista
+// Se ejecutará cuando se haga click en cada <li>
+ul.addEventListener('click', hide, false);
 
-        </div>
-        </div>
-    </div>
-
+</script>
 
     <!-- Bootstrap Script -->
     <script 
