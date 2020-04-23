@@ -182,7 +182,7 @@ function eliminar(id = 0) {
  */
 function seleccionar( id = 0 ) {
 
-/*   //TODO animacion??
+/*  
   let cntFormulario = document.getElementById('content-formulario');
   cntFormulario.style.display = 'block';
   cntFormulario.classList.add('animated','fadeInRight'); */
@@ -231,6 +231,7 @@ function seleccionar( id = 0 ) {
   misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
 
   const ulElement = document.createElement('ul');
+  ulElement.classList.add('ulElement');
 
   personaSeleccionada.cursos.forEach( el => {
     ulElement.innerHTML += `
@@ -407,7 +408,7 @@ function cargarCursos(filtro = '') {
  * @param {*} idPersona 
  * @param {*} idCurso 
  */
-function eliminarCurso( idPersona, idCurso ){
+function eliminarCurso( event, idPersona, idCurso  ){
 
   console.debug(`click eliminarCurso idPersona=${idPersona} idCurso=${idCurso}`);
 
@@ -418,8 +419,8 @@ function eliminarCurso( idPersona, idCurso ){
       alert('Curso Eliminado');
 
       //FIXME falta quitar curso del formulario, problema Asincronismo
+      event.target.parentElement.classList.add('animated', 'bounceOut');
       cargarAlumnos();
-      seleccionar(idPersona);
   })
   .catch( error => alert(error));
 
@@ -440,12 +441,33 @@ function asignarCurso( idPersona = 0, idCurso ){
 
   ajax('POST', url, undefined)
   .then( data => {
-      alert('Curso Asignado');
+
       alert(data.informacion);
 
-      //FIXME falta pintar curso del formulario, problema Asincronismo
+      const curso = data.data;
+      //TODO añadir nuevo a la lista machaca los anteriores
+
+      let misCursos = document.getElementById("mis-cursos");
+      misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
+
+      const ulElement = document.createElement('ul');
+      ulElement.classList.add('ulElement');
+ 
+      ulElement.innerHTML += `
+                          <li id="liCursos">
+                            <div class="row m-0 d-flex justify-content-between">
+                              <img src="img/${curso.imagen}" class="card-img" style="max-width: 50px;" alt="...">
+                              <h5 class="card-title pt-3">${curso.nombre}</h5>
+                              <a class="btn-del btn-lg pt-3">
+                                <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
+                              </a>
+                            </div>
+                          </li>
+                          `;
+      //lista.classList.add('animated', 'bounceIn', 'delay-1s');                            
+      misCursos.appendChild(ulElement);
       cargarAlumnos();
-      seleccionar(idPersona);
+      
   })
   .catch( error => alert(error));
 
