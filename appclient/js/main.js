@@ -231,7 +231,7 @@ function seleccionar( id = 0 ) {
   misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
 
   const ulElement = document.createElement('ul');
-  ulElement.classList.add('ulElement');
+  ulElement.setAttribute('id', 'ulElement');
 
   personaSeleccionada.cursos.forEach( el => {
     ulElement.innerHTML += `
@@ -416,10 +416,12 @@ function eliminarCurso( event, idPersona, idCurso  ){
 
   ajax('DELETE', url, undefined)
   .then( data => {
-      alert('Curso Eliminado');
+      alert(`Correcto! ${data.informacion}`);
 
       //FIXME falta quitar curso del formulario, problema Asincronismo
-      event.target.parentElement.classList.add('animated', 'bounceOut');
+
+
+      //event.target.parentElement.classList.add('animated', 'bounceOut');
       cargarAlumnos();
   })
   .catch( error => alert(error));
@@ -445,15 +447,10 @@ function asignarCurso( idPersona = 0, idCurso ){
       alert(data.informacion);
 
       const curso = data.data;
-      //TODO añadir nuevo a la lista machaca los anteriores
 
-      let misCursos = document.getElementById("mis-cursos");
-      misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
+      let lista = document.getElementById('ulElement');
 
-      const ulElement = document.createElement('ul');
-      ulElement.classList.add('ulElement');
- 
-      ulElement.innerHTML += `
+      lista.innerHTML += `
                           <li id="liCursos">
                             <div class="row m-0 d-flex justify-content-between">
                               <img src="img/${curso.imagen}" class="card-img" style="max-width: 50px;" alt="...">
@@ -464,8 +461,6 @@ function asignarCurso( idPersona = 0, idCurso ){
                             </div>
                           </li>
                           `;
-      //lista.classList.add('animated', 'bounceIn', 'delay-1s');                            
-      misCursos.appendChild(ulElement);
       cargarAlumnos();
       
   })

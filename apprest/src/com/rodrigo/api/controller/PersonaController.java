@@ -238,7 +238,7 @@ public class PersonaController {
 			personaDAO.eliminarCurso(idPersona, idCurso);
 			Persona p = personaDAO.getById(idPersona);
 			
-			responseBody.setInformacion("curso eliminado con exito");
+			responseBody.setInformacion("Curso eliminado con exito!");
 			responseBody.setData(p);
 			response = Response.status(Status.OK).entity(responseBody).build();
 			
