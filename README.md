@@ -26,7 +26,7 @@
 
    Contamos con una tabla principal en la cual nos muestra todos los Alumnos de nuestra base de datos y su información mas relevante tales como el Id, Nombre, Avatar, Cursos que tiene adquiridos y un apartado de opciones en el cual podemos crear Nuevo, Seleccionar o Eliminar Alumno.
    
-   En la parte derecha de la aplicación tenemos un recuadro
+   En la parte derecha de la aplicación tenemos un un formulario el cual nos muestra el Id, nombre, avatar y sexo del Alumno, como también la información si este ha sido seleccionado, así, podremos modificar sus datos o desplegar el apartado de cursos para hacer las modificaciones que necesitemos.-
 
 **Lógica de Cliente:** En nuestra lógica hemos construido diversas funciones las cuales no ayudan con las tareas de cargar Alum nos y Cursos, seleccionar Alumno, distintos filtros tanto para lumnos como para los cursos, llamadas Ajax para añadir, modificar o eliminar Alumnos o Cursos y maquetar algunas secciones de código desde JavaScript entre otras.- 
 
@@ -43,7 +43,11 @@
   
   En la ruta /appclient/js/main.js podemos encontrar nuestro fichero que con tiene en primera línea el "ednpoint" de nuestra Aplicación Rest.
   
-  <code> const endpoint = "http://localhost:8080/apprest/api/personas/";
+  <code> const endpoint = "http://localhost:8080/apprest/api/";
+  
+  <code> const url = "http://localhost:8080/apprest/api/" + 'personas/';
+  
+  <code> const url = "http://localhost:8080/apprest/api/" + 'cursos/';
 
 ## AppRest
 
