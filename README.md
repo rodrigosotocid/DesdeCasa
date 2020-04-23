@@ -1,5 +1,5 @@
 # CRUD - JavaEE, Javascript, Html5, Css3 + Bootstrap, MySQL
-  Aplicación creada desde casa en tiempo de cuarentena para finalizar formación de programación en Java. 
+   Aplicación creada desde casa en tiempo de cuarentena para finalizar formación de programación en Java. 
 
   La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro curso si así lo quisiera (en una lista dentro de una ventana modal) o directamente eliminarlo.
   
@@ -33,13 +33,22 @@
 - alguna librería de JS por definir!!!
 ### Configuración
   
-  por ej donde cambiar el end point
+  En la ruta /appclient/js/main.js podemos encontrar nuestro fichero que con tiene en primera línea el "ednpoint" de nuestra Aplicación Rest.
+  
+  <code> const endpoint = "http://localhost:8080/apprest/api/personas/";
   
  ## AppRest
 
 ### Introducción
+
+de que va la app rest
+
 ### Tecnología Usada
+
+que tecnologia usamos jxs-rs, bean, etc
 ### Configuración
+
+como esta estructurado mas o menos
 
 ## TAGs o Versiones
 Listado de Tag o versiones relevantes y describir su motivo
