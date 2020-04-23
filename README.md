@@ -19,10 +19,14 @@
 ### Introducción
 
  La parte de Cliente destaca en dos areas principales:
-  1. Interfáz Gráfica
+  1. Interfaz Gráfica
   2. Lógica de Cliente
 
-**Interfaz Gráfica:** Aqui podemos visualizar la distribucion de los elementos de nuestra aplicacion, de una forma que nos permita su manejo de forma intuitiva y ágil.-
+**Interfaz Gráfica:** Aquí podemos visualizar la distribución de los elementos de nuestra aplicación, de una forma que nos permita su manejo de forma intuitiva y ágil. 
+
+   Contamos con una tabla principal en la cual nos muestra todos los Alumnos de nuestra base de datos y su información mas relevante tales como el Id, Nombre, Avatar, Cursos que tiene adquiridos y un apartado de opciones en el cual podemos crear Nuevo, Seleccionar o Eliminar Alumno.
+   
+   En la parte derecha de la aplicación tenemos un recuadro
 
 **Lógica de Cliente:** En nuestra lógica....
 
