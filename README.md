@@ -20,13 +20,11 @@
 
  La parte de Cliente destaca en dos areas principales:
   1. Interfáz Gráfica
-      - jkwhrfjkhers
-      - fwefwesfwef
-      - efaffeafea
   2. Lógica de Cliente
-      - vwrvwrsvwwerwce
-      - weffwefwe
-      - wefwefeafe
+
+**Interfaz Gráfica:** Aqui podemos visualizar la distribucion de los elementos de nuestra aplicacion, de una forma que nos permita su manejo de forma intuitiva y ágil.-
+
+**Lógica de Cliente:** En nuestra lógica....
 
 ### Tecnología Usada
 
