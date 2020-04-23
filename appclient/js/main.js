@@ -227,11 +227,13 @@ function seleccionar( id = 0 ) {
   }
   
   //Cursos del Alumno
-  let misCursos = document.getElementById("misCursos");
-  misCursos.innerHTML = ""; // vaciar html
+  let misCursos = document.getElementById("mis-cursos");
+  misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
+
+  const ulElement = document.createElement('ul');
 
   personaSeleccionada.cursos.forEach( el => {
-    misCursos.innerHTML += `
+    ulElement.innerHTML += `
       <li id="liCursos">
         <div class="row m-0 d-flex justify-content-between">
          <img src="img/${el.imagen}" class="card-img" style="max-width: 50px;" alt="...">
@@ -244,6 +246,7 @@ function seleccionar( id = 0 ) {
     `;
   });
   
+  misCursos.appendChild(ulElement);
 
 }// SELECCIONAR
 
