@@ -28,15 +28,15 @@
    
    En la parte derecha de la aplicación tenemos un recuadro
 
-**Lógica de Cliente:** En nuestra lógica....
+**Lógica de Cliente:** En nuestra lógica hemos construido diversas funciones las cuales no ayudan con las tareas de cargar Alum nos y Cursos, seleccionar Alumno, distintos filtros tanto para lumnos como para los cursos, llamadas Ajax para añadir, modificar o eliminar Alumnos o Cursos y maquetar algunas secciones de código desde JavaScript entre otras.- 
 
 ### Tecnología Usada
 
-- HTML
-- CSS
-- JavaScript
+- HTML 5
+- CSS 3
+- JavaScript ES6
 - Bootstrap v4.4
-- Font Awesome
+- Font Awesome v5.13.0
 - alguna librería de JS por definir!!!
 
 ### Configuración
