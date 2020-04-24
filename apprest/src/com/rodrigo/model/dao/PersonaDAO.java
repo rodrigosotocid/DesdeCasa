@@ -190,7 +190,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			}
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
-			throw new Exception("Ups! No se puede Modificar el registro: " + e.getMessage());
+			throw new SQLException("Ups! No se puede Modificar el registro: " + e.getMessage());
 		}
 
 		return pojo;

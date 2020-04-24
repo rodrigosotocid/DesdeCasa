@@ -167,8 +167,14 @@ function eliminar(id = 0) {
     ajax("DELETE", url, undefined)
       .then((data) => cargarAlumnos())
       .catch((error) => {
-        console.warn("promesa rejectada al intentar eliminar");
-        alert(error);
+
+        if(error.informacion == undefined){
+          console.warn('No puedes eliminar mientras tenga un curso asociado! %o', error.informacion);
+          //alert(error.informacion);
+          alert('No puedes eliminar mientras tenga un curso asociado!');
+          //TODO 
+        }
+        
       });
   }
 } //eliminar
@@ -296,8 +302,9 @@ function guardar() {
           cargarAlumnos();
         })
         .catch((error) => {
-          console.warn("Ups! POST No ejecutado! %o" , error);
-          alert(error.informacion);
+          console.warn("Ups! POST No ejecutado! JS %o" , error.informacion);
+          alert("Lo siento este nombre ya existe! %o");
+          //TODO 
         });
 
       // MODIFICAR
@@ -463,6 +470,13 @@ function asignarCurso( idPersona = 0, idCurso ){
       cargarAlumnos();
       
   })
-  .catch( error => alert(error));
+  .catch( (error) => {
+
+    if(error.informacion == undefined){
+      alert('Lo siento! No puedes añadir el mismo curso. Intenta con otro...!');
+    }
+    //alert(error.informacion);
+    console.warn("asignarCurso - No ejecutado! %o" , error.informacion);
+  });
 
 }//asignarCurso

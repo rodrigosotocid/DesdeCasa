@@ -216,9 +216,9 @@ public class PersonaController {
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
 		} catch (Exception e) {	
-				
-			responseBody.setInformacion(e.getMessage());
-			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+			responseBody.setInformacion("Error curso duplicado");
+			//responseBody.setInformacion(e.getMessage());
+			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
 		}
 
 		return response;
