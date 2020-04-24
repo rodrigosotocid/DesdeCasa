@@ -141,9 +141,8 @@ function maquetarLista(elementos) {
           <td onclick="seleccionar(${p.id})">${p.cursos.length} cursos</td>
 
           <td class="text-center p-0">
-            <a class="btn-new btn-lg" href="#top"><i class="fas fa-plus" onclick="seleccionar()"></i></a>
-            <a class="btn-mod btn-lg" href="#top"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
-            <a class="btn-del btn-lg"><i class="far fa-trash-alt" onclick="eliminar(${p.id})"></i></a>
+            <a class="btn-mod btn-lg" href="#top" title="Seleccionar"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
+            <a class="btn-del btn-lg" title="Eliminar"><i class="far fa-trash-alt" onclick="eliminar(${p.id})"></i></a>
           </td>	
         </tr>
                             `)
@@ -168,13 +167,10 @@ function eliminar(id = 0) {
       .then((data) => cargarAlumnos())
       .catch((error) => {
 
-        if(error.informacion == undefined){
-          console.warn('No puedes eliminar mientras tenga un curso asociado! %o', error.informacion);
-          //alert(error.informacion);
-          alert('No puedes eliminar mientras tenga un curso asociado!');
-          //TODO 
-        }
-        
+        alert(error);
+        console.trace(error);
+        console.warn(error);
+
       });
   }
 } //eliminar
@@ -197,7 +193,7 @@ function seleccionar( id = 0 ) {
   personaSeleccionada = personas.find( el=> el.id == id);
     if ( !personaSeleccionada ){
         personaSeleccionada = { "id":0, 
-                                "nombre": "sin nombre" , 
+                                "nombre": "Nuevo Alumno" , 
                                 "avatar" : "img/avatar7.png", 
                                 "sexo": "h",
                                 "cursos": []
@@ -234,7 +230,7 @@ function seleccionar( id = 0 ) {
   
   //Cursos del Alumno
   let misCursos = document.getElementById("mis-cursos");
-  misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; // 
+  misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; 
 
   const ulElement = document.createElement('ul');
   ulElement.setAttribute('id', 'ulElement');
@@ -243,16 +239,16 @@ function seleccionar( id = 0 ) {
     ulElement.innerHTML += `
       <li id="liCursos">
         <div class="row m-0 d-flex justify-content-between">
-         <img src="img/${el.imagen}" class="card-img" style="max-width: 50px;" alt="...">
+         <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
          <h5 class="card-title pt-3">${el.nombre}</h5>
-         <a class="btn-del btn-lg pt-3">
+         <a class="btn- btn-lg pt-3" title="Elimina Curso">
            <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${personaSeleccionada.id},${el.id})"></i>
          </a>
        </div>
       </li>
     `;
   });
-  
+  //TODO boton efecto eliminar
   misCursos.appendChild(ulElement);
 
 }//seleccionar
@@ -459,9 +455,9 @@ function asignarCurso( idPersona = 0, idCurso ){
       lista.innerHTML += `
                           <li id="liCursos">
                             <div class="row m-0 d-flex justify-content-between">
-                              <img src="img/${curso.imagen}" class="card-img" style="max-width: 50px;" alt="...">
+                              <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
                               <h5 class="card-title pt-3">${curso.nombre}</h5>
-                              <a class="btn-del btn-lg pt-3">
+                              <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
                               </a>
                             </div>
@@ -472,11 +468,9 @@ function asignarCurso( idPersona = 0, idCurso ){
   })
   .catch( (error) => {
 
-    if(error.informacion == undefined){
-      alert('Lo siento! No puedes añadir el mismo curso. Intenta con otro...!');
-    }
-    //alert(error.informacion);
-    console.warn("asignarCurso - No ejecutado! %o" , error.informacion);
+    console.debug(error);
+    alert(error);
+  
   });
 
 }//asignarCurso

@@ -148,11 +148,12 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
+				LOGGER.info("affectedRows is != 1");
 				throw new Exception("Ups! No se puede Eliminar el registro con id : " + id);
 			}
 		} catch (SQLException e) {
-			// getMessage(): lanzaría violate constraint exception
-			throw new SQLException("Ups! No se puede Eliminar el registro: " + e.getMessage());
+			LOGGER.info("DELETE DAO Persona: Violate Constraint Exception!");
+			throw new SQLException(e.getMessage());
 		}
 
 		return registro;
@@ -189,7 +190,7 @@ public class PersonaDAO implements IDAO<Persona> {
 				throw new Exception("Ups! No se puede Modificar el registro con id : " + pojo);
 			}
 		} catch (SQLException e) {
-			// getMessage(): lanzaría violate constraint exception
+			LOGGER.info("INSERT DAO Persona: Violate Constraint Exception!");
 			throw new SQLException("Ups! No se puede Modificar el registro: " + e.getMessage());
 		}
 
@@ -218,12 +219,13 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
-				throw new Exception("Ups! No se puede Actualizar el registro con id : " + pojo);
+				throw new Exception("Ups! No se puede Actualizar el registro con id 33 : " + pojo);
 			}
 			
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
-			throw new Exception("Ups! No se puede Actualizar el registro: " + e.getMessage());
+			//throw new Exception("Ups! No se puede Actualizar el registro: " + e.getMessage());
+			throw new Exception("Ups! No se puede Actualizar el registro 234234: ");
 		}
 
 		return pojo;
@@ -248,6 +250,7 @@ public class PersonaDAO implements IDAO<Persona> {
 				resul = true;
 			} else {
 				resul = false;
+				throw new SQLException("ERROR DUPLICADO");
 			}
 		}
 		

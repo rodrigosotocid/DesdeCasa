@@ -39,6 +39,8 @@ public class PersonaController {
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = factory.getValidator();
+	
+	ArrayList<String> errores = new ArrayList<String>();
 
 	@Context
 	private ServletContext context;
@@ -188,11 +190,19 @@ public class PersonaController {
 			response = Response.status(Status.OK).entity(responseBody).build();
 			
 		} catch (SQLException e) {
-			responseBody.setInformacion("No se puede eliminar porque tiene cursos activos");
-			response = Response.status(Status.CONFLICT).entity(responseBody).build();
+				
+			if(e.getMessage().contains("a foreign key constraint fails")) {
+				errores.add("No se puede eliminar si tiene cursos activos");
+			}
+			response = Response.status(Status.CONFLICT).entity(errores).build();
+			LOGGER.info(response.toString());;
+			
+//			LOGGER.info(responseBody.toString());
+			LOGGER.info(response.toString());
 		} catch (Exception e) {
 			responseBody.setInformacion("¡Persona no encontrada!");
 			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+			LOGGER.info(responseBody.toString());
 		}
 
 		return response;
@@ -216,9 +226,15 @@ public class PersonaController {
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
 		} catch (Exception e) {	
+			
+			LOGGER.info(e.getMessage());
+			
+			if(e.getMessage().contains("Duplicate entry")) {
+				errores.add("No puedes añadir el mismo curso. Intenta con otro...!");
+			}
+			
 			responseBody.setInformacion("Error curso duplicado");
-			//responseBody.setInformacion(e.getMessage());
-			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
+			response = Response.status(Status.NOT_FOUND).entity(errores).build();
 		}
 
 		return response;
@@ -238,7 +254,7 @@ public class PersonaController {
 			personaDAO.eliminarCurso(idPersona, idCurso);
 			Persona p = personaDAO.getById(idPersona);
 			
-			responseBody.setInformacion("Curso eliminado con exito!");
+			responseBody.setInformacion("Curso eliminado con exito! yahoo!");
 			responseBody.setData(p);
 			response = Response.status(Status.OK).entity(responseBody).build();
 			

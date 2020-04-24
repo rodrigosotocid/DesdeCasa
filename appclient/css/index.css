@@ -75,7 +75,8 @@ label {
 }
 
 #gallery  {
-  border: 1px solid #aea79f;
+  background: #fa782d18;
+  border: 1px solid #db7843;
   padding: 0.4rem;
   border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
@@ -83,6 +84,9 @@ label {
   -ms-border-radius: 0.3rem;
   -o-border-radius: 0.3rem;
   text-align: center;
+
+  border-right-width: 20px;
+  border-left-width: 20px;
 }
 
 #gallery img {
@@ -162,16 +166,25 @@ label {
     color: #ffffff;
   }
   
-  .btn-new, .btn-mod, .btn-del  {
-      background: #363636;
+  .btn-mod, .btn-del  {
+    background: #363636;
     color: inherit;
   }
+  
+  .btn-new {
+    color: #ffffff;
+    background: #db7843; 
+    margin-bottom: 1rem;
+   
+  }
+
   .btn-new:hover {
-      background-color: #c76d61
+    background-color: #c76d61;
+    height: 100%;
   }
   
   .btn-mod:hover {
-      background-color: #7897cc;
+    background-color: #7897cc;
   }
   
   .btn-del:hover {
@@ -253,20 +266,31 @@ label {
   text-decoration: solid;
 }
 
-/*MIS CURSOS*/
+/* MIS CURSOS */
+#mis-cursos {
+  padding: 0;
+}
 
+#mis-cursos a {
+  margin-right: 1rem;
+}
 
-
-#misCursos img, h5, i {
-padding: 5px;
+#mis-cursos .card-img{
+  margin-left: 1rem;
 }
 
 #liCursos {
-  border: 1px solid #c76d61;
+  background: #fa782d18;
+  border: 1px solid #db7843;
+  border-right-width: 20px;
+  border-left-width: 20px;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
 }
-
-
-
 
 
 /*
