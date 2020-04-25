@@ -44,7 +44,7 @@
   En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual "ednpoint" de nuestra Aplicación Rest.
 
 #### Opciones del CRUD:
-- <code>const endpoint = 'http://localhost:8080/apprest/api/';
+<code> - const endpoint = 'http://localhost:8080/apprest/api/';
 - Obtener Personas GET: url = endpoint + 'personas/';
 - Insetar Persona POST: url = endpoint + 'personas';
 - Modificar Persona PUT: url = endpoint + 'personas/{id}'
@@ -52,7 +52,7 @@
 - Asignar un Curso POST: url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
 - Borrar un curso de alumno DELETE: url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
 - Obtener cursos GET: url = endpoint + 'cursos/?filtro={String}'
-  </code>
+</code>
 
 [Ruta Base de Datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos")
 
