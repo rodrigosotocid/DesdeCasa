@@ -37,7 +37,32 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
 
 ### Configuración
   
-  En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual se encuentra la URi o "ednpoint" de nuestra Aplicación Rest.
+  
+
+
+___
+## AppRest
+
+### Introducción
+
+AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Java EE utilizando Maven como gestor de dependencias y MySQL para crear y gestionar la Base de Datos. 
+
+### Tecnología Usada
+- Java EE
+- Maven
+- JAX-RS
+- MySQL
+
+### Configuración
+
+
+- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") jkfhnvjkrsnvklsn
+- context.xml
+- pom
+- web.xml
+
+
+En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual se encuentra la URi o "ednpoint" de nuestra Aplicación Rest.
 
 ```javascript
 URI Principal de la aplicación
@@ -69,28 +94,6 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
-
-
-___
-## AppRest
-
-### Introducción
-
-AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Java EE utilizando Maven como gestor de dependencias y MySQL para crear y gestionar la Base de Datos. 
-
-### Tecnología Usada
-- Java EE
-- Maven
-- JAX-RS
-- MySQL
-
-### Configuración
-
-
-- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") jkfhnvjkrsnvklsn
-- context.xml
-- pom
-- web.xml
 como esta estructurado mas o menos
 
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
