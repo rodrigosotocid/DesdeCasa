@@ -102,4 +102,11 @@ una Persona.
 * [ ] v3.0 - Versión en proceso de desarrollo.  
 
 
- 
+ ___
+
+ ### Otros Proyectos en la Web
+
+ -  [Dietogenica: Html / CSS y algo de JS](https://dietogenica.netlify.app/ )
+ - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
+ - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
+ - [Web](https://reacteventbriteapi.netlify)
