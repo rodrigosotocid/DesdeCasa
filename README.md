@@ -44,6 +44,7 @@ URI Principal de la aplicación
 
 const endpoint = "http://localhost:8080/apprest/api/";
 ```
+### Personas
 ```javascript
 'GET'= endpoint + 'personas/' -> Nos permite OBTENER TODOS los registros de Personas.
 ```
@@ -56,17 +57,17 @@ const endpoint = "http://localhost:8080/apprest/api/";
 ```javascript
 'DELETE': = endpoint + 'personas/{id}' -> Nos permite ELIMINAR el registro de una Persona.
 ```
-
-- Asignar un Curso POST: const url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
-- Eliminar Curso de alumno DELETE: const url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
-- Obtener Cursos GET: const url = endpoint + 'cursos/?filtro={String}'
-
-
+### Cursos
 ```javascript
-  function add(num1, num2) {
-    return num1 + num2;
-  }
+'GET'= endpoint + 'cursos/?filtro={String}' -> Nos permite OBTENER TODOS los registros de los Cursos de nuestra base de datos.
 ```
+```javascript
+'POST': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ASIGNAR un Curso una Persona.
+```
+```javascript
+'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a una Persona.
+```
+
 
 ___
 ## AppRest
@@ -95,8 +96,8 @@ como esta estructurado mas o menos
 - Tag 1 o v1.0
 
 <!-- Task List -->
-* [x] v1.0 - jkbhjkcbhjkbjk
-* [x] v2.0 - Caracteristocas
+* [x] v1.0 - Primera versión estable.
+* [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
 * [ ] v3.0 - Versión en proceso de desarrollo.  
 
 ```
@@ -111,7 +112,4 @@ Listado de Tag o versiones relevantes y describir su motivo
 | Rodrigo Soto | john@gmail.com | 33      |
 | Jane Doe     | jane@gmail.com | 66      |
 
-<!-- Task List -->
-* [x] Task 1
-* [x] Task 2
-* [ ] Task 3     
+ 
