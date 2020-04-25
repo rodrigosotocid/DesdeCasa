@@ -93,6 +93,8 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 - web.xml
 como esta estructurado mas o menos
 
+![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
+
 ## TAGs o Versiones
 
 - Tag 1 o v1.0
