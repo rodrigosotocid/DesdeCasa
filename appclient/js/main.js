@@ -379,23 +379,25 @@ function cargarCursos(filtro = '') {
       
       cursos.forEach(el =>
           listaCurso.innerHTML += `
-            <div id="card-cursos" class="card mb-3" style="max-width: 100%;">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img src="img/${el.imagen}" class="card-img" alt="curso">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title font-weight-bold">${el.nombre}</h5>
-                    <p class="card-text">
-                      <span class="font-weight-bold">Precio:</span>
-                      <span class="c-precio">${el.precio}</span> €
-                    </p>
-                    <a href="#" class="btn btn-danger mt-3" name="delete" onClick="asignarCurso( 0, ${el.id})" >Añadir Curso</a>
-                  </div>
-                </div>
+          <div id="card-cursos" class="card mb-1" ">
+            <div class="row align-items-center">
+
+              <div class="col-3">
+                <img src="img/${el.imagen}" id="img-all-cursos" class="card-img" alt="curso">
               </div>
+              <div class="col-5">
+                  <h5 class="card-title font-weight-bold">${el.nombre}</h5>
+                  <p class="card-text">
+                    <span class="font-weight-bold">Precio:</span>
+                    <span class="c-precio">${el.precio}</span> €
+                  </p>
+              </div>
+              <div class="col-4">
+                <a href="#" id="añadir-curso" class="btn btn-danger" onClick="asignarCurso( 0, ${el.id})" >Añadir Curso</a>
+              </div>
+           
             </div>
+          </div>
           `
       );
       seleccionar(personaSeleccionada.id); 
@@ -420,7 +422,7 @@ function eliminarCurso( event, idPersona, idCurso  ){
 
   ajax('DELETE', url, undefined)
   .then( data => {
-      alert(`Correcto! ${data.informacion}`);
+      alert(data.informacion);
 
       event.target.parentElement.parentElement.parentElement.remove();
   

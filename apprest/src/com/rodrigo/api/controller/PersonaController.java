@@ -191,15 +191,17 @@ public class PersonaController {
 			
 		} catch (SQLException e) {
 				
+			LOGGER.info(e.getMessage());
+			responseBody.addError("Esto es una prueba");
+			
 			if(e.getMessage().contains("a foreign key constraint fails")) {
 				errores.add("No se puede eliminar si tiene cursos activos");
 			}
 			response = Response.status(Status.CONFLICT).entity(errores).build();
-			LOGGER.info(response.toString());;
 			
-//			LOGGER.info(responseBody.toString());
-			LOGGER.info(response.toString());
+			LOGGER.info("Response body loggeer" + responseBody.toString());
 		} catch (Exception e) {
+			
 			responseBody.setInformacion("¡Persona no encontrada!");
 			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
 			LOGGER.info(responseBody.toString());
@@ -221,7 +223,7 @@ public class PersonaController {
 			personaDAO.asignarCurso(idPersona, idCurso);
 			Curso c = cursoDAO.getById(idCurso);
 			
-			responseBody.setInformacion("curso asigando con exito");
+			responseBody.setInformacion("Curso asignado con éxito!");
 			responseBody.setData(c);
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
@@ -230,11 +232,11 @@ public class PersonaController {
 			LOGGER.info(e.getMessage());
 			
 			if(e.getMessage().contains("Duplicate entry")) {
-				errores.add("No puedes añadir el mismo curso. Intenta con otro...!");
+				errores.add("Ya tienes este curso...intenta con otro!");
 			}
 			
 			responseBody.setInformacion("Error curso duplicado");
-			response = Response.status(Status.NOT_FOUND).entity(errores).build();
+			response = Response.status(Status.CONFLICT).entity(errores).build();
 		}
 
 		return response;
@@ -254,7 +256,7 @@ public class PersonaController {
 			personaDAO.eliminarCurso(idPersona, idCurso);
 			Persona p = personaDAO.getById(idPersona);
 			
-			responseBody.setInformacion("Curso eliminado con exito! yahoo!");
+			responseBody.setInformacion("Curso eliminado con éxito!");
 			responseBody.setData(p);
 			response = Response.status(Status.OK).entity(responseBody).build();
 			
