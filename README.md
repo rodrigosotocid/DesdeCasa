@@ -61,11 +61,20 @@ ___
 
 ### Introducción
 
-de que va la app rest
+Aplicación desarrollada en Java EE utilizando Maven como gestor de dependencias y MySQL para crear y gestionar la Base de Datos. 
+
+Esta aplñicacio
+
+
+*Foto de diseño de la base de datos
 
 ### Tecnología Usada
+- Java EE
+- Maven
+- JAX-RS
+- MySQL
 
-que tecnologia usamos jxs-rs, bean, etc
+que tecnologia usamos jxs-rs, bean?, etc
 ### Configuración
 
 como esta estructurado mas o menos
