@@ -422,11 +422,12 @@ function eliminarCurso( event, idPersona, idCurso  ){
 
   ajax('DELETE', url, undefined)
   .then( data => {
+
       alert(data.informacion);
 
-      //event.target.parentElement.parentElement.parentElement.remove();
       event.target.parentElement.parentElement.parentElement.classList.add('animated','rollOut');
-
+      //event.target.parentElement.parentElement.parentElement.remove();
+      
       cargarAlumnos();
   })
   .catch( error => alert(error));
