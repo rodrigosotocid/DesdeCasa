@@ -424,8 +424,9 @@ function eliminarCurso( event, idPersona, idCurso  ){
   .then( data => {
       alert(data.informacion);
 
-      event.target.parentElement.parentElement.parentElement.remove();
-  
+      //event.target.parentElement.parentElement.parentElement.remove();
+      event.target.parentElement.parentElement.parentElement.classList.add('animated','rollOut');
+
       cargarAlumnos();
   })
   .catch( error => alert(error));
@@ -476,3 +477,12 @@ function asignarCurso( idPersona = 0, idCurso ){
   });
 
 }//asignarCurso
+
+
+/*
+ * ANIMATE.CSS 
+ */
+
+ //MODAL FX
+const element =  document.querySelector('.modal')
+element.classList.add('animated', 'rollIn')

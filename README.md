@@ -42,13 +42,16 @@
 ### Configuración
   
   En la ruta /appclient/js/main.js podemos encontrar nuestro fichero que con tiene en primera línea el "ednpoint" de nuestra Aplicación Rest.
-  
-<code> const endpoint = "http://localhost:8080/apprest/api/";
-  
-<code> const url = "http://localhost:8080/apprest/api/" + "personas/";
-  
-<code> const url = "http://localhost:8080/apprest/api/" + "cursos/";
 
+   const endpoint = "http://localhost:8080/apprest/api/";
+  
+   const url = "http://localhost:8080/apprest/api/" + "personas/";
+
+   const url = "http://localhost:8080/apprest/api/" + "cursos/"; 
+  
+[Ruta Base de Datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos")
+
+___
 ## AppRest
 
 ### Introducción
