@@ -6,9 +6,6 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
   
   ![imagen 2](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(2).png)
   
-  ![imagen 3](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(3).png)
-  
-  
   ***
   
 
