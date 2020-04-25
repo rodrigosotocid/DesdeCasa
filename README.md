@@ -59,14 +59,15 @@ const endpoint = "http://localhost:8080/apprest/api/";
 ```
 ### Cursos
 ```javascript
-'GET'= endpoint + 'cursos/?filtro={String}' -> Nos permite OBTENER TODOS los registros de los Cursos 
-de nuestra base de datos.
+'GET'= endpoint + 'cursos/?filtro={String}' -> Nos permite OBTENER TODOS los registros de los Cursos de 
+nuestra base de datos.
 ```
 ```javascript
 'POST': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ASIGNAR un Curso una Persona.
 ```
 ```javascript
-'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a una Persona.
+'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
+una Persona.
 ```
 
 
