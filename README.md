@@ -41,28 +41,27 @@
 
 ### Configuración
   
-  En la ruta /appclient/js/main.js podemos encontrar nuestro fichero que con tiene en primera línea el "ednpoint" de nuestra Aplicación Rest.
+  En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual "ednpoint" de nuestra Aplicación Rest.
 
-   const endpoint = "http://localhost:8080/apprest/api/";
-  
-   const url = "http://localhost:8080/apprest/api/" + "personas/";
+#### Opciones del CRUD:
 
-   const url = "http://localhost:8080/apprest/api/" + "cursos/"; 
+- <code>const endpoint = 'http://localhost:8080/apprest/api/';
 
-- Obtener personas: Metodo: GET, url: (http://localhost:8080/apprest/api/personas/)
+- Obtener Personas GET: url = endpoint + 'personas/';
 
-- Insertar persona: Metodo POST, url: (http://localhost:8080/apprest/api/personas/)
+- Insertar Persona POST: url = endpoint + 'personas';
 
-- Modificar persona: Metodo PUT, url: (http://localhost:8080/apprest/api/personas/-{id})
+- Modificar Persona PUT: url = endpoint + 'personas/{id}'
 
-- Borrar persona: Metodo DELETE, url: (http://localhost:8080/apprest/api/personas/{id})
+- Borrar Persona DELETE: url: endpoint + 'personas/{id}'
 
-- Asignar un curso: Metodo POST, url: (http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso})
+- Asignar un curso: Metodo POST, url: "http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso}"
 
-- Borrar un curso a un alumno: Metodo DELETE, url: (http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso})
+- Borrar un curso a un alumno: Metodo DELETE, url: "http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso}"
 
 - Obtener cursos: Metodo: GET, url: (http://localhost:8080/apprest/api/cursos/?filtro={String})
-  
+  </code>
+
 [Ruta Base de Datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos")
 
 ___
