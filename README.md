@@ -40,7 +40,8 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
   En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual se encuentra la URi o "ednpoint" de nuestra Aplicación Rest.
 
 #### Opciones del CRUD:
-<code> - const endpoint = 'http://localhost:8080/apprest/api/';
+```
+- const endpoint = 'http://localhost:8080/apprest/api/';
 - Obtener Personas GET: url = *endpoint* + 'personas/';
 - Insetar Persona POST: url = *endpoint* + 'personas';
 - Modificar Persona PUT: url = *endpoint* + 'personas/{id}'
@@ -48,7 +49,7 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
 - Asignar un Curso POST: url = *endpoint* + 'personas/{idPersona}/cursos{idCurso}'
 - Eliminar Curso de alumno DELETE: url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
 - Obtener Cursos GET: url = endpoint + 'cursos/?filtro={String}'
-</code>
+```
 
 
 
@@ -78,23 +79,22 @@ como esta estructurado mas o menos
 
 - Tag 1 o v1.0
 
+<!-- Task List -->
+* [x] v1.0 - jkshjkhersg
+* [x] v2.0 - fwefweg
+* [ ] v3.0 - rsgwrg45g4   
+
 ```
 Sus princupales funcionalidades
 Listado de Tag o versiones relevantes y describir su motivo
 ```
 
-
-
-
-tuftuudu
-uihyug8yugy
-
       
 <!-- Tables -->
-| Name     | Email          | AloMas |
-| -------- | -------------- | ------ |
-| John Doe | john@gmail.com | 33  |
-| Jane Doe | jane@gmail.com |66|
+| Name         | Email          | AloMas  |
+| ------------ | -------------- | ------- |
+| Rodrigo Soto | john@gmail.com | 33      |
+| Jane Doe     | jane@gmail.com | 66      |
 
 <!-- Task List -->
 * [x] Task 1
