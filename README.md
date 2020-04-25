@@ -89,7 +89,7 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
-
+## Diagrama Entidad Relación
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
 ## TAGs o Versiones
