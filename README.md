@@ -39,19 +39,34 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
   
   En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual se encuentra la URi o "ednpoint" de nuestra Aplicación Rest.
 
-#### Opciones del CRUD:
+```javascript
+URI Principal de la aplicación
+
+const endpoint = "http://localhost:8080/apprest/api/";
 ```
-- const endpoint = 'http://localhost:8080/apprest/api/';
-- Obtener Personas GET: url = *endpoint* + 'personas/';
-- Insetar Persona POST: url = *endpoint* + 'personas';
-- Modificar Persona PUT: url = *endpoint* + 'personas/{id}'
-- Eliminar Persona DELETE: url = *endpoint* + 'personas/{id}'
-- Asignar un Curso POST: url = *endpoint* + 'personas/{idPersona}/cursos{idCurso}'
-- Eliminar Curso de alumno DELETE: url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
-- Obtener Cursos GET: url = endpoint + 'cursos/?filtro={String}'
+```javascript
+'GET'= endpoint + 'personas/' -> Nos permite OBTENER TODOS los registros de Personas.
+```
+```javascript
+'POST': = endpoint + 'personas/' -> Nos permite AÑADIR una nueva Persona.
+```
+```javascript
+'PUT': = endpoint + 'personas/{id}' -> Nos permite MODIFICAR el registro de una Persona.
+```
+```javascript
+'DELETE': = endpoint + 'personas/{id}' -> Nos permite ELIMINAR el registro de una Persona.
 ```
 
+- Asignar un Curso POST: const url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
+- Eliminar Curso de alumno DELETE: const url = endpoint + 'personas/{idPersona}/cursos{idCurso}'
+- Obtener Cursos GET: const url = endpoint + 'cursos/?filtro={String}'
 
+
+```javascript
+  function add(num1, num2) {
+    return num1 + num2;
+  }
+```
 
 ___
 ## AppRest
