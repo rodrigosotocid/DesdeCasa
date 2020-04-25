@@ -95,9 +95,9 @@ como esta estructurado mas o menos
 - Tag 1 o v1.0
 
 <!-- Task List -->
-* [x] v1.0 - jkshjkhersg
-* [x] v2.0 - fwefweg
-* [ ] v3.0 - rsgwrg45g4   
+* [x] v1.0 - jkbhjkcbhjkbjk
+* [x] v2.0 - Caracteristocas
+* [ ] v3.0 - Versión en proceso de desarrollo.  
 
 ```
 Sus princupales funcionalidades
