@@ -131,7 +131,7 @@ function maquetarLista(elementos) {
     (p, i) =>
       (lista.innerHTML += `
         <tr>
-          <th>${p.id}</th>
+          <th hidden>${p.id}</th>
           <td onclick="seleccionar(${p.id})">${p.nombre}</td>
 
           <td onclick="seleccionar(${p.id})">
