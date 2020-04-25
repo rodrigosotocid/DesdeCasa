@@ -78,7 +78,25 @@ como esta estructurado mas o menos
 
 - Tag 1 o v1.0
 
+```
 Sus princupales funcionalidades
 Listado de Tag o versiones relevantes y describir su motivo
+```
+
+
+
+
+tuftuudu
+uihyug8yugy
 
       
+<!-- Tables -->
+| Name     | Email          | AloMas |
+| -------- | -------------- | ------ |
+| John Doe | john@gmail.com | 33  |
+| Jane Doe | jane@gmail.com |66|
+
+<!-- Task List -->
+* [x] Task 1
+* [x] Task 2
+* [ ] Task 3     
