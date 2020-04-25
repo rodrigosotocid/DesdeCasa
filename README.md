@@ -1,14 +1,14 @@
-# CRUD - JavaEE, Javascript, Html5, Css3 + Bootstrap, MySQL
+# CRUD - Alumnos Api Rest ©2020 
 
-  La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro curso si así lo quisiera (en una lista dentro de una ventana modal) o directamente eliminarlo.
+    La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro curso si así lo quisiera (en una lista dentro de una ventana modal) o directamente eliminarlo.
   
-  ![Texto alternativo](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(1).png)
+  ![Imagen 1](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(1).png)
   
-  ![Texto alternativo](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(4).png)
+  ![imagen 2](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(4).png)
   
-  ![Texto alternativo](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(3).png)
+  ![imagen 3](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(3).png)
   
-  ![Texto alternativo](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(2).png)
+  ![imagen 4](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(2).png)
   
   ***
   
@@ -48,6 +48,20 @@
    const url = "http://localhost:8080/apprest/api/" + "personas/";
 
    const url = "http://localhost:8080/apprest/api/" + "cursos/"; 
+
+- Obtener personas: Metodo: GET, url: (http://localhost:8080/apprest/api/personas/)
+
+- Insertar persona: Metodo POST, url: (http://localhost:8080/apprest/api/personas/)
+
+- Modificar persona: Metodo PUT, url: (http://localhost:8080/apprest/api/personas/-{id})
+
+- Borrar persona: Metodo DELETE, url: (http://localhost:8080/apprest/api/personas/{id})
+
+- Asignar un curso: Metodo POST, url: (http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso})
+
+- Borrar un curso a un alumno: Metodo DELETE, url: (http://localhost:8080/apprest/api/personas/{idPersona}/cursos{idCurso})
+
+- Obtener cursos: Metodo: GET, url: (http://localhost:8080/apprest/api/cursos/?filtro={String})
   
 [Ruta Base de Datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos")
 
@@ -66,6 +80,10 @@ que tecnologia usamos jxs-rs, bean, etc
 como esta estructurado mas o menos
 
 ## TAGs o Versiones
+
+TAG 1 o v1.0
+
+Sus princupales funcionalidades
 Listado de Tag o versiones relevantes y describir su motivo
 
       
