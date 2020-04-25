@@ -42,12 +42,12 @@
 ### Configuración
   
   En la ruta /appclient/js/main.js podemos encontrar nuestro fichero que con tiene en primera línea el "ednpoint" de nuestra Aplicación Rest.
+ <code> const url = "http://localhost:8080/apprest/api/" + "personas/";
   
+<code> const url = "http://localhost:8080/apprest/api/" + "cursos/"; 
 <code> const endpoint = "http://localhost:8080/apprest/api/";
   
-<code> const url = "http://localhost:8080/apprest/api/" + "personas/";
-  
-<code> const url = "http://localhost:8080/apprest/api/" + "cursos/";
+
 
 ## AppRest
 
