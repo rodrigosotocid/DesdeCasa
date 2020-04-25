@@ -1,14 +1,12 @@
 # CRUD - Alumnos Api Rest ©2020 
 
-La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro curso si así lo quisiera (en una lista dentro de una ventana modal) o directamente eliminarlo.
+La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenemos una lista de alumnos y su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro o eliminar si así lo quisiera.
   
   ![Imagen 1](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(1).png)
   
   ![imagen 2](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(2).png)
   
   ***
-  
-
 ## AppCliente
 
 ### Introducción
@@ -36,10 +34,13 @@ La aplicación es un CRUD el cual nos muestra una lista de alumnos mostrandonos 
 - Insomnia (Testing API REST)
 
 ### Configuración
-  
-  
+El código html de nuestra aplicación se encuentra en el archivo [index.html](https://github.com/istikis/DesdeCasa/blob/master/appclient/index.html), en el archivo [main.js](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar el endpoint por si se quiere modificar y la configuración para la llamada a la API  por ajax en [ajax.js](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/ajax.js)
 
+```javascript
+URI Principal de la aplicación
 
+const endpoint = "http://localhost:8080/apprest/api/";
+```
 ___
 ## AppRest
 
@@ -55,18 +56,12 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 
 ### Configuración
 
-
-- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") jkfhnvjkrsnvklsn
-- context.xml
-- pom
+- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") 
+- En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para acceso a la base de datos o el tipo de driver utilizado.-
+- En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
 - web.xml
 
-
-En [esta ruta](https://github.com/istikis/DesdeCasa/blob/master/appclient/js/main.js) podemos encontrar nuestro fichero "main.js" en el cual se encuentra la URi o "ednpoint" de nuestra Aplicación Rest.
-
 ```javascript
-URI Principal de la aplicación
-
 const endpoint = "http://localhost:8080/apprest/api/";
 ```
 ### Personas
@@ -94,7 +89,6 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
-como esta estructurado mas o menos
 
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
@@ -107,16 +101,5 @@ como esta estructurado mas o menos
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
 * [ ] v3.0 - Versión en proceso de desarrollo.  
 
-```
-Sus princupales funcionalidades
-Listado de Tag o versiones relevantes y describir su motivo
-```
-
-      
-<!-- Tables -->
-| Name         | Email          | AloMas  |
-| ------------ | -------------- | ------- |
-| Rodrigo Soto | john@gmail.com | 33      |
-| Jane Doe     | jane@gmail.com | 66      |
 
  
