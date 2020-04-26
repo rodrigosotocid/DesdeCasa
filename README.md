@@ -60,6 +60,7 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 * En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para el acceso a la base de datos o el tipo de driver utilizado.-
 * En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
 * En el archivo [web.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/WEB-INF/web.xml) contiene las siguientes caracteristicas:
+
   * `<welcome-file>index.jsp</welcome-file>` Página de inicio del servidor donde nos lleva al endpoint
   * `<servlet-name>javax.ws.rs.core.Application</servlet-name>` REST
   * `<url-pattern>/api/*</url-pattern>` Ruta base de nuestra URI
@@ -107,20 +108,10 @@ una Persona.
 
  ___
 
- ### Otros Proyectos en la Web
+ ### Otros Proyectos en la Web :link:
 
  -  [Dietogenica: Html / CSS y algo de JS](https://dietogenica.netlify.app/ )
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
 
-Puedes colocar [^1] notas en el pie de página [^2] fácilmente.
-
-[^1]: Aquí encuentras el texto de la nota al pie de página.
-
-[^2]: **Las notas de pie de página** pueden *formatearse* también.
-Estas pueden ocupar varias líneas
-
-[Contribution guidelines for this project](docs/CONTRIBUTING.md)
-
-:EMOJICODE:
-:+1: :shipit:
+___
