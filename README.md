@@ -7,7 +7,7 @@ La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenem
   ![imagen 2](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(2).png)
   
   ***
-## AppCliente
+## AppCliente [Front-End]
 
 ### Introducción
 
@@ -42,7 +42,7 @@ URI Principal de la aplicación
 const endpoint = "http://localhost:8080/apprest/api/";
 ```
 ___
-## AppRest
+## AppRest [Back-End]
 
 ### Introducción
 
