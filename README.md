@@ -93,12 +93,10 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
-## Diagrama Entidad Relación
+## Diagrama Entidad Relación :framed_picture:
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
 ## TAGs o Versiones
-
-- Tag 1 o v1.0
 
 <!-- Task List -->
 * [x] v1.0 - Primera versión estable. CRUD de Personas funcional.
