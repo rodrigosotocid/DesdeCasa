@@ -302,7 +302,7 @@ label {
 
 #mis-cursos a {
   margin-right: 1rem;
-  color: rgba(197, 40, 40, 0.76);
+  color: #FFFFFF;
 }
 
 .card-img {
@@ -329,7 +329,7 @@ label {
 
 #liCursos a:hover {
   background-color: #db7843;
-  color: #FFFFFF;
+  color: rgb(189, 90, 90);
 }
 
 
