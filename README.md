@@ -101,9 +101,9 @@ una Persona.
 - Tag 1 o v1.0
 
 <!-- Task List -->
-* [x] v1.0 - Primera versión estable.
-* [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
-* [ ] v3.0 - Versión en proceso de desarrollo.  
+* [x] v1.0 - Primera versión estable. CRUD de Personas funcional.
+* [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
+* [ ] v3.0 - Versión en proceso de desarrollo. (Añadir sección de noticias, poder elegir profesores, entre otras funcionalidades)  
 
 
  ___
