@@ -93,7 +93,7 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
-## Diagrama Entidad Relación :framed_picture:
+## Diagrama Entidad Relación
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
 ## TAGs o Versiones
@@ -102,7 +102,6 @@ una Persona.
 * [x] v1.0 - Primera versión estable. CRUD de Personas funcional.
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
 * [ ] v3.0 - Versión en proceso de desarrollo. (Añadir sección de noticias, poder elegir profesores, entre otras funcionalidades)  
-
 
  ___
 
