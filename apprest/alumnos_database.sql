@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `alumnos` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `alumnos`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: alumnos
@@ -31,7 +29,7 @@ CREATE TABLE `curso` (
   `precio` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,8 +38,35 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (1,'Curso Programador Python','pyn.png',255),(2,'Curso Conectividad y Redes ','redes.png',235),(3,'Curso Programador Android','android.png',375),(4,'Curso Programador Java 8','java.png',395);
+INSERT INTO `curso` VALUES (1,'Python','pyn.png',255),(2,'Networking ','redes.png',235),(3,'Android','android.png',375),(4,'Java 8','java.png',395),(5,'Angular JS','angular.png',300),(6,'React JS','react.png',300);
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `noticia`
+--
+
+DROP TABLE IF EXISTS `noticia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `noticia` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(300) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `contenido` longtext COLLATE utf8_spanish2_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `noticia`
+--
+
+LOCK TABLES `noticia` WRITE;
+/*!40000 ALTER TABLE `noticia` DISABLE KEYS */;
+INSERT INTO `noticia` VALUES (1,'Alumnos con mejores resultados en los cursos del 2020!!','2020-02-02 00:00:00','jknjkvnjksnrjkvnjksdnvrskl jhnvjrskesjsuisher iojdhfwiojef idghwihguiwersiojkfnwers iojkhuiowerhnvn');
+/*!40000 ALTER TABLE `noticia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -58,7 +83,7 @@ CREATE TABLE `persona` (
   `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'h',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +92,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(11,'Markel','avatar2.png','h'),(37,'Juan','avatar13.png','h'),(51,'Titae','avatar11.png','h'),(52,'Álvaro','avatar9.png','h'),(54,'Charo ','avatar10.png','m'),(55,'Manolo Carabolo','avatar13.png','h'),(56,'Leticia ','avatar7.png','m'),(57,'Rodrigo ','avatar14.png','h'),(58,'Ramón ','avatar6.png','h'),(59,'Ron Damon','avatar8.png','h'),(60,'Angélica','avatar12.png','m'),(61,'Ximena','avatar16.png','m'),(62,'Estela','avatar15.png','m'),(63,'Lenny','avatar6.png','h'),(64,'Dr Watson','avatar14.png','h'),(65,'Mariela','avatar7.png','m'),(67,'Pedrototote','avatar14.png','h'),(70,'Aintzane','avatar15.png','m'),(74,'Jhon Doe','avatar7.png','h');
+INSERT INTO `persona` VALUES (1,'Arantxa','avatar1.png','m'),(37,'Juan','avatar13.png','h'),(52,'Álvaro','avatar9.png','h'),(54,'Charo','avatar10.png','m'),(55,'Joseba','avatar6.png','h'),(57,'Rodrigo','avatar14.png','h'),(61,'Eneritz','avatar16.png','m'),(62,'Janire','avatar15.png','m'),(63,'Lenny','avatar6.png','h'),(65,'Mariela','avatar7.png','m'),(88,'Ander','avatar3.png','h');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +119,7 @@ CREATE TABLE `persona_has_curso` (
 
 LOCK TABLES `persona_has_curso` WRITE;
 /*!40000 ALTER TABLE `persona_has_curso` DISABLE KEYS */;
-INSERT INTO `persona_has_curso` VALUES (1,1),(11,2),(37,3),(1,4);
+INSERT INTO `persona_has_curso` VALUES (1,1),(37,1),(54,1),(57,1),(54,2),(57,2),(1,3),(37,3),(55,3),(57,3),(37,4),(57,4),(88,4),(1,5),(65,5),(1,6),(65,6);
 /*!40000 ALTER TABLE `persona_has_curso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -107,7 +132,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-20 14:14:48
+-- Dump completed on 2020-04-26 18:46:36
+
 
 /*CUSTOM SQL*/
 /*
