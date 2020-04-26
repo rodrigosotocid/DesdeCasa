@@ -56,7 +56,7 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 
 ### Configuración
 
-- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") 
+- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") :arrow_down:
 - En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para acceso a la base de datos o el tipo de driver utilizado.-
 - En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
 - web.xml
@@ -110,3 +110,14 @@ una Persona.
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
 
+Puedes colocar [^1] notas en el pie de página [^2] fácilmente.
+
+[^1]: Aquí encuentras el texto de la nota al pie de página.
+
+[^2]: **Las notas de pie de página** pueden *formatearse* también.
+Estas pueden ocupar varias líneas
+
+[Contribution guidelines for this project](docs/CONTRIBUTING.md)
+
+:EMOJICODE:
+:+1: :shipit:
