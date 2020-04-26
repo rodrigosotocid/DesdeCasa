@@ -302,6 +302,7 @@ label {
 
 #mis-cursos a {
   margin-right: 1rem;
+  color: rgba(197, 40, 40, 0.76);
 }
 
 .card-img {
@@ -326,6 +327,10 @@ label {
   margin-bottom: 0.5rem;
 }
 
+#liCursos a:hover {
+  background-color: #db7843;
+  color: #FFFFFF;
+}
 
 
 /* 
