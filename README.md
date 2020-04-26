@@ -56,10 +56,13 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 
 ### Configuración
 
-- Puedes descargar aquí el [script de la base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") :arrow_down:
-- En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para acceso a la base de datos o el tipo de driver utilizado.-
-- En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
-- web.xml
+* Puedes descargar aquí el [script de la Base de Datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") :arrow_down:
+* En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para el acceso a la base de datos o el tipo de driver utilizado.-
+* En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
+* En el archivo [web.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/WEB-INF/web.xml) contiene las siguientes caracteristicas:
+  * `<welcome-file>index.jsp</welcome-file>` Página de inicio del servidor donde nos lleva al endpoint
+  * `<servlet-name>javax.ws.rs.core.Application</servlet-name>` REST
+  * `<url-pattern>/api/*</url-pattern>` Ruta base de nuestra URI
 
 ```javascript
 const endpoint = "http://localhost:8080/apprest/api/";
