@@ -62,8 +62,8 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 * En el archivo [web.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/WEB-INF/web.xml) contiene las siguientes caracteristicas:
 
   * `<welcome-file>index.jsp</welcome-file>` Página de inicio del servidor donde nos lleva al endpoint
-  * `<servlet-name>javax.ws.rs.core.Application</servlet-name>` REST
-  * `<url-pattern>/api/*</url-pattern>` Ruta base de nuestra URI
+  * `<servlet-name>javax.ws.rs.core.Application</servlet-name>` Servlets de JAX-RS
+  * `<url-pattern>/api/*</url-pattern>` Seteo de nuestra URI raíz
 
 ```javascript
 const endpoint = "http://localhost:8080/apprest/api/";
