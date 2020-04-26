@@ -56,7 +56,7 @@ AppRest es el 'Backend' de nuestra aplicación, la cual está desarrollada en Ja
 
 ### Configuración
 
-- Tienes aquí el [script base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") :arrow_down:
+- Puedes descargar aquí el [script de la base de datos](https://github.com/istikis/DesdeCasa/blob/master/apprest/alumnos_database.sql, "Acceso a la Base de Datos") :arrow_down:
 - En el archivo [context.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/WebContent/META-INF/context.xml) podemos ver los datos de configuración para acceso a la base de datos o el tipo de driver utilizado.-
 - En el archivo [pom.xml](https://github.com/istikis/DesdeCasa/blob/master/apprest/pom.xml) podemos visualizar las dependencia usadas en este proyecto.-
 - web.xml
