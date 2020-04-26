@@ -244,20 +244,6 @@ label {
   line-height: 1.8;
 }
 
-.image-curso {
-  height: 5rem;
-  background: #db7843;
-  transition: width 2s, height 4s;
-  -webkit-transition:;
-  -moz-transition:;
-  -ms-transition:;
-  -o-transition:;
-}
-
-.image-curso:hover {
-  width: 30rem;
-}
-
 .c-precio {
   color:#ffffff; 
   background: #2487bc;
@@ -271,10 +257,6 @@ label {
   border: 1px solid #c76d61;
 }
 
-#listaCursos #card-cursos  {
-  /* height: 6rem;  */
-  
-}
 #img-all-cursos {
   width: 5.5rem;
   text-align: center;
