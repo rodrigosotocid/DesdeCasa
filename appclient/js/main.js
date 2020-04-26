@@ -427,7 +427,11 @@ function eliminarCurso( event, idPersona, idCurso  ){
 
       event.target.parentElement.parentElement.parentElement.classList.add('animated','rollOut');
       //event.target.parentElement.parentElement.parentElement.remove();
-      
+
+      // Obtengo una HTMLCollection y elimino el componente según su posición
+      let htmlArray = document.getElementsByClassName('animated');
+      htmlArray[0].remove();
+
       cargarAlumnos();
   })
   .catch( error => alert(error));
