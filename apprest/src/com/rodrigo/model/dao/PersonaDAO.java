@@ -235,8 +235,9 @@ public class PersonaDAO implements IDAO<Persona> {
 				throw new Exception("Ups! No se puede Modificar el registro con id : " + pojo);
 			}
 		} catch (SQLException e) {
-			LOGGER.info("INSERT DAO Persona: Violate Constraint Exception!");
-			throw new SQLException("Ups! No se puede Modificar el registro: " + e.getMessage());
+			
+			LOGGER.info("MANDA EXCEPCTION AL CONTROLADOR (INSERT-DAO): Violate Constraint Exception!");
+			throw new SQLException("No se puede Modificar el registro: " + e.getMessage());
 		}
 
 		return pojo;

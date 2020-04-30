@@ -105,10 +105,12 @@ public class PersonaController {
 				response = Response.status(Status.OK).entity(persona).build();
 			}
 		} catch (SQLException e) {
+			
 			errores.add(e.getMessage());
 			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(errores).build();
 			e.printStackTrace();
 		} catch (Exception e) {
+			
 			errores.add("No se ha encontrado ninguna persona con ese id.");
 			response = Response.status(Status.NOT_FOUND).entity(errores).build();
 		}
@@ -142,9 +144,11 @@ public class PersonaController {
 				
 			} catch (Exception e) {
 				
-				ResponseBody responseBody = new ResponseBody();
-				responseBody.setInformacion("nombre duplicado!");
-				response = Response.status(Status.CONFLICT).entity(responseBody).build();
+				//ResponseBody responseBody = new ResponseBody();
+				
+				rb.setInformacion("Lo siento este nombre ya existe en la Base de Datos!");
+				response = Response.status(Status.CONFLICT).entity(rb).build();
+				LOGGER.info(e.getMessage());
 			}
 		} else {
 
@@ -154,6 +158,7 @@ public class PersonaController {
 				errores.add(violation.getPropertyPath() + " : " + violation.getMessage());
 			}
 			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
+			LOGGER.info(errores.toString());
 		}
 
 		return response;
@@ -187,9 +192,9 @@ public class PersonaController {
 
 			} catch (Exception e) {
 				
-				ResponseBody responseBody = new ResponseBody();
-				responseBody.setInformacion("nombre duplicado");
-				response = Response.status(Status.CONFLICT).entity(responseBody).build();
+				LOGGER.info("Nombre duplicado");
+				rb.setInformacion("Lo siento este nombre no está disponible!");
+				response = Response.status(Status.CONFLICT).entity(rb).build();
 			}
 		}
 		return response;

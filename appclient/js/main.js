@@ -337,9 +337,8 @@ function guardar() {
           cargarAlumnos();
         })
         .catch((error) => {
-          console.warn("Ups! POST No ejecutado! JS %o" , error.informacion);
-          alert("Lo siento este nombre ya existe! %o");
-          //TODO 
+          console.warn("POST Error: %o" , error.informacion);
+          alert(error.informacion);
         });
 
       // MODIFICAR
@@ -354,7 +353,7 @@ function guardar() {
         cargarAlumnos();
     })
         .catch((error) => {
-          console.warn("PUT - No ejecutado! %o" , error);
+          console.warn("PUT - No ejecutado! %o" , error.informacion);
           alert(error.informacion);
         });
     }
