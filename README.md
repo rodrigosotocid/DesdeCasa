@@ -42,7 +42,7 @@ URI Principal de la aplicación
 const endpoint = "http://localhost:8080/apprest/api/";
 ```
 ___
-## AppRest [Back-End]
+## AppRest [Back-End] [Descarga el Javadoc para más info](https://github.com/istikis/DesdeCasa/tree/master/Javadoc)
 
 ### Introducción
 
