@@ -99,6 +99,7 @@ public class PersonaDAO implements IDAO<Persona> {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+			LOGGER.info("dao sql exception ");
 		}
 
 		// convert hashmap to array

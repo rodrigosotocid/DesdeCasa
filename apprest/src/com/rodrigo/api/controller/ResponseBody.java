@@ -1,8 +1,9 @@
 package com.rodrigo.api.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ResponseBody {
+public class ResponseBody implements Serializable {
 
 	private String informacion;
 	private Object data;
@@ -11,8 +12,8 @@ public class ResponseBody {
 	
 	public ResponseBody() {
 		super();
-		this.data = new Object();
 		this.informacion = "";
+		this.data = null;
 		this.errores = new ArrayList<String>();
 		this.hypermedias = new ArrayList<Hipermedia>();
 	}

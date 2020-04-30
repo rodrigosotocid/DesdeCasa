@@ -42,7 +42,8 @@ public class PersonaController {
 	private Validator validator = factory.getValidator();
 	
 	ArrayList<String> errores = new ArrayList<String>();
-
+	ResponseBody rb = new ResponseBody();
+	
 	@Context
 	private ServletContext context;
 
@@ -56,7 +57,8 @@ public class PersonaController {
 		LOGGER.info("@GET: getAll");
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		
-		if( filtro != null && filtro.trim().isEmpty()) {							// Busqueda por filtro
+		
+		if( filtro != null && !filtro.trim().isEmpty() ) {							// Busqueda por filtro
 			
 			 LOGGER.info("Buscar 1 Persona filtro" + filtro);
 			 try {
@@ -64,11 +66,21 @@ public class PersonaController {
 				 response = Response.status(Status.OK).entity(registro).build();
 				
 			} catch (Exception e) {
+				
 				LOGGER.info("Exception: Persona no encontrada!");
-				response = Response.status(Status.NOT_FOUND).entity(null).build();
+				
+				
+				
+				rb.setInformacion("No hemos encontrado el nombre: " + filtro);
+				rb.getHypermedias().add(new Hipermedia("Busca por Id", "GET", "personas/{id}"));
+				rb.getHypermedias().add(new Hipermedia("Listar", "GET", "personas"));
+				
+				response = Response.status(Status.NOT_FOUND).entity(rb).build();
+				LOGGER.info(rb.getHypermedias().toString());
 			}
 			 
 		} else {																	// Listado personas
+			
 			LOGGER.info("Listado de Personas sin filtro");
 			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
 			response = Response.status(Status.OK).entity(registros).build();

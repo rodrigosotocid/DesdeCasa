@@ -1,6 +1,8 @@
 package com.rodrigo.api.controller;
 
-public class Hipermedia {
+import java.io.Serializable;
+
+public class Hipermedia implements Serializable {
 
 	private String info;
 	private String method;

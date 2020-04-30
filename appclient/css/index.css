@@ -74,9 +74,10 @@ label {
     margin: 1rem;
 }
 
-.valird, .invalid {
-  font-size: 8px;
+.valid, .invalid {
+  font-size: 13px;
   font-style: italic;
+  margin-left: 0.3rem;
 
 }
 

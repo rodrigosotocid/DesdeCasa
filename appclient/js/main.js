@@ -36,6 +36,7 @@ function init() {
  * Inicializamos los listener de index.hml
  * 1) Selector de 'sexo' y busqueda por nombre
  * 2) Filtro de Cursos
+ * 3) Filtro para buscar persona por nombre
  * @see function filtro
  */
 function listener() {
@@ -59,6 +60,41 @@ function listener() {
       cargarCursos();
     }
   });
+
+  //3) Filtro para buscar persona por nombre
+  let iNombre = document.getElementById('inputNombre');
+  let msgValidador = document.getElementById('nombre-mensaje');
+
+  iNombre.addEventListener('keyup', () => {
+    console.debug('tecla pulsada ' + iNombre.value );
+
+    const url = endpoint + 'personas/?filtro=' + iNombre.value;
+
+    if ( personaSeleccionada.nombre != iNombre.value ){
+    ajax('GET', url, undefined)
+      .then( (data) => {
+        console.debug('nombre NO disponible');
+        
+        msgValidador.textContent = 'Nombre NO disponible';
+        msgValidador.classList.add('invalid');
+        msgValidador.classList.remove('valid');
+      } )
+      .catch( ( error ) => {
+
+        console.debug('Nombre disponible');
+
+        console.log(error.informacion);
+        console.log(error.hypermedias[0]);
+        console.log(error.hypermedias[1]);
+        msgValidador.textContent = 'Nombre disponible';
+        msgValidador.classList.add('valid');
+        msgValidador.classList.remove('invalid');
+      });
+
+    }
+
+  });
+
 }
 
 /**
@@ -193,11 +229,14 @@ function seleccionar( id = 0 ) {
   personaSeleccionada = personas.find( el=> el.id == id);
     if ( !personaSeleccionada ){
         personaSeleccionada = { "id":0, 
-                                "nombre": "Nuevo Alumno" , 
+                                "nombre": "" , 
                                 "avatar" : "img/avatar7.png", 
                                 "sexo": "h",
                                 "cursos": []
                              };
+
+                             // Pone el cursor en el campo escribir nombre al dar botón 'Nuevo'
+                             document.getElementById('inputNombre').focus();
     }
 
   console.debug("Click: Seleccionar Persona %o", personaSeleccionada);
@@ -206,6 +245,7 @@ function seleccionar( id = 0 ) {
   document.getElementById('inputId').value = personaSeleccionada.id;
   document.getElementById('inputNombre').value = personaSeleccionada.nombre;    
   document.getElementById('inputAvatar').value = personaSeleccionada.avatar;
+
 
   //seleccionar Avatar
   const avatares = document.querySelectorAll('#gallery img');
