@@ -18,6 +18,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -50,12 +51,30 @@ public class PersonaController {
 	}
 
 	@GET
-	public ArrayList<Persona> getAll() {
+	public Response getAll( @QueryParam("filtro") String filtro) {
 		
 		LOGGER.info("@GET: getAll");
-		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		
-		return registros;
+		if( filtro != null && filtro.trim().isEmpty()) {							// Busqueda por filtro
+			
+			 LOGGER.info("Buscar 1 Persona filtro" + filtro);
+			 try {
+				 Persona registro = personaDAO.getByNombre(filtro);
+				 response = Response.status(Status.OK).entity(registro).build();
+				
+			} catch (Exception e) {
+				LOGGER.info("Exception: Persona no encontrada!");
+				response = Response.status(Status.NOT_FOUND).entity(null).build();
+			}
+			 
+		} else {																	// Listado personas
+			LOGGER.info("Listado de Personas sin filtro");
+			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+			response = Response.status(Status.OK).entity(registros).build();
+		}
+		
+		return response;
 	}
 
 	@GET
@@ -65,7 +84,7 @@ public class PersonaController {
 		LOGGER.info("@GET: getPersona");
 		ArrayList<String> errores = new ArrayList<String>();
 		Response response = null;
-
+		
 		Persona persona;
 		try {
 			persona = personaDAO.getById(id);

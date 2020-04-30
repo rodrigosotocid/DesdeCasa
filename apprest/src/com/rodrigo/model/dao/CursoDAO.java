@@ -116,6 +116,11 @@ public class CursoDAO implements IDAO<Curso> {
 	}
 
 	@Override
+	public Curso getByNombre(String nombre) throws Exception {
+		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
+	}
+	
+	@Override
 	public Curso delete(int id) throws Exception, SQLException {
 		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
 	}

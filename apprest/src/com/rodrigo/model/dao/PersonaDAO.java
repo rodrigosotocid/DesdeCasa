@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
@@ -44,7 +45,18 @@ public class PersonaDAO implements IDAO<Persona> {
 												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
 												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.id = ? ;   ";
 
-
+	private static String SQL_GET_BY_NOMBRE		= "  SELECT \n" + 
+												  "	 p.id as persona_id,\n" + 
+												  "	 p.nombre as persona_nombre,\n" + 
+												  "	 p.avatar as persona_avatar,\n" + 
+												  "  p.sexo as persona_sexo,\n" + 
+												  "	 c.id as curso_id,\n" + 
+												  "	 c.nombre as curso_nombre,\n" + 
+												  "	 c.precio as curso_precio,\n" + 
+												  "	 c.imagen  as curso_imagen\n" + 
+												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
+												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre = ? ;   ";
+	
 	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
 	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
 	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
@@ -127,6 +139,38 @@ public class PersonaDAO implements IDAO<Persona> {
 		return registro;
 	}
 
+	@Override
+	public Persona getByNombre(String nombre) throws Exception {
+		LOGGER.info("getByNombre DAO Persona");
+		Persona registro = null;
+
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_NOMBRE);
+
+		) {
+			pst.setString(1, nombre);
+			LOGGER.info(pst.toString());
+
+			try (ResultSet rs = pst.executeQuery()) {
+
+				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
+				if (rs.next()) {
+
+					registro = mapper(rs, hmPersonas);
+
+				} else {
+					throw new Exception("Ups! Registro NO encontrado para Nombre " + nombre);
+				}
+			}
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Exception de SQL", e);
+			//e.printStackTrace();
+		}
+
+		return registro;
+	}
+	
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
 
@@ -225,7 +269,7 @@ public class PersonaDAO implements IDAO<Persona> {
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
 			//throw new Exception("Ups! No se puede Actualizar el registro: " + e.getMessage());
-			throw new Exception("Ups! No se puede Actualizar el registro 234234: ");
+			throw new Exception("Ups! No se puede Actualizar el registro: ");
 		}
 
 		return pojo;
@@ -315,8 +359,10 @@ public class PersonaDAO implements IDAO<Persona> {
 		
 		//Actualizar HashMap
 		hm.put(key, p);
-		
+
 		return p;
 	}
+	
+
 
 }

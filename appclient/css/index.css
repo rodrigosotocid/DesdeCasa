@@ -74,6 +74,20 @@ label {
     margin: 1rem;
 }
 
+.valird, .invalid {
+  font-size: 8px;
+  font-style: italic;
+
+}
+
+.valid {
+ color: green;
+}
+
+.invalid {
+  color:red;
+}
+
 #gallery  {
   background: #fa782d18;
   border: 1px solid #db7843;

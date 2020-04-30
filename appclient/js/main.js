@@ -248,7 +248,6 @@ function seleccionar( id = 0 ) {
       </li>
     `;
   });
-  //TODO boton efecto eliminar
   misCursos.appendChild(ulElement);
 
 }//seleccionar
