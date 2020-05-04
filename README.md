@@ -42,7 +42,9 @@ URI Principal de la aplicación
 const endpoint = "http://localhost:8080/apprest/api/";
 ```
 ___
-## AppRest [Back-End]
+## AppRest [Back-End] 
+
+### [Documentación en html (Javadoc)](https://github.com/istikis/DesdeCasa/tree/master/Javadoc) :arrow_down: 
 
 ### Introducción
 
@@ -101,6 +103,7 @@ una Persona.
 <!-- Task List -->
 * [x] v1.0 - Primera versión estable. CRUD de Personas funcional.
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
+* [x] v2.1 - Funcionalidad: Nombre Disponible - Fix clase hypermedia/ResponseBody impl. Serializable - Se añade documentación Javadoc para el Backend
 * [ ] v3.0 - Versión en proceso de desarrollo. (Añadir sección de noticias, poder elegir profesores, entre otras funcionalidades)  
 
  ___
