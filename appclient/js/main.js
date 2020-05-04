@@ -53,6 +53,7 @@ function listener() {
 
   filtroCursos.addEventListener('keyup', function(event) {
     let filtroValor = filtroCursos.value.trim();
+
     if(filtroValor.length >= 3) {
       console.debug('filtroCursos keyup' + filtroValor);
       cargarCursos(filtroValor);
@@ -148,8 +149,8 @@ function cargarAlumnos() {
       maquetarLista(personas);
     })
     .catch((error) => {
-      console.warn("promesa: Error al pintar lista de Personas");
-      alert(error);
+      console.warn("promesa: Error al cargar Alumnos");
+      alert('Error al cargar los alumnos. Intenta actualizar la página o ponte en contacto con el administrador del servidor.');
     });
 } // cargarAlumnos
 
@@ -230,13 +231,13 @@ function seleccionar( id = 0 ) {
     if ( !personaSeleccionada ){
         personaSeleccionada = { "id":0, 
                                 "nombre": "" , 
-                                "avatar" : "img/avatar7.png", 
+                                "avatar" : "img/avatar1.png", 
                                 "sexo": "h",
                                 "cursos": []
                              };
 
                              // Pone el cursor en el campo escribir nombre al dar botón 'Nuevo'
-                             document.getElementById('inputNombre').focus();
+                             //document.getElementById('inputNombre').focus();
     }
 
   console.debug("Click: Seleccionar Persona %o", personaSeleccionada);
@@ -442,7 +443,7 @@ function cargarCursos(filtro = '') {
       
     })
     .catch((error) => {
-      console.warn("promesa rejectada al intentar pintar lista de CURSOS");
+      console.warn("Error al intentar pintar lista de CURSOS");
       alert('No se pueden cargar cursos' + error);
     });
 }//cargarCursos
@@ -529,3 +530,6 @@ function asignarCurso( idPersona = 0, idCurso ){
  //MODAL FX
 const element =  document.querySelector('.modal')
 element.classList.add('animated', 'rollIn')
+
+
+/*-******************************** NOTICIAS ********************************-*/

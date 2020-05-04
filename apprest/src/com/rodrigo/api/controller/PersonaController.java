@@ -69,8 +69,6 @@ public class PersonaController {
 				
 				LOGGER.info("Exception: Persona no encontrada!");
 				
-				
-				
 				rb.setInformacion("No hemos encontrado el nombre: " + filtro);
 				rb.getHypermedias().add(new Hipermedia("Busca por Id", "GET", "personas/{id}"));
 				rb.getHypermedias().add(new Hipermedia("Listar", "GET", "personas"));

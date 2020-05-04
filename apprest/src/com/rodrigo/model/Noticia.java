@@ -9,20 +9,23 @@ public class Noticia {
 	private Date fecha;
 	private String contenido;
 	
-	public Noticia() {
-		super();
-		this.id = 0;
-		this.titulo = "";
-		this.fecha = new Date();
-		this.contenido = "";
-	}
+//	public Noticia() {
+//		super();
+//		this.id = 0;
+//		this.titulo = "";
+//		this.fecha = new Date();
+//		this.contenido = "";
+//	}
 	
 	public Noticia(Integer id, String titulo, Date fecha, String contenido) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.fecha = fecha;
-		this.contenido = contenido;
+		setId(id);
+		setTitulo(titulo);
+		setFecha(fecha);
+		setContenido(contenido);
+	}
+	
+	public Noticia() {
+		this(null, null, null, null);
 	}
 
 	public Integer getId() {
