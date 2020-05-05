@@ -51,12 +51,13 @@ DROP TABLE IF EXISTS `noticia`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `noticia` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(300) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `titulo` varchar(300) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `contenido` longtext COLLATE utf8_spanish2_ci,
+  `imagen` varchar(150) COLLATE utf8_spanish2_ci DEFAULT 'noticia(1).jpg',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +66,7 @@ CREATE TABLE `noticia` (
 
 LOCK TABLES `noticia` WRITE;
 /*!40000 ALTER TABLE `noticia` DISABLE KEYS */;
-INSERT INTO `noticia` VALUES (1,'Alumnos con mejores resultados en los cursos del 2020!!','2020-02-02 00:00:00','jknjkvnjksnrjkvnjksdnvrskl jhnvjrskesjsuisher iojdhfwiojef idghwihguiwersiojkfnwers iojkhuiowerhnvn');
+INSERT INTO `noticia` VALUES (1,'Cientos de plazas disponibles en el 2020!!','2020-02-02 00:00:00','Tras la creciente demanda en el área tecnológica el 90% de los centros del país estan ofreciendo...Como viene siendo habitual durante los últimos años, los empleadores siguen requiriendo a desarrolladores de software que puedan mantener bases de datos con SQL y desarrollar distintos proyectos en Java.','noticia(1).jpg'),(2,'¿Qué se le pide a un programador en 2020?','2020-05-05 00:00:00','Con el comienzo de un nuevo año, aquellos aspirantes a programador o programadores que quieran buscar un nuevo empleo deben ser conscientes de todo lo que se le pide a un programador en 2020 para poder entrar en las principales empresas del mercado.','noticia(2).jpg'),(3,'Pyhton en el mundo Científico.','2020-01-28 00:00:00','No cabe la menor duda de que en muchas áreas de carácter científico-técnico la adecuada elección del software y/o lenguaje de programación empleado es determinante, de cara a la potencia, versatilidad, facilidad de uso y acceso por parte de todos los usuarios en sus propios dispositivos, de manera generalizada y gratuita.','noticia(3).jpg');
 /*!40000 ALTER TABLE `noticia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +84,7 @@ CREATE TABLE `persona` (
   `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'h',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +120,7 @@ CREATE TABLE `persona_has_curso` (
 
 LOCK TABLES `persona_has_curso` WRITE;
 /*!40000 ALTER TABLE `persona_has_curso` DISABLE KEYS */;
-INSERT INTO `persona_has_curso` VALUES (1,1),(37,1),(54,1),(57,1),(54,2),(57,2),(1,3),(37,3),(55,3),(57,3),(37,4),(57,4),(88,4),(1,5),(65,5),(1,6),(65,6);
+INSERT INTO `persona_has_curso` VALUES (1,1),(37,1),(54,1),(57,1),(54,2),(57,2),(37,3),(55,3),(57,3),(37,4),(57,4),(88,4),(1,5),(65,5),(1,6),(65,6);
 /*!40000 ALTER TABLE `persona_has_curso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,7 +133,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-26 18:46:36
+-- Dump completed on 2020-05-05 16:35:28
+
 
 
 /*CUSTOM SQL*/
