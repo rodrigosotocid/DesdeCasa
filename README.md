@@ -116,5 +116,6 @@ una Persona.
  -  [Dietogenica: Html / CSS y algo de JS](https://dietogenica.netlify.app/ )
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
+ - [Api Busqueda de eventos - React JS](https://reacteventbriteapi.netlify.app/)
 
 ___
