@@ -1,6 +1,6 @@
 # CRUD - Alumnos Api Rest ©2020 
 
-La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenemos una lista de alumnos y su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro o eliminar si así lo quisiera.
+La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenemos una lista de alumnos y su datos principales como el id, nombre, avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro o eliminar si así lo quisiera.
   
   ![Aplicación 1](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(1).png)
   
