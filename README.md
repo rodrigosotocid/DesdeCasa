@@ -98,6 +98,8 @@ una Persona.
 ## Diagrama Entidad Relación
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
+## Página Noticias
+![imagen noticias](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot%20Noticias(1).png)
 ## TAGs o Versiones
 
 <!-- Task List -->
