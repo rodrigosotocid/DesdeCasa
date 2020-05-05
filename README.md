@@ -104,6 +104,7 @@ una Persona.
 * [x] v1.0 - Primera versión estable. CRUD de Personas funcional.
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
 * [x] v2.1 - Funcionalidad: Nombre Disponible - Fix clase hypermedia/ResponseBody impl. Serializable - Se añade documentación Javadoc para el Backend
+* [x] v2.2 - Añadida página de noticias
 * [ ] v3.0 - Versión en proceso de desarrollo. (Añadir sección de noticias, poder elegir profesores, entre otras funcionalidades)  
 
  ___

@@ -21,8 +21,9 @@ import com.rodrigo.model.dao.NoticiaDAO;
 public class NoticiaController {
 
 	private static final Logger LOGGER = Logger.getLogger(NoticiaController.class.getCanonicalName());
-	
 	private static NoticiaDAO noticiaDAO = NoticiaDAO.getInstance();
+	
+	ResponseBody rb = new ResponseBody();
 	
 	@Context
 	private ServletContext context;
@@ -37,9 +38,20 @@ public class NoticiaController {
 		LOGGER.info("@GET: getAll");
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		
-		ArrayList<Noticia> registros = (ArrayList<Noticia>) noticiaDAO.getAll();
-		
-		response = Response.status(Status.OK).entity(registros).build();
+		try {
+			
+			LOGGER.info("Noticias cargadas con éxito!");
+			
+			ArrayList<Noticia> registros = (ArrayList<Noticia>) noticiaDAO.getAll();
+			response = Response.status(Status.OK).entity(registros).build();
+			
+		} catch (Exception e) {
+			
+			LOGGER.info("Problemas al cargar listado de Noticias");
+			rb.setInformacion("Los registos no han podido ser cargados");
+			
+			response = Response.status(Status.NOT_FOUND).entity(rb).build();
+		}
 		
 		return response;
 		

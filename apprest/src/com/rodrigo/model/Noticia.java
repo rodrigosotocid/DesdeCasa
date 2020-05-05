@@ -8,24 +8,18 @@ public class Noticia {
 	private String titulo;
 	private Date fecha;
 	private String contenido;
+	private String imagen;
 	
-//	public Noticia() {
-//		super();
-//		this.id = 0;
-//		this.titulo = "";
-//		this.fecha = new Date();
-//		this.contenido = "";
-//	}
-	
-	public Noticia(Integer id, String titulo, Date fecha, String contenido) {
+	public Noticia(Integer id, String titulo, Date fecha, String contenido, String imagen) {
 		setId(id);
 		setTitulo(titulo);
 		setFecha(fecha);
 		setContenido(contenido);
+		setImagen(imagen);
 	}
 	
 	public Noticia() {
-		this(null, null, null, null);
+		this(null, null, null, null,null);
 	}
 
 	public Integer getId() {
@@ -59,10 +53,19 @@ public class Noticia {
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
+	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	@Override
 	public String toString() {
-		return "Noticia [id=" + id + ", titulo=" + titulo + ", fecha=" + fecha + ", contenido=" + contenido + "]";
+		return "Noticia [id=" + id + ", titulo=" + titulo + ", fecha=" + fecha + ", contenido=" + contenido
+				+ ", imagen=" + imagen + "]";
 	}
 
 	@Override
@@ -72,6 +75,7 @@ public class Noticia {
 		result = prime * result + ((contenido == null) ? 0 : contenido.hashCode());
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((imagen == null) ? 0 : imagen.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -100,6 +104,11 @@ public class Noticia {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (imagen == null) {
+			if (other.imagen != null)
+				return false;
+		} else if (!imagen.equals(other.imagen))
+			return false;
 		if (titulo == null) {
 			if (other.titulo != null)
 				return false;
@@ -107,6 +116,6 @@ public class Noticia {
 			return false;
 		return true;
 	}
-	
+
 	
 }

@@ -17,7 +17,7 @@ public class NoticiaDAO implements IDAO<Noticia>{
 	
 	public static NoticiaDAO INSTANCE = null;
 	
-	private static String SQL_GET_ALL = "SELECT * FROM noticia ORDER BY id DESC LIMIT 100;";
+	private static String SQL_GET_ALL = "SELECT id, titulo, fecha, contenido, imagen FROM noticia ORDER BY id LIMIT 10;";
 	
 	private NoticiaDAO() {
 		super();
@@ -41,8 +41,6 @@ public class NoticiaDAO implements IDAO<Noticia>{
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();
 				) {
-
-			//pst.setString(1, pojo.getNombre());
 
 			LOGGER.info(pst.toString());
 
@@ -91,6 +89,7 @@ public class NoticiaDAO implements IDAO<Noticia>{
 		n.setTitulo(rs.getString("titulo"));
 		n.setFecha(rs.getDate("fecha"));
 		n.setContenido(rs.getString("contenido"));
+		n.setImagen(rs.getString("imagen"));
 		
 		return n;
 	}

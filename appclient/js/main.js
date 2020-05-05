@@ -532,4 +532,3 @@ const element =  document.querySelector('.modal')
 element.classList.add('animated', 'rollIn')
 
 
-/*-******************************** NOTICIAS ********************************-*/
