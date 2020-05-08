@@ -1,6 +1,6 @@
 # CRUD - Alumnos Api Rest ©2020 
 
-La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenemos una lista de alumnos y su datos principales como el id, nombre avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro o eliminar si así lo quisiera.
+La aplicación es un CRUD el cual consta de dos partes Backend y Frontend, tenemos una lista de alumnos y su datos principales como el id, nombre, avatar y opciones de añadir nuevo, eliminar y seleccionar/modificar. Al seleccionar un alumno en concreto nos permite visualizar los cursos que ha ha adquirido, además, de tener la posibilidad de añadir otro o eliminar si así lo quisiera.
   
   ![Aplicación 1](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot_CRUD%20-%20Alumnos%20(1).png)
   
@@ -107,7 +107,7 @@ una Persona.
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
 * [x] v2.1 - Funcionalidad: Nombre Disponible - Fix clase hypermedia/ResponseBody impl. Serializable - Se añade documentación Javadoc para el Backend
 * [x] v2.2 - Añadida página de noticias
-* [ ] v3.0 - Versión en proceso de desarrollo. (Añadir sección de noticias, poder elegir profesores, entre otras funcionalidades)  
+* [ ] v3.0 - Versión en proceso de desarrollo. (CRUD de profesores, asignar profesor por curso, entre otras funcionalidades)  
 
  ___
 
@@ -116,5 +116,6 @@ una Persona.
  -  [Dietogenica: Html / CSS y algo de JS](https://dietogenica.netlify.app/ )
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
+ - [Api Busqueda de eventos - React JS](https://reacteventbriteapi.netlify.app/)
 
 ___
