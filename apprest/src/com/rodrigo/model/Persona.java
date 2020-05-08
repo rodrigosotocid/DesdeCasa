@@ -3,6 +3,7 @@ package com.rodrigo.model;
 import java.util.ArrayList;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Persona {
@@ -15,27 +16,32 @@ public class Persona {
 	@NotEmpty
 	private String avatar;
 	
-	//TODO Expresión Regular para "h" o "m"
-	//@Pattern(regexp = "")
+	//TODO Confirmar Expresión Regular
+	//@Pattern(regexp = "(\\W|^)(h|m)(\\W|$)")
 	private String sexo;
 	
 	private ArrayList<Curso> cursos;
 	
+	private int rol;
+	
 	public Persona() {
+		
 		super();
 		this.id = 0;
 		this.nombre = "";		
 		this.avatar = "avatar1.png";
 		this.sexo = "";
 		this.cursos = new ArrayList<Curso>();
+		this.rol = 1;
 	}
 	
-	public Persona(int id, String nombre, String avatar, String sexo) {		
-		this();
-		this.id = id;
-		this.nombre = nombre;
-		this.avatar = avatar;
-		this.sexo = sexo;
+	public Persona(int id, String nombre, String avatar, String sexo, int rol) {	
+		
+		setId(id);
+		setNombre(nombre);
+		setAvatar(avatar);
+		setSexo(sexo);
+		setRol(rol);
 	}
 
 	public int getId() {
@@ -78,10 +84,12 @@ public class Persona {
 		this.cursos = cursos;
 	}
 
-	@Override
-	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + ", cursos="
-				+ cursos + "]";
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
 	}
 
 	@Override
@@ -92,6 +100,7 @@ public class Persona {
 		result = prime * result + ((cursos == null) ? 0 : cursos.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + rol;
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
 		return result;
 	}
@@ -122,6 +131,8 @@ public class Persona {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (rol != other.rol)
+			return false;
 		if (sexo == null) {
 			if (other.sexo != null)
 				return false;
@@ -129,4 +140,12 @@ public class Persona {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + ", cursos="
+				+ cursos + ", rol=" + rol + "]";
+	}
+
+
 }

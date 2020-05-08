@@ -21,23 +21,25 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	//TODO Convertir consultas en Procedimientos Almacenados!
 	//ATENTO!! Que los IDs de las tablas intermedias SQL los generó al revés de lo que lo hizo Ander
-	private static String SQL_GET_ALL			= "  SELECT \r\n" + 
-												  "  p.id as persona_id,\r\n" + 
-												  "  p.nombre as persona_nombre,\r\n" + 
-											      "  p.avatar as persona_avatar,\r\n" + 
-												  "  p.sexo as persona_sexo,\r\n" + 
-												  "  c.id as curso_id,\r\n" + 
-												  "  c.nombre as curso_nombre,  \r\n" + 
-												  "  c.precio as curso_precio, \r\n" + 
-												  "  c.imagen  as curso_imagen\r\n" + 
-												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
-												  "  LEFT JOIN curso c ON pc.curso_id = c.id; ";
+	private static String SQL_GET_ALL			= " SELECT \r\n" + 
+												"p.id as persona_id,\r\n" + 
+												"p.nombre as persona_nombre, \r\n" + 
+												"p.avatar as persona_avatar,\r\n" + 
+												"p.sexo as persona_sexo,\r\n" + 
+												"p.rol_id as persona_rol,\r\n" + 
+												"c.id as curso_id,\r\n" + 
+												"c.nombre as curso_nombre,\r\n" + 
+												"c.precio as curso_precio,\r\n" + 
+												"c.imagen  as curso_imagen\r\n" + 
+												"FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
+												"LEFT JOIN curso c ON pc.curso_id = c.id;";
 
 	private static String SQL_GET_BY_ID		= "  SELECT \n" + 
 												  "	 p.id as persona_id,\n" + 
 												  "	 p.nombre as persona_nombre,\n" + 
 												  "	 p.avatar as persona_avatar,\n" + 
-												  "  p.sexo as persona_sexo,\n" + 
+												  "  p.sexo as persona_sexo,\n" +
+												  "  p.rol_id as persona_rol,\r\n" +
 												  "	 c.id as curso_id,\n" + 
 												  "	 c.nombre as curso_nombre,\n" + 
 												  "	 c.precio as curso_precio,\n" + 
@@ -49,7 +51,8 @@ public class PersonaDAO implements IDAO<Persona> {
 												  "	 p.id as persona_id,\n" + 
 												  "	 p.nombre as persona_nombre,\n" + 
 												  "	 p.avatar as persona_avatar,\n" + 
-												  "  p.sexo as persona_sexo,\n" + 
+												  "  p.sexo as persona_sexo,\n" +
+												  "  p.rol_id as persona_rol,\r\n" +
 												  "	 c.id as curso_id,\n" + 
 												  "	 c.nombre as curso_nombre,\n" + 
 												  "	 c.precio as curso_precio,\n" + 
@@ -58,8 +61,9 @@ public class PersonaDAO implements IDAO<Persona> {
 												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre = ? ;   ";
 	
 	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
-	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? ); ";
-	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
+	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ?, ? ); ";
+	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ?, rol_id = ? WHERE id = ?;";
+	
 	private static String SQL_ASIGNAR_CURSO	= "INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?); ";
 	private static String SQL_ELIMINAR_CURSO	= "DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?; ";
 	
@@ -216,6 +220,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
+			pst.setInt(4, pojo.getRol());
 
 			LOGGER.info(pst.toString());
 
@@ -257,7 +262,8 @@ public class PersonaDAO implements IDAO<Persona> {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
-			pst.setInt(4, pojo.getId());
+			pst.setInt(4, pojo.getRol());
+			pst.setInt(5, pojo.getId());
 
 			LOGGER.info(pst.toString());
 
@@ -279,7 +285,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	public boolean asignarCurso(int idPersona, int idCurso) throws Exception, SQLException {
 		
-		boolean resul = false;
+		boolean correcto = false;
 		
 		try (
 				Connection con = ConnectionManager.getConnection();
@@ -293,19 +299,19 @@ public class PersonaDAO implements IDAO<Persona> {
 			//Eliminamos a la Persona
 			int affectedRows = pst.executeUpdate();
 			if(affectedRows == 1) {
-				resul = true;
+				correcto = true;
 			} else {
-				resul = false;
+				correcto = false;
 				throw new SQLException("ERROR DUPLICADO");
 			}
 		}
 		
-		return resul;
+		return correcto;
 	}
 	
 	public boolean eliminarCurso(int idPersona, int idCurso) throws Exception, SQLException {
 		
-		boolean resul = false;
+		boolean correcto = false;
 		
 		try (
 				Connection con = ConnectionManager.getConnection();
@@ -319,14 +325,14 @@ public class PersonaDAO implements IDAO<Persona> {
 			//eliminamos la persona
 			int affetedRows = pst.executeUpdate();	
 			if (affetedRows == 1) {
-				resul = true;
+				correcto = true;
 			}else {
 				throw new Exception("No se encontrado registro id_persona =" + idPersona + " id_curso=" + idCurso );		
 			}
 			
 		}
 		
-		return resul;
+		return correcto;
 	}
 	
 	
@@ -345,6 +351,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			p.setNombre( rs.getString("persona_nombre"));
 			p.setAvatar( rs.getString("persona_avatar"));
 			p.setSexo( rs.getString("persona_sexo"));
+			p.setRol(rs.getInt("persona_rol"));
 		}
 		
 		//Se añade el Curso

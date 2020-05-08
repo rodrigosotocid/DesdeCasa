@@ -43,8 +43,11 @@ public class CursoController {
 		ArrayList<Curso> registros = new ArrayList<Curso>();
 		
 		if(filtro != null && !"".equals(filtro.trim())) {
+			
 			registros = (ArrayList<Curso>) cursoDAO.getAllLikeNombre(filtro);
+			
 		}else {
+			
 			registros = (ArrayList<Curso>) cursoDAO.getAll();
 		}
 		

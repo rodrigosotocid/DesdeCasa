@@ -30,8 +30,10 @@
           <h1 class="text-center font-weight-bold m-1 p-3 rounded" id="titulo-cabera">Listado de Alumnos</h1>
         </div>
       </div>
-      <!-- Tabla de Alumnos -->
+      <!-- /Cabecera -->
+
       <div class="row">
+        <!-- Tabla de Alumnos -->
         <div class="col">   
           <!-- Filtros  -->
           <h1 class="rounded-right mb-3">Alumnos </h1> 
@@ -109,7 +111,8 @@
               <!-- Botones 'Guardar & Ver Cursos' -->
               <input type="button" value="Guardar" onclick="guardar()" class="btn mr-3">
               <a href="#" class="btn" data-toggle="modal" data-target="#exampleModalLong" onclick="cargarCursos()"> Ver Cursos</a>
-              <a href="noticias.html" class="btn ml-3"><i class="far fa-newspaper"> </i> Área Noticias</a>
+              <a href="profesores.html" class="btn ml-3"> Área Profesores</a>
+              <a href="noticias.html" class="btn ml-2"><i class="far fa-newspaper"> </i> Área Noticias</a>
             </div>
           </form>
           <!-- Despliegue de Cursos según Alumno -->
@@ -118,6 +121,8 @@
           </div> 
           <!-- / Mis Cursos -->
       </div>
+    </div>
+
       <!-- Modal -->
       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">

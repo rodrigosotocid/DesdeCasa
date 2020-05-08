@@ -263,11 +263,12 @@ public class PersonaController {
 			
 		} catch (Exception e) {	
 			
-			LOGGER.info(e.getMessage());
+			LOGGER.info(e.getMessage() + "error1");
 			
 			if(e.getMessage().contains("Duplicate entry")) {
 				errores.add("Ya tienes este curso...intenta con otro!");
 			}
+			
 			
 			responseBody.setInformacion("Error curso duplicado");
 			response = Response.status(Status.CONFLICT).entity(errores).build();
