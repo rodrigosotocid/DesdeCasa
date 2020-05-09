@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.rodrigo.model.Curso;
-import com.rodrigo.model.dao.CursoDAO;
+import com.rodrigo.model.dao.repo.CursoDAO;
 
 @Path("/cursos")
 @Produces("application/json")

@@ -1,4 +1,4 @@
-package com.rodrigo.model.dao;
+package com.rodrigo.model.dao.repo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
+import com.rodrigo.model.dao.ConnectionManager;
+import com.rodrigo.model.dao.IDAO;
 
 public class CursoDAO implements IDAO<Curso> {
 
@@ -102,10 +104,15 @@ public class CursoDAO implements IDAO<Curso> {
 			LOGGER.info(pst.toString());
 			
 			try (ResultSet rs = pst.executeQuery()) {
+				
 				if(rs.next()) {
+					
 					registro = mapper(rs);
+					
 				} else {
-					throw new Exception("Ups! Registro no encontrado para Id: " + id);
+					
+					throw new Exception("Registro no encontrado para el Id: " + id);
+					
 				}
 			}
 			
@@ -113,11 +120,6 @@ public class CursoDAO implements IDAO<Curso> {
 			e.printStackTrace();
 		}                                                                                                              
 		return registro;
-	}
-
-	@Override
-	public Curso getByNombre(String nombre) throws Exception {
-		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
 	}
 	
 	@Override
@@ -145,5 +147,7 @@ public class CursoDAO implements IDAO<Curso> {
 		
 		return c;
 	}
+
+
 
 }

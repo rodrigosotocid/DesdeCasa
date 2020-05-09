@@ -1,4 +1,4 @@
-package com.rodrigo.model.dao;
+package com.rodrigo.model.dao.repo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
 import com.rodrigo.model.Noticia;
+import com.rodrigo.model.dao.ConnectionManager;
+import com.rodrigo.model.dao.IDAO;
 
 public class NoticiaDAO implements IDAO<Noticia>{
 
@@ -56,13 +58,22 @@ public class NoticiaDAO implements IDAO<Noticia>{
 		return registros;
 	}
 
-	@Override
-	public Noticia getById(int id) throws Exception {
-		throw new UnsupportedOperationException("MÉTODO SIN IMPLEMENTAR");
+
+	private Noticia mapper(ResultSet rs) throws SQLException {
+		
+		Noticia n = new Noticia();
+		
+		n.setId(rs.getInt("id"));
+		n.setTitulo(rs.getString("titulo"));
+		n.setFecha(rs.getDate("fecha"));
+		n.setContenido(rs.getString("contenido"));
+		n.setImagen(rs.getString("imagen"));
+		
+		return n;
 	}
 
 	@Override
-	public Noticia getByNombre(String nombre) throws Exception {
+	public Noticia getById(int id) throws Exception {
 		throw new UnsupportedOperationException("MÉTODO SIN IMPLEMENTAR");
 	}
 
@@ -79,18 +90,5 @@ public class NoticiaDAO implements IDAO<Noticia>{
 	@Override
 	public Noticia update(Noticia pojo) throws Exception, SQLException {
 		throw new UnsupportedOperationException("MÉTODO SIN IMPLEMENTAR");
-	}
-	
-	private Noticia mapper(ResultSet rs) throws SQLException {
-		
-		Noticia n = new Noticia();
-		
-		n.setId(rs.getInt("id"));
-		n.setTitulo(rs.getString("titulo"));
-		n.setFecha(rs.getDate("fecha"));
-		n.setContenido(rs.getString("contenido"));
-		n.setImagen(rs.getString("imagen"));
-		
-		return n;
 	}
 }

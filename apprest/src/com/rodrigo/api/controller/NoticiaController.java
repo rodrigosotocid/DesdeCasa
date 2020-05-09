@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.rodrigo.model.Noticia;
-import com.rodrigo.model.dao.NoticiaDAO;
+import com.rodrigo.model.dao.repo.NoticiaDAO;
 
 @Path("/noticias")
 @Produces("application/json")

@@ -25,7 +25,7 @@ public class ConnectionManager {
 			}
 
 			conn = ds.getConnection();
-			LOGGER.info("Conexión Establecida!");
+			LOGGER.info("C.M. - Conexión Establecida!");
 
 		} catch (Exception e) {
 

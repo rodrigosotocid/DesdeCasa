@@ -1,4 +1,4 @@
-package com.rodrigo.model.dao;
+package com.rodrigo.model.dao.repo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +13,15 @@ import java.util.logging.Logger;
 import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
 import com.rodrigo.model.Rol;
+import com.rodrigo.model.dao.ConnectionManager;
+import com.rodrigo.model.dao.IDAO;
+import com.rodrigo.model.dao.IPersonaDAO;
 
-public class PersonaDAO implements IDAO<Persona> {
+/**
+ * @author Usuario
+ *
+ */
+public class PersonaDAO implements IPersonaDAO  {
 
 	private static final Logger LOGGER = Logger.getLogger(PersonaDAO.class.getCanonicalName());
 
@@ -51,18 +58,18 @@ public class PersonaDAO implements IDAO<Persona> {
 												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
 												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.id = ? ;   ";
 
-	private static String SQL_GET_BY_NOMBRE		= "  SELECT \n" + 
-												  "	 p.id as persona_id,\n" + 
-												  "	 p.nombre as persona_nombre,\n" + 
-												  "	 p.avatar as persona_avatar,\n" + 
-												  "  p.sexo as persona_sexo,\n" +
-												  "  p.rol_id as persona_rol,\r\n" +
-												  "	 c.id as curso_id,\n" + 
-												  "	 c.nombre as curso_nombre,\n" + 
-												  "	 c.precio as curso_precio,\n" + 
-												  "	 c.imagen  as curso_imagen\n" + 
-												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
-												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre = ? ;   ";
+//	private static String SQL_GET_BY_NOMBRE		= "  SELECT \n" + 
+//												  "	 p.id as persona_id,\n" + 
+//												  "	 p.nombre as persona_nombre,\n" + 
+//												  "	 p.avatar as persona_avatar,\n" + 
+//												  "  p.sexo as persona_sexo,\n" +
+//												  "  p.rol_id as persona_rol,\r\n" +
+//												  "	 c.id as curso_id,\n" + 
+//												  "	 c.nombre as curso_nombre,\n" + 
+//												  "	 c.precio as curso_precio,\n" + 
+//												  "	 c.imagen  as curso_imagen\n" + 
+//												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
+//												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre = ? ;   ";
 	
 	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
 	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ?, ? ); ";
@@ -112,9 +119,16 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		// convert hashmap to array
 		registros = new ArrayList<Persona> ( hmPersonas.values() );
+		
 		return registros;
 	}
 
+	@Override
+	public List<Persona> getAllByRol(Rol rol) throws Exception {
+		// TODO getAllByRol-falta implementar
+		return null;
+	}
+	
 	@Override
 	public Persona getById(int id) throws Exception {
 
@@ -148,38 +162,38 @@ public class PersonaDAO implements IDAO<Persona> {
 		return registro;
 	}
 
-	@Override
-	public Persona getByNombre(String nombre) throws Exception {
-		
-		LOGGER.info("getByNombre DAO Persona");
-		Persona registro = null;
-
-		try (
-				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_NOMBRE);
-
-		) {
-			pst.setString(1, nombre);
-			LOGGER.info(pst.toString());
-
-			try (ResultSet rs = pst.executeQuery()) {
-
-				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
-				if (rs.next()) {
-
-					registro = mapper(rs, hmPersonas);
-
-				} else {
-					throw new Exception("Ups! Registro NO encontrado para Nombre " + nombre);
-				}
-			}
-		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "Exception de SQL", e);
-			//e.printStackTrace();
-		}
-
-		return registro;
-	}
+//	@Override
+//	public Persona getByNombre(String nombre) throws Exception {
+//		
+//		LOGGER.info("getByNombre DAO Persona");
+//		Persona registro = null;
+//
+//		try (
+//				Connection con = ConnectionManager.getConnection();
+//				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_NOMBRE);
+//
+//		) {
+//			pst.setString(1, nombre);
+//			LOGGER.info(pst.toString());
+//
+//			try (ResultSet rs = pst.executeQuery()) {
+//
+//				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
+//				if (rs.next()) {
+//
+//					registro = mapper(rs, hmPersonas);
+//
+//				} else {
+//					throw new Exception("Ups! Registro NO encontrado para Nombre " + nombre);
+//				}
+//			}
+//		} catch (SQLException e) {
+//			LOGGER.log(Level.SEVERE, "Exception de SQL", e);
+//			//e.printStackTrace();
+//		}
+//
+//		return registro;
+//	}
 	
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
@@ -202,10 +216,12 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
+				
 				LOGGER.info("affectedRows is != 1");
 				throw new Exception("Ups! No se puede Eliminar el registro con id : " + id);
 			}
 		} catch (SQLException e) {
+			
 			LOGGER.info("DELETE DAO Persona: Violate Constraint Exception!");
 			throw new SQLException(e.getMessage());
 		}
@@ -276,7 +292,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
-				throw new Exception("Ups! No se puede Actualizar el registro con id 33 : " + pojo);
+				throw new Exception("No se puede Actualizar el registro con el id: " + pojo);
 			}
 			
 		} catch (SQLException e) {
@@ -288,7 +304,8 @@ public class PersonaDAO implements IDAO<Persona> {
 		return pojo;
 	}
 
-	public boolean asignarCurso(int idPersona, int idCurso) throws Exception, SQLException {
+	@Override
+	public boolean asignarCurso( int idPersona, int idCurso ) throws Exception, SQLException {
 		
 		boolean correcto = false;
 		
@@ -314,7 +331,8 @@ public class PersonaDAO implements IDAO<Persona> {
 		return correcto;
 	}
 	
-	public boolean eliminarCurso(int idPersona, int idCurso) throws Exception, SQLException {
+	@Override
+	public boolean eliminarCurso( int idPersona, int idCurso ) throws Exception, SQLException {
 		
 		boolean correcto = false;
 		
@@ -381,6 +399,8 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		return p;
 	}
+
+	
 	
 
 

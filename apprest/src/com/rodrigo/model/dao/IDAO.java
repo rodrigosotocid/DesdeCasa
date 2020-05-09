@@ -15,16 +15,21 @@ public interface IDAO<P> {
 	// Devuelve una lista con todos los registros
 	List<P> getAll();
 
-	// Buscamos registros por 'id' y si no encuentra, lanza una excepción
+	/**
+	 * Busca un pojo por su id
+	 * @param id
+	 * @return
+	 * @throws Exception si no encuentra un POJO
+	 */
 	P getById(int id) throws Exception;
 	
-	/**
-	 * Buscar una persona por el nombre, el cual debe ser único
-	 * @param nombre String
-	 * @return Persona
-	 * @throws Exception si nos lo encuentra
-	 */
-	P getByNombre(String nombre) throws Exception;
+//	/**
+//	 * Buscar una persona por el nombre, el cual debe ser único
+//	 * @param nombre String
+//	 * @return Persona
+//	 * @throws Exception si nos lo encuentra
+//	 */
+//	P getByNombre(String nombre) throws Exception;
 
 	/**
 	 * Elimina POJO por su 'id'

@@ -1,5 +1,8 @@
 package com.rodrigo.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class Curso {
 
 	private int id;
@@ -7,13 +10,18 @@ public class Curso {
 	private String imagen;
 	private double precio;
 	
+	@NotNull
+	@Valid // fuerza la validacion de Persona
+	private Persona profesor;
 	
-	public Curso(int id, String nombre, String imagen, double precio) {
+	public Curso(int id, String nombre, String imagen, double precio, Persona profesor) {
+		
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.imagen = "";
 		this.precio = 0;
+		this.profesor= new Persona();
 	}
 	
 	public Curso() {
@@ -52,6 +60,20 @@ public class Curso {
 		this.precio = precio;
 	}
 
+	public Persona getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Persona profesor) {
+		this.profesor = profesor;
+	}
+
+	@Override
+	public String toString() {
+		return "Curso [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio + ", profesor="
+				+ profesor + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,6 +84,7 @@ public class Curso {
 		long temp;
 		temp = Double.doubleToLongBits(precio);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((profesor == null) ? 0 : profesor.hashCode());
 		return result;
 	}
 
@@ -88,13 +111,12 @@ public class Curso {
 			return false;
 		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
 			return false;
+		if (profesor == null) {
+			if (other.profesor != null)
+				return false;
+		} else if (!profesor.equals(other.profesor))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Curso [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio + "]";
-	}
-
-	
 }
