@@ -22,7 +22,7 @@ public class Persona {
 	
 	private ArrayList<Curso> cursos;
 	
-	private int rol;
+	private Rol rol;
 	
 	public Persona() {
 		
@@ -32,16 +32,17 @@ public class Persona {
 		this.avatar = "avatar1.png";
 		this.sexo = "";
 		this.cursos = new ArrayList<Curso>();
-		this.rol = 1;
+		this.rol = new Rol();
 	}
 	
-	public Persona(int id, String nombre, String avatar, String sexo, int rol) {	
+	public Persona(int id, String nombre, String avatar, String sexo, Rol rol) {	
 		
 		setId(id);
 		setNombre(nombre);
 		setAvatar(avatar);
 		setSexo(sexo);
 		setRol(rol);
+		
 	}
 
 	public int getId() {
@@ -84,12 +85,18 @@ public class Persona {
 		this.cursos = cursos;
 	}
 
-	public int getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + ", cursos="
+				+ cursos + ", rol=" + rol + "]";
 	}
 
 	@Override
@@ -100,7 +107,7 @@ public class Persona {
 		result = prime * result + ((cursos == null) ? 0 : cursos.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + rol;
+		result = prime * result + ((rol == null) ? 0 : rol.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
 		return result;
 	}
@@ -131,7 +138,10 @@ public class Persona {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (rol != other.rol)
+		if (rol == null) {
+			if (other.rol != null)
+				return false;
+		} else if (!rol.equals(other.rol))
 			return false;
 		if (sexo == null) {
 			if (other.sexo != null)
@@ -140,12 +150,5 @@ public class Persona {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + ", cursos="
-				+ cursos + ", rol=" + rol + "]";
-	}
-
-
+	
 }

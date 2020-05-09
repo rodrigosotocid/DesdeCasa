@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
+import com.rodrigo.model.Rol;
 
 public class PersonaDAO implements IDAO<Persona> {
 
@@ -22,17 +23,20 @@ public class PersonaDAO implements IDAO<Persona> {
 	//TODO Convertir consultas en Procedimientos Almacenados!
 	//ATENTO!! Que los IDs de las tablas intermedias SQL los generó al revés de lo que lo hizo Ander
 	private static String SQL_GET_ALL			= " SELECT \r\n" + 
-												"p.id as persona_id,\r\n" + 
-												"p.nombre as persona_nombre, \r\n" + 
-												"p.avatar as persona_avatar,\r\n" + 
-												"p.sexo as persona_sexo,\r\n" + 
-												"p.rol_id as persona_rol,\r\n" + 
-												"c.id as curso_id,\r\n" + 
-												"c.nombre as curso_nombre,\r\n" + 
-												"c.precio as curso_precio,\r\n" + 
-												"c.imagen  as curso_imagen\r\n" + 
-												"FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
-												"LEFT JOIN curso c ON pc.curso_id = c.id;";
+													"p.id as persona_id,\r\n" + 
+													"p.nombre as persona_nombre, \r\n" + 
+													"p.avatar as persona_avatar,\r\n" + 
+													"p.sexo as persona_sexo,\r\n" + 
+													"p.rol_id as persona_rol,\r\n" + 
+													"c.id as curso_id,\r\n" + 
+													"c.nombre as curso_nombre,\r\n" + 
+													"c.precio as curso_precio,\r\n" + 
+													"c.imagen  as curso_imagen,\r\n" + 
+													"r.id as rol_id,\r\n" + 
+													"r.tipo as rol_tipo\r\n" + 
+													"FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
+													"LEFT JOIN curso c ON pc.curso_id = c.id \r\n" + 
+													"LEFT JOIN rol r ON p.rol_id = r.id;";
 
 	private static String SQL_GET_BY_ID		= "  SELECT \n" + 
 												  "	 p.id as persona_id,\n" + 
@@ -103,7 +107,7 @@ public class PersonaDAO implements IDAO<Persona> {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-			LOGGER.info("dao sql exception ");
+			LOGGER.info("PersonaDAO - Get All - SQL Exception ");
 		}
 
 		// convert hashmap to array
@@ -146,6 +150,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona getByNombre(String nombre) throws Exception {
+		
 		LOGGER.info("getByNombre DAO Persona");
 		Persona registro = null;
 
@@ -220,7 +225,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
-			pst.setInt(4, pojo.getRol());
+			pst.setObject(4, pojo.getRol());
 
 			LOGGER.info(pst.toString());
 
@@ -262,7 +267,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
-			pst.setInt(4, pojo.getRol());
+			pst.setObject(4, pojo.getRol());
 			pst.setInt(5, pojo.getId());
 
 			LOGGER.info(pst.toString());
@@ -343,15 +348,20 @@ public class PersonaDAO implements IDAO<Persona> {
 		
 		Persona p = hm.get(key);
 		
+		Rol rol = new Rol();
+		
 		//Si no existe en el HashMap se crea
 		if( p == null) {
+			
+			rol.setId(rs.getInt("rol_id"));
+			rol.setTipo(rs.getString("rol_tipo"));
 			
 			p = new Persona();
 			p.setId(key);
 			p.setNombre( rs.getString("persona_nombre"));
 			p.setAvatar( rs.getString("persona_avatar"));
 			p.setSexo( rs.getString("persona_sexo"));
-			p.setRol(rs.getInt("persona_rol"));
+			p.setRol(rol);
 		}
 		
 		//Se añade el Curso
