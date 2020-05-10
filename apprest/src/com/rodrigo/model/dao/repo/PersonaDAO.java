@@ -1,5 +1,6 @@
 package com.rodrigo.model.dao.repo;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,56 +28,18 @@ public class PersonaDAO implements IPersonaDAO  {
 
 	private static PersonaDAO INSTANCE = null;
 
-	//TODO Convertir consultas en Procedimientos Almacenados!
-	//ATENTO!! Que los IDs de las tablas intermedias SQL los generó al revés de lo que lo hizo Ander
-	private static String SQL_GET_ALL			= " SELECT \r\n" + 
-													"p.id as persona_id,\r\n" + 
-													"p.nombre as persona_nombre, \r\n" + 
-													"p.avatar as persona_avatar,\r\n" + 
-													"p.sexo as persona_sexo,\r\n" + 
-													"p.rol_id as persona_rol,\r\n" + 
-													"c.id as curso_id,\r\n" + 
-													"c.nombre as curso_nombre,\r\n" + 
-													"c.precio as curso_precio,\r\n" + 
-													"c.imagen  as curso_imagen,\r\n" + 
-													"r.id as rol_id,\r\n" + 
-													"r.tipo as rol_tipo\r\n" + 
-													"FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\r\n" + 
-													"LEFT JOIN curso c ON pc.curso_id = c.id \r\n" + 
-													"LEFT JOIN rol r ON p.rol_id = r.id;";
+	private static String SQL_GET_ALL 				= " CALL personasGetAll() ";
+	private static String SQL_GET_ALL_ALUMNOS 		= " CALL alumnosGetAll() ";
+	private static String SQL_GET_ALL_PROFESORES 	= " CALL profesoresGetAll() ";
+	private static String SQL_GET_BY_ROL 			= " CALL Sin Implementar ";
+	private static String SQL_GET_BY_ID 			= " CALL personasGetById(?) ";
 
-	private static String SQL_GET_BY_ID		= "  SELECT \n" + 
-												  "	 p.id as persona_id,\n" + 
-												  "	 p.nombre as persona_nombre,\n" + 
-												  "	 p.avatar as persona_avatar,\n" + 
-												  "  p.sexo as persona_sexo,\n" +
-												  "  p.rol_id as persona_rol,\r\n" +
-												  "	 c.id as curso_id,\n" + 
-												  "	 c.nombre as curso_nombre,\n" + 
-												  "	 c.precio as curso_precio,\n" + 
-												  "	 c.imagen  as curso_imagen\n" + 
-												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
-												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.id = ? ;   ";
-
-//	private static String SQL_GET_BY_NOMBRE		= "  SELECT \n" + 
-//												  "	 p.id as persona_id,\n" + 
-//												  "	 p.nombre as persona_nombre,\n" + 
-//												  "	 p.avatar as persona_avatar,\n" + 
-//												  "  p.sexo as persona_sexo,\n" +
-//												  "  p.rol_id as persona_rol,\r\n" +
-//												  "	 c.id as curso_id,\n" + 
-//												  "	 c.nombre as curso_nombre,\n" + 
-//												  "	 c.precio as curso_precio,\n" + 
-//												  "	 c.imagen  as curso_imagen\n" + 
-//												  "  FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id)\n" + 
-//												  "  LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre = ? ;   ";
+	private static String SQL_DELETE				= " CALL personaDelete(?) ";
+	private static String SQL_INSERT				= " INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ?, ? ); ";
+	private static String SQL_UPDATE				= " UPDATE persona SET nombre = ?, avatar = ?, sexo = ?, rol_id = ? WHERE id = ?;";
 	
-	private static String SQL_DELETE			= "DELETE FROM persona WHERE id = ?; ";
-	private static String SQL_INSERT			= "INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ?, ? ); ";
-	private static String SQL_UPDATE			= "UPDATE persona SET nombre = ?, avatar = ?, sexo = ?, rol_id = ? WHERE id = ?;";
-	
-	private static String SQL_ASIGNAR_CURSO	= "INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?); ";
-	private static String SQL_ELIMINAR_CURSO	= "DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?; ";
+	private static String SQL_ASIGNAR_CURSO		= " INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?); ";
+	private static String SQL_ELIMINAR_CURSO		= " DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?; ";
 	
 
 	// constructor privado
@@ -101,11 +64,12 @@ public class PersonaDAO implements IPersonaDAO  {
 
 		try (
 				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = pst.executeQuery();
+				CallableStatement s = con.prepareCall(SQL_GET_ALL);
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = s.executeQuery();
 
 		) {
-			LOGGER.info(pst.toString());
+			LOGGER.info(s.toString());
 
 			while (rs.next()) {
 				// devuelve una persona y lo añade a la lista
@@ -122,11 +86,166 @@ public class PersonaDAO implements IPersonaDAO  {
 		
 		return registros;
 	}
+	
+	@Override
+	public List<Persona> getAllAlumnos() {
+		
+		LOGGER.info("getAllAlumnos(): PersonaDAO");
+		ArrayList<Persona> alumnos = new ArrayList<Persona>();
+		//HashMap<Integer, Persona> hmAlumno = new HashMap<Integer, Persona>();
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				CallableStatement s = con.prepareCall(SQL_GET_ALL_ALUMNOS);
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_ALL_ALUMNOS);
+				ResultSet rs = s.executeQuery();
+
+			){
+			LOGGER.info(s.toString());
+
+			while (rs.next()) {
+				
+				//TODO HashMap Y Mapper - Habilitar HashMap de Alumnos otra vez.-
+				
+				//mapper(rs, hmAlumno);
+				Persona profesor = new Persona();
+				profesor.setNombre(rs.getString("profesor_nombre"));
+				
+				Curso c = new Curso();
+				c.setId(rs.getInt("curso_id"));
+				c.setNombre(rs.getString("curso_nombre"));
+				c.setPrecio( rs.getDouble("curso_precio"));
+				c.setImagen(rs.getString("curso_imagen"));
+				c.setProfesor(profesor);
+				
+				Rol rol = new Rol();
+				rol.setId(rs.getInt("rol_id"));
+				rol.setTipo(rs.getString("rol_tipo"));
+				
+				Persona p = new Persona();
+				p.setId(rs.getInt("persona_id"));
+				p.setNombre(rs.getString("persona_nombre"));
+				p.setAvatar(rs.getString("persona_avatar"));
+				p.setSexo(rs.getNString("persona_sexo"));
+				
+				p.setRol(rol);
+				
+				alumnos.add(p);
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			LOGGER.info("getAllAlumnos(): PersonaDAO - SQL Exception ");
+			//throw new SQLException("Error al obtener la lista de los Alumnos");
+			
+		}
+		
+		//alumnos = new ArrayList<Persona>(hmAlumno.values());
+		return alumnos;
+	}
 
 	@Override
+	public List<Persona> getAllProfesores() throws Exception{
+		
+		LOGGER.info("getAllProfesores(): PersonaDAO");
+		
+		ArrayList<Persona> profesores = new ArrayList<Persona>();
+		//HashMap<Integer, Persona> hmProfesor = new HashMap<Integer, Persona>();
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				CallableStatement s = con.prepareCall(SQL_GET_ALL_PROFESORES);
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_ALL_PROFESORES);
+				ResultSet rs = s.executeQuery();
+
+			){
+			LOGGER.info(s.toString());
+
+			while (rs.next()) {
+				//profesorMapper(rs, hmProfesor);
+				
+				//TODO HashMap Y Mapper 
+				Persona profesor = new Persona();
+				profesor.setNombre(rs.getString("profesor_nombre"));
+				
+				Curso c = new Curso();
+				c.setId(rs.getInt("curso_id"));
+				c.setNombre(rs.getString("curso_nombre"));
+				c.setPrecio( rs.getDouble("curso_precio"));
+				c.setImagen(rs.getString("curso_imagen"));
+				c.setProfesor(profesor);
+				
+				Rol rol = new Rol();
+				rol.setId(rs.getInt("rol_id"));
+				rol.setTipo(rs.getString("rol_tipo"));
+				
+				Persona p = new Persona();
+				
+				p.setId(rs.getInt("profesor_id"));
+				p.setNombre(rs.getString("profesor_nombre"));
+				p.setAvatar(rs.getString("profesor_avatar"));
+				p.setSexo(rs.getString("profesor_sexo"));
+				p.setRol(rol);
+				
+				profesores.add(p);
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			
+			LOGGER.info("getAllAlumnos(): PersonaDAO - SQL Exception ");
+			throw new SQLException("Error al obtener la lista de los Profesores");
+			
+		}
+		
+		//profesores = new ArrayList<Persona>(hmProfesor.values());
+		return profesores;
+	}
+	
+	@Override
 	public List<Persona> getAllByRol(Rol rol) throws Exception {
+		
+		LOGGER.info("Get All By Rol - PersonaDAO ");
+
+		String rolOpcion = "";
+		
+		if(rol.getId() == 1) {
+			
+			rolOpcion = SQL_GET_BY_ROL; 
+			
+		} else if(rol.getId() == 2) {
+			
+			rolOpcion = SQL_GET_BY_ROL; 
+		}
+		
+		ArrayList<Persona> registros = new ArrayList<Persona>();
+		HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(rolOpcion);
+				ResultSet rs = pst.executeQuery();
+
+		) {
+			LOGGER.info(pst.toString());
+
+			while (rs.next()) {
+				// devuelve una persona y lo añade a la lista
+				mapper(rs, hmPersonas);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			LOGGER.info("PersonaDAO - Get All By Rol - SQL Exception ");
+		}
+
+		// convert hashmap to array
+		registros = new ArrayList<Persona> ( hmPersonas.values() );
 		// TODO getAllByRol-falta implementar
-		return null;
+		
+		return registros;
 	}
 	
 	@Override
@@ -137,13 +256,14 @@ public class PersonaDAO implements IPersonaDAO  {
 
 		try (
 				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID);
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID);
+				CallableStatement s = con.prepareCall(SQL_GET_BY_ID);
 
 		) {
-			pst.setInt(1, id);
-			LOGGER.info(pst.toString());
+			s.setInt(1, id);
+			LOGGER.info(s.toString());
 
-			try (ResultSet rs = pst.executeQuery()) {
+			try (ResultSet rs = s.executeQuery()) {
 
 				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
 				if (rs.next()) {
@@ -206,14 +326,15 @@ public class PersonaDAO implements IPersonaDAO  {
 
 		try (
 				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_DELETE);
+				//PreparedStatement pst = con.prepareStatement(SQL_DELETE);
+				CallableStatement s = con.prepareCall(SQL_DELETE);
 
 		) {
-			pst.setInt(1, id);
-			LOGGER.info(pst.toString());
+			s.setInt(1, id);
+			LOGGER.info(s.toString());
 
 			// eliminamos la Persona
-			int affectedRows = pst.executeUpdate();
+			int affectedRows = s.executeUpdate();
 
 			if (affectedRows != 1) {
 				
@@ -237,12 +358,15 @@ public class PersonaDAO implements IPersonaDAO  {
 		try (
 				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+				//TODO Averiguar como aplicar callableStatement a lo de arriba (registerOutParameter ???)
 		) {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
 			pst.setObject(4, pojo.getRol());
 
+			//s.registerOutParameter(5, java.sql.Types.INTEGER); ???
+			
 			LOGGER.info(pst.toString());
 
 			// eliminamos la Persona
@@ -366,13 +490,13 @@ public class PersonaDAO implements IPersonaDAO  {
 		
 		Persona p = hm.get(key);
 		
+		//Se añade el Rol
 		Rol rol = new Rol();
-		
+		rol.setId(rs.getInt("rol_id"));
+		rol.setTipo(rs.getString("rol_tipo"));
+
 		//Si no existe en el HashMap se crea
 		if( p == null) {
-			
-			rol.setId(rs.getInt("rol_id"));
-			rol.setTipo(rs.getString("rol_tipo"));
 			
 			p = new Persona();
 			p.setId(key);
@@ -380,6 +504,7 @@ public class PersonaDAO implements IPersonaDAO  {
 			p.setAvatar( rs.getString("persona_avatar"));
 			p.setSexo( rs.getString("persona_sexo"));
 			p.setRol(rol);
+			
 		}
 		
 		//Se añade el Curso
@@ -389,15 +514,125 @@ public class PersonaDAO implements IPersonaDAO  {
 			Curso c = new Curso();
 			c.setId(idCurso);
 			c.setNombre(rs.getString("curso_nombre"));
-			c.setPrecio( rs.getFloat("curso_precio"));
-			c.setImagen(rs.getString("curso_imagen"));			
+			c.setPrecio( rs.getDouble("curso_precio"));
+			c.setImagen(rs.getString("curso_imagen"));
+			
+			//c.setProfesor(profe);
+		
 			p.getCursos().add(c);
 		}	
+	
 		
 		//Actualizar HashMap
 		hm.put(key, p);
 
 		return p;
+	}
+	
+//private Persona alumnosMapper(ResultSet rs, HashMap<Integer,Persona> hm) throws SQLException {
+//		
+//		int key = rs.getInt("persona_id");
+//		
+//		Persona p = hm.get(key);
+//		
+//		//Se añade el Rol
+//		Rol rol = new Rol();
+//		rol.setId(rs.getInt("rol_id"));
+//		rol.setTipo(rs.getString("rol_tipo"));
+//		
+//		//Se añade el Profesor
+//		Persona profe = new Persona();
+//				
+//		profe.setId(rs.getInt("profesor_id"));
+//		profe.setNombre(rs.getString("profesor_nombre"));
+//		profe.setAvatar(rs.getString("profesor_avatar"));
+//		profe.setSexo(rs.getString("profesor_sexo"));
+//		profe.setRol(rol);
+//
+//		
+//		//Si no existe en el HashMap se crea
+//		if( p == null) {
+//			
+//			p = new Persona();
+//			p.setId(key);
+//			p.setNombre( rs.getString("persona_nombre"));
+//			p.setAvatar( rs.getString("persona_avatar"));
+//			p.setSexo( rs.getString("persona_sexo"));
+//			p.setRol(rol);
+//			
+//		}
+//		
+//		//Se añade el Curso
+//		int idCurso = rs.getInt("curso_id");
+//		
+//		if ( idCurso != 0) {
+//			Curso c = new Curso();
+//			c.setId(idCurso);
+//			c.setNombre(rs.getString("curso_nombre"));
+//			c.setPrecio( rs.getDouble("curso_precio"));
+//			c.setImagen(rs.getString("curso_imagen"));	
+//			c.setProfesor(profe);
+//		
+//			p.getCursos().add(c);
+//		}	
+//	
+//		
+//		//Actualizar HashMap
+//		hm.put(key, p);
+//
+//		return p;
+//	}
+
+	private Persona profesorMapper(ResultSet rs, HashMap<Integer, Persona> hmProfesor) throws SQLException {
+		
+		int key = rs.getInt("profesor_id");
+		Persona profesor = hmProfesor.get(key);
+		
+		//Se añade el Rol
+		Rol rol = new Rol();
+		
+		rol.setId(rs.getInt("rol_id"));
+		rol.setTipo(rs.getString("rol_tipo"));
+		
+		//Se añade el Profesor
+		Persona profe = new Persona();
+		
+		profe.setId(rs.getInt("profesor_id"));
+		profe.setNombre(rs.getString("profesor_nombre"));
+		profe.setAvatar(rs.getString("profesor_avatar"));
+		profe.setSexo(rs.getString("profesor_sexo"));
+		profe.setRol(rol);
+		
+		if(profesor == null) {
+			
+			profesor = new Persona();
+			
+			profesor.setId(key);
+			profesor.setNombre(rs.getString("profesor_nombre"));
+			profesor.setAvatar(rs.getString("profesor_avatar"));
+			profesor.setSexo(rs.getString("profesor_sexo"));
+			profesor.setRol(rol);
+			
+		}
+		
+		//Se añade el Curso
+		int idCurso = rs.getInt("curso_id");
+				
+		if ( idCurso != 0) {
+			
+			Curso c = new Curso();
+			
+			c.setId(idCurso);
+			c.setNombre(rs.getString("curso_nombre"));
+			c.setPrecio( rs.getFloat("curso_precio"));
+			c.setImagen(rs.getString("curso_imagen"));		
+			c.setProfesor(profesor);
+				
+			profesor.getCursos().add(c);
+			
+			}	
+		
+		return profesor;
 	}
 
 	

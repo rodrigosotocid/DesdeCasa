@@ -26,12 +26,13 @@ function cargarProfesores() {
             let lista = document.getElementById('profesores');
             lista.innerHTML = ""; // vaciar html
 
-            console.log('estos son mis profes %o :', profesores[0].rol);
+            console.log('Estos son mis profes:%o', profesores[0].rol.id);
+            console.log('Estos son mis profes 2:%o ', profesores[0].rol.tipo);
 
             profesores.forEach(i => {
-                if(i.rol == 2){
+                if(i.rol.id == 2){
 
-                    console.log('profesor %o', i);
+                    console.log('Profesor:%o', i);
 
                    
                         (lista.innerHTML += `

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
+import com.rodrigo.model.Persona;
 import com.rodrigo.model.dao.ConnectionManager;
 import com.rodrigo.model.dao.IDAO;
 
@@ -65,6 +66,7 @@ public class CursoDAO implements IDAO<Curso> {
 		
 		LOGGER.info("getAll Curso DAO %or%");
 		ArrayList<Curso> registros = new ArrayList<Curso>();
+		
 		try (
 				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_GET_LIKE_NOMBRE);
@@ -144,6 +146,13 @@ public class CursoDAO implements IDAO<Curso> {
 		c.setNombre(rs.getString("nombre"));
 		c.setImagen(rs.getString("imagen"));
 		c.setPrecio(rs.getDouble("precio"));
+		
+//		Persona profe = new Persona();
+//		
+//		profe.setId(rs.getInt("profesor_id"));
+//		profe.setNombre(rs.getString("profesor_nombre"));
+//		
+//		c.setProfesor(profe);
 		
 		return c;
 	}

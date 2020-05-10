@@ -92,6 +92,10 @@ public class Persona {
 	}
 
 	public void setRol(Rol rol) {
+//		if(rol.getId() == 1) {
+//			rol.setTipo("alumno");
+//		}
+		//TODO Idea: Validar Rol desde POJO
 		this.rol = rol;
 	}
 

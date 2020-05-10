@@ -25,7 +25,6 @@ import javax.ws.rs.core.Response.Status;
 
 import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
-import com.rodrigo.model.Rol;
 import com.rodrigo.model.dao.repo.CursoDAO;
 import com.rodrigo.model.dao.repo.PersonaDAO;
 
@@ -52,86 +51,142 @@ public class PersonaController {
 		super();
 	}
 
-//	@GET
-//	public Response getAll( @QueryParam("filtro") String filtro) {
-//		
-//		LOGGER.info("@GET: getAll");
-//		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
-//		
-//		
-//		if( filtro != null && !filtro.trim().isEmpty() ) {							// Busqueda por filtro
-//			
-//			 LOGGER.info("Buscar 1 Persona filtro" + filtro);
-//			 try {
-//				 Persona registro = personaDAO.getByNombre(filtro);
-//				 response = Response.status(Status.OK).entity(registro).build();
-//				
-//			} catch (Exception e) {
-//				
-//				LOGGER.info("Exception: Persona no encontrada!");
-//				
-//				rb.setInformacion("No hemos encontrado el nombre: " + filtro);
-//				rb.getHypermedias().add(new Hipermedia("Busca por Id", "GET", "personas/{id}"));
-//				rb.getHypermedias().add(new Hipermedia("Listar", "GET", "personas"));
-//				
-//				response = Response.status(Status.NOT_FOUND).entity(rb).build();
-//				LOGGER.info(rb.getHypermedias().toString());
-//			}
-//			 
-//		} else {																	// Listado personas
-//			
-//			LOGGER.info("Listado de Personas sin filtro");
-//			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
-//			response = Response.status(Status.OK).entity(registros).build();
-//		}
-//		
-//		return response;
-//	}
+	@GET
+	public Response getAll(
+			@QueryParam("rol") String rol,		//Parámetro para busqueda por tipo de Rol  
+			@QueryParam("name") String name) 	//Parámetro para busqueda por Nombre
+	{
+		
+		LOGGER.info("@GET: getAll");
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		
+		
+		if( name != null && !name.trim().isEmpty() ) {											// Busqueda por Nombre
+			
+			 LOGGER.info("Buscar 1 Persona name" + name);
+			 
+			 try {
+				 //TODO filtraba busqueda por nombre
+				 // filtraba busqueda por nombre
+				 //Persona registro = personaDAO.getBy Name(name);
+				 Persona registro = (Persona) personaDAO.getAll();
+				 response = Response.status(Status.OK).entity(registro).build();
+				
+			} catch (Exception e) {
+				
+				LOGGER.info("Exception: Persona no encontrada!");
+				
+				rb.setInformacion("No hemos encontrado el nombre: " + name);
+				rb.getHypermedias().add(new Hipermedia("Busca por Id", "GET", "personas/{id}"));
+				rb.getHypermedias().add(new Hipermedia("Listar", "GET", "personas"));
+				
+				response = Response.status(Status.NOT_FOUND).entity(rb).build();
+				LOGGER.info(rb.getHypermedias().toString());
+			}
+			 
+		} else {																				// Lista todas las Personas
+			
+			LOGGER.info("Listado de Personas sin parámetros");
+			
+			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+			response = Response.status(Status.OK).entity(registros).build();
+		}
+		
+		
+		// SI rol es distinto a null Y 
+		// SI la longitud de 'rol' es distinta a cero luego de borrar los espacios en blanco
+		if(rol != null && !rol.trim().isEmpty()) {
+			
+			//TODO Mejorar la condición del If()
+			if("alumno".equals(rol)) {				// Lista por Alumno
+				
+				try {
+					
+					LOGGER.info("Obtenemos la lista de Alumnos");
+					ArrayList<Persona> alumnos = (ArrayList<Persona>) personaDAO.getAllAlumnos();
+					response = Response.status(Status.OK).entity(alumnos).build();
+					
+				} catch (Exception e) {
+					
+					rb.setInformacion("Error: Lista de Alumnos no encontrada");
+					response = Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+				}
+				
+			}  
+			if( "profesor".equals(rol)){		// Lista por Profesor
+					
+				try {
+					
+					LOGGER.info("Obtenemos la lista de Profesores");
+					ArrayList<Persona> profesores = (ArrayList<Persona>) personaDAO.getAllProfesores();
+					response = Response.status(Status.OK).entity(profesores).build();
+					
+				} catch (Exception e) {
+					
+					rb.setInformacion("Error: Lista de Profesores no encontrada");
+					response = Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+				}
+			
+			} 
+		} else {																				// Lista todas las Personas
+			
+			LOGGER.info("Listado de Personas sin parámetros");
+			
+			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+			response = Response.status(Status.OK).entity(registros).build();
+		} 
+		return response;
+	}
 
 	
-//	@GET
-//	@Path("/{id}")
-//	public Object getById(@PathParam("id") int id) {
-//		
-//		LOGGER.info("@GET: getPersona");
-//		ArrayList<String> errores = new ArrayList<String>();
-//		Response response = null;
-//		
-//		Persona persona;
-//		try {
-//			persona = personaDAO.getById(id);
-//
-//			if (persona != null) {
-//				response = Response.status(Status.OK).entity(persona).build();
-//			}
-//		} catch (SQLException e) {
-//			
-//			errores.add(e.getMessage());
-//			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(errores).build();
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			
-//			errores.add("No se ha encontrado ninguna persona con ese id.");
-//			response = Response.status(Status.NOT_FOUND).entity(errores).build();
-//		}
-//		return response;
-//	}
 	@GET
-	public ArrayList<Persona> getAll() {
-		LOGGER.info("getAll");		
+	@Path("/{id}")
+	public Object getById(@PathParam("id") int id) {
 		
-		//TODO   endpoint/personas/?rol=1
-		//TODO   endpoint/personas/?rol=2
-		//TODO   endpoint/personas/?rol=alumnos
-		//TODO   endpoint/personas/?rol=profesores
+		LOGGER.info("@GET: getPersona");
+		ArrayList<String> errores = new ArrayList<String>();
+		Response response = null;
 		
-		//TODO crear a mano el Rol para filtrar por Alumnos
-		Rol rAlumnos = new Rol();
-		
-		
-		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
-		return registros;
+		Persona persona;
+		try {
+			persona = personaDAO.getById(id);
+
+			if (persona != null) {
+				response = Response.status(Status.OK).entity(persona).build();
+			}
+		} catch (SQLException e) {
+			
+			errores.add(e.getMessage());
+			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(errores).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			
+			errores.add("No se ha encontrado ninguna persona con ese id.");
+			response = Response.status(Status.NOT_FOUND).entity(errores).build();
+		}
+		return response;
 	}
+	
+	
+	
+//	@GET
+//	public ArrayList<Persona> getAll() {
+//		
+//		LOGGER.info("getAll");		
+//		
+//		//TODO   endpoint/personas/?rol=1
+//		//TODO   endpoint/personas/?rol=2
+//		//TODO   endpoint/personas/?rol=alumnos
+//		//TODO   endpoint/personas/?rol=profesores
+//		
+//		//TODO crear a mano el Rol para filtrar por Alumnos
+////		Rol rolAlumno = new Rol();
+////		Rol rolProfesor = new Rol();
+//		
+//		
+//		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
+//		return registros;
+//	}
 	
 	/**
 	 * Creamos el método POST, recibimos persona por parámetro, actualizamos y luego

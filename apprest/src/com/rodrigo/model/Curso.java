@@ -21,7 +21,7 @@ public class Curso {
 		this.nombre = "";
 		this.imagen = "";
 		this.precio = 0;
-		this.profesor= new Persona();
+		this.profesor = new Persona();
 	}
 	
 	public Curso() {

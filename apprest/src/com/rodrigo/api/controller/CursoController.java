@@ -42,6 +42,8 @@ public class CursoController {
 		LOGGER.info("@GET: All Curso" + filtro);
 		ArrayList<Curso> registros = new ArrayList<Curso>();
 		
+		// SI "filtro" es diferente de "null" y
+		// SI "filtro" contiene algún caracter
 		if(filtro != null && !"".equals(filtro.trim())) {
 			
 			registros = (ArrayList<Curso>) cursoDAO.getAllLikeNombre(filtro);

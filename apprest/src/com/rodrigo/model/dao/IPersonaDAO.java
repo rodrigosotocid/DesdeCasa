@@ -13,6 +13,18 @@ public interface IPersonaDAO extends IDAO<Persona>{
 	static final String EXCEPTION_CURSO_NO_EXISTE = "No existe el curso";
 	static final String EXCEPTION_CURSO_PERSONA_DUPLICADO = "Ya esta asociado el curso a la persona";
 	
+	/**
+	 * Método que devuelve todas las Personas filtradas por Alumnos
+	 * @return
+	 * @throws Exception si no encuentra alumnos
+	 */
+	List<Persona> getAllAlumnos() throws Exception;
+	
+	/**
+	 * Método que devuelve todas las Personas filtradas por Profesores
+	 * @return
+	 */
+	List<Persona> getAllProfesores() throws Exception;
 	
 	/**
 	 * Listado de personas que filtraremos por su Rol para discriminar entre "Profesores" y "Alumnos"
