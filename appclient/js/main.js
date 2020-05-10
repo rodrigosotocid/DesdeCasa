@@ -139,7 +139,7 @@ function filtro() {
 function cargarAlumnos() {
   console.trace("cargarAlumnos");
 
-  const urlPersonas = endpoint + "personas/";
+  const urlPersonas = endpoint + "personas/?rol=alumno";
   const promesa = ajax("GET", urlPersonas, undefined);
 
   promesa
