@@ -135,6 +135,7 @@ public class PersonaController {
 			ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
 			response = Response.status(Status.OK).entity(registros).build();
 		} 
+		
 		return response;
 	}
 

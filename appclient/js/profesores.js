@@ -15,7 +15,7 @@ function cargarProfesores() {
 
     console.trace('Profesores');
   
-    const url = endpoint + 'personas/';
+    const url = endpoint + 'personas/?rol=profesor';
     const promesa = ajax("GET", url, undefined);
 
     promesa
@@ -30,7 +30,7 @@ function cargarProfesores() {
             console.log('Estos son mis profes 2:%o ', profesores[0].rol.tipo);
 
             profesores.forEach(i => {
-                if(i.rol.id == 2){
+                
 
                     console.log('Profesor:%o', i);
 
@@ -38,7 +38,7 @@ function cargarProfesores() {
                         (lista.innerHTML += `
                             <tr>
                             <th hidden>${i.id}</th>
-                            <td>${i.nombre}</td>
+                            <td> ${i.nombre}</td>
         
                             <td>
                                 <img src="img/${i.avatar}" class="tabla-img" alt="Responsive image">
@@ -53,7 +53,7 @@ function cargarProfesores() {
                             </tr>
                             `)
                   
-                }
+                
             });
 
 

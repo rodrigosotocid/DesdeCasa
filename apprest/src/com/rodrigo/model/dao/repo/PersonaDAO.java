@@ -151,7 +151,7 @@ public class PersonaDAO implements IPersonaDAO  {
 		LOGGER.info("getAllProfesores(): PersonaDAO");
 		
 		ArrayList<Persona> profesores = new ArrayList<Persona>();
-		//HashMap<Integer, Persona> hmProfesor = new HashMap<Integer, Persona>();
+		HashMap<Integer, Persona> hmProfesor = new HashMap<Integer, Persona>();
 		
 		try (
 				Connection con = ConnectionManager.getConnection();
@@ -163,44 +163,20 @@ public class PersonaDAO implements IPersonaDAO  {
 			LOGGER.info(s.toString());
 
 			while (rs.next()) {
-				//profesorMapper(rs, hmProfesor);
 				
-				//TODO HashMap Y Mapper 
-				Persona profesor = new Persona();
-				profesor.setNombre(rs.getString("profesor_nombre"));
-				
-				Curso c = new Curso();
-				c.setId(rs.getInt("curso_id"));
-				c.setNombre(rs.getString("curso_nombre"));
-				c.setPrecio( rs.getDouble("curso_precio"));
-				c.setImagen(rs.getString("curso_imagen"));
-				c.setProfesor(profesor);
-				
-				Rol rol = new Rol();
-				rol.setId(rs.getInt("rol_id"));
-				rol.setTipo(rs.getString("rol_tipo"));
-				
-				Persona p = new Persona();
-				
-				p.setId(rs.getInt("profesor_id"));
-				p.setNombre(rs.getString("profesor_nombre"));
-				p.setAvatar(rs.getString("profesor_avatar"));
-				p.setSexo(rs.getString("profesor_sexo"));
-				p.setRol(rol);
-				
-				profesores.add(p);
+				profesorMapper(rs, hmProfesor);
 			}
 			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 			
-			LOGGER.info("getAllAlumnos(): PersonaDAO - SQL Exception ");
+			LOGGER.info("getAllAlumnos(): Error al obtener la lista de los Profesores ");
 			throw new SQLException("Error al obtener la lista de los Profesores");
 			
 		}
 		
-		//profesores = new ArrayList<Persona>(hmProfesor.values());
+		profesores = new ArrayList<Persona>(hmProfesor.values());
 		return profesores;
 	}
 	
@@ -583,57 +559,113 @@ public class PersonaDAO implements IPersonaDAO  {
 //		return p;
 //	}
 
-	private Persona profesorMapper(ResultSet rs, HashMap<Integer, Persona> hmProfesor) throws SQLException {
-		
-		int key = rs.getInt("profesor_id");
-		Persona profesor = hmProfesor.get(key);
-		
-		//Se añade el Rol
-		Rol rol = new Rol();
-		
-		rol.setId(rs.getInt("rol_id"));
-		rol.setTipo(rs.getString("rol_tipo"));
-		
-		//Se añade el Profesor
-		Persona profe = new Persona();
-		
-		profe.setId(rs.getInt("profesor_id"));
-		profe.setNombre(rs.getString("profesor_nombre"));
-		profe.setAvatar(rs.getString("profesor_avatar"));
-		profe.setSexo(rs.getString("profesor_sexo"));
-		profe.setRol(rol);
-		
-		if(profesor == null) {
+	//private Persona alumnosMapper(ResultSet rs, HashMap<Integer,Persona> hm) throws SQLException {
+	//		
+	//		int key = rs.getInt("persona_id");
+	//		
+	//		Persona p = hm.get(key);
+	//		
+	//		//Se añade el Rol
+	//		Rol rol = new Rol();
+	//		rol.setId(rs.getInt("rol_id"));
+	//		rol.setTipo(rs.getString("rol_tipo"));
+	//		
+	//		//Se añade el Profesor
+	//		Persona profe = new Persona();
+	//				
+	//		profe.setId(rs.getInt("profesor_id"));
+	//		profe.setNombre(rs.getString("profesor_nombre"));
+	//		profe.setAvatar(rs.getString("profesor_avatar"));
+	//		profe.setSexo(rs.getString("profesor_sexo"));
+	//		profe.setRol(rol);
+	//
+	//		
+	//		//Si no existe en el HashMap se crea
+	//		if( p == null) {
+	//			
+	//			p = new Persona();
+	//			p.setId(key);
+	//			p.setNombre( rs.getString("persona_nombre"));
+	//			p.setAvatar( rs.getString("persona_avatar"));
+	//			p.setSexo( rs.getString("persona_sexo"));
+	//			p.setRol(rol);
+	//			
+	//		}
+	//		
+	//		//Se añade el Curso
+	//		int idCurso = rs.getInt("curso_id");
+	//		
+	//		if ( idCurso != 0) {
+	//			Curso c = new Curso();
+	//			c.setId(idCurso);
+	//			c.setNombre(rs.getString("curso_nombre"));
+	//			c.setPrecio( rs.getDouble("curso_precio"));
+	//			c.setImagen(rs.getString("curso_imagen"));	
+	//			c.setProfesor(profe);
+	//		
+	//			p.getCursos().add(c);
+	//		}	
+	//	
+	//		
+	//		//Actualizar HashMap
+	//		hm.put(key, p);
+	//
+	//		return p;
+	//	}
+	
+		private Persona profesorMapper(ResultSet rs, HashMap<Integer, Persona> hmProfesor) throws SQLException {
 			
-			profesor = new Persona();
+			int key = rs.getInt("profesor_id");
+			Persona profesor = hmProfesor.get(key);
 			
-			profesor.setId(key);
-			profesor.setNombre(rs.getString("profesor_nombre"));
-			profesor.setAvatar(rs.getString("profesor_avatar"));
-			profesor.setSexo(rs.getString("profesor_sexo"));
-			profesor.setRol(rol);
+			//Se añade el Rol
+			Rol rol = new Rol();
+			rol.setId(rs.getInt("rol_id"));
+			rol.setTipo(rs.getString("rol_tipo"));
 			
+			if(profesor == null) {
+				
+				profesor = new Persona();
+				
+				profesor.setId(key);
+				profesor.setNombre(rs.getString("profesor_nombre"));
+				profesor.setAvatar(rs.getString("profesor_avatar"));
+				profesor.setSexo(rs.getString("profesor_sexo"));
+				profesor.setRol(rol);
+				
+			}
+			
+			//Se añade el Curso
+			int idCurso = rs.getInt("curso_id");
+					
+			if ( idCurso != 0) {
+				
+				Curso c = new Curso();
+				
+				c.setId(idCurso);
+				c.setNombre(rs.getString("curso_nombre"));
+				c.setPrecio( rs.getDouble("curso_precio"));
+				c.setImagen(rs.getString("curso_imagen"));
+				
+				//Se añade el Profesor
+				Persona p = new Persona();
+				
+				p.setId(rs.getInt("profesor_id"));
+				p.setNombre(rs.getString("profesor_nombre"));
+				p.setAvatar(rs.getString("profesor_avatar"));
+				p.setSexo(rs.getString("profesor_sexo"));
+				p.setRol(rol);
+				
+				c.setProfesor(profesor);
+				p.getCursos().add(c);
+				
+				}
+			
+			//Actualizar HashMap
+			hmProfesor.put(key, profesor);
+			
+			return profesor;
 		}
-		
-		//Se añade el Curso
-		int idCurso = rs.getInt("curso_id");
-				
-		if ( idCurso != 0) {
-			
-			Curso c = new Curso();
-			
-			c.setId(idCurso);
-			c.setNombre(rs.getString("curso_nombre"));
-			c.setPrecio( rs.getFloat("curso_precio"));
-			c.setImagen(rs.getString("curso_imagen"));		
-			c.setProfesor(profesor);
-				
-			profesor.getCursos().add(c);
-			
-			}	
-		
-		return profesor;
-	}
 
 	
 	
