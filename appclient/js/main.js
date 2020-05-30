@@ -286,11 +286,15 @@ function seleccionar( id = 0 ) {
 
   personaSeleccionada.cursos.forEach( el => {
     
+    // Vista de curso previamente asignados
     ulElement.innerHTML += `
       <li id="liCursos">
         <div class="row m-0 d-flex justify-content-between">
          <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-         <h5 class="card-title pt-3">${el.nombre} Profesor:</h5>
+          <h5 class="card-title pt-3">
+            <span class="nombre-curso-asignado">Curso de </span>${el.nombre} 
+            <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre}
+          </h5>
          <a class="btn- btn-lg pt-3" title="Elimina Curso">
            <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${personaSeleccionada.id},${el.id})"></i>
          </a>
@@ -520,7 +524,11 @@ function asignarCurso( idPersona = 0, idCurso ){
                           <li id="liCursos">
                             <div class="row m-0 d-flex justify-content-between">
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-                              <h5 class="card-title pt-3">${curso.nombre} Imparte: ${curso.profesor.nombre}</h5>
+                              <p class="nuevo-curso">Nuevo</p>
+                              <h5 class="card-title pt-3">
+                                <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                              </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
                               </a>

@@ -160,6 +160,7 @@ public class PersonaController {
 			errores.add(e.getMessage());
 			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(errores).build();
 			e.printStackTrace();
+			
 		} catch (Exception e) {
 			
 			errores.add("No se ha encontrado ninguna persona con ese id.");
@@ -167,27 +168,6 @@ public class PersonaController {
 		}
 		return response;
 	}
-	
-	
-	
-//	@GET
-//	public ArrayList<Persona> getAll() {
-//		
-//		LOGGER.info("getAll");		
-//		
-//		//TODO   endpoint/personas/?rol=1
-//		//TODO   endpoint/personas/?rol=2
-//		//TODO   endpoint/personas/?rol=alumnos
-//		//TODO   endpoint/personas/?rol=profesores
-//		
-//		//TODO crear a mano el Rol para filtrar por Alumnos
-////		Rol rolAlumno = new Rol();
-////		Rol rolProfesor = new Rol();
-//		
-//		
-//		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
-//		return registros;
-//	}
 	
 	/**
 	 * Creamos el método POST, recibimos persona por parámetro, actualizamos y luego
@@ -260,6 +240,7 @@ public class PersonaController {
 			try {
 				persona = personaDAO.update(persona);
 				response = Response.status(Status.OK).entity(persona).build();
+				LOGGER.info("Update de Persona realizado correctamente");
 
 			} catch (Exception e) {
 				
@@ -368,8 +349,9 @@ public class PersonaController {
 			responseBody.setData(p);
 			response = Response.status(Status.OK).entity(responseBody).build();
 			
-		} catch (Exception e) {			
-				responseBody.setInformacion(e.getMessage());
+		} catch (Exception e) {		
+				LOGGER.info("Curso no encontrado: " + e.getMessage());
+				responseBody.setInformacion("Curso no encontrado para eliminar. Consulte con el administrador de la aplicación.");
 				response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
 		}
 

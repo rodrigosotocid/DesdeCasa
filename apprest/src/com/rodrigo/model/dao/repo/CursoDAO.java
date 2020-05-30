@@ -22,9 +22,9 @@ public class CursoDAO implements IDAO<Curso> {
 	private static CursoDAO INSTANCE = null;
 
 	private static String SQL_GET_ALL 	 = "CALL cursosGetAll()";	
-	private static String SQL_GET_BY_ID = "CALL cursosGetById(?)";
-	
+	private static String SQL_GET_BY_ID = "CALL cursosGetById(?)";	
 	private static String SQL_GET_LIKE_NOMBRE   = "SELECT id, nombre, precio, imagen FROM curso WHERE nombre LIKE ? ORDER BY id DESC LIMIT 100; ";
+	private final static String SQL_UPDATE = "UPDATE curso SET persona_id = ? WHERE id = ?;";
 	
 	private CursoDAO() {
 		super();
@@ -141,7 +141,36 @@ public class CursoDAO implements IDAO<Curso> {
 
 	@Override
 	public Curso update(Curso pojo) throws Exception, SQLException {
-		throw new UnsupportedOperationException("SIN IMPLEMENTAR");
+		
+		LOGGER.info("UPDATE DAO Curso: (" + pojo + ")");
+		
+		try (
+				Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);
+		) {
+			pst.setInt(1, pojo.getProfesor().getId());
+			pst.setInt(2, pojo.getId());
+			
+			LOGGER.info(pst.toString());
+
+			// eliminamos la Persona
+			int affectedRows = pst.executeUpdate();
+
+			if (affectedRows != 1) {
+				
+				LOGGER.warning("No se ha modificado el registro para el curso id= " + pojo.getId());
+				throw new Exception("No se puede Actualizar el registro con el id: " + pojo);
+			}
+			
+			LOGGER.info("UPDATE ejecutado correctamente de: " + pojo);
+			
+		} catch (SQLException e) {
+			
+			LOGGER.warning("Error al modificar el curso");
+			throw new SQLException("Ups! No se puede Actualizar el registro: ");
+		}
+		
+		return pojo;
 	}
 	
 	private Curso mapper(ResultSet rs) throws SQLException {

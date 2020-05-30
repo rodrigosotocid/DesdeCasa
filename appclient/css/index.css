@@ -283,6 +283,20 @@ label {
   font-weight: 900;
 }
 
+.nombre-curso-asignado {
+  color: #db7843; 
+}
+
+.nuevo-curso {
+  color:#ffffff; 
+  background: #db7843;
+  font-size: 1.1rem;
+  font-weight: 900;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  padding: 2px;
+}
+
 .curso-profesor-modal {
 color: #db7843; 
 font-size: 1rem;

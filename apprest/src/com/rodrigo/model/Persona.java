@@ -18,7 +18,7 @@ public class Persona {
 	private String avatar;
 	
 	//TODO Confirmar Expresión Regular
-	//@Pattern(regexp = "(\\W|^)(h|m)(\\W|$)")
+	@Pattern(regexp = "(\\W|^)(h|m)(\\W|$)")
 	private String sexo;
 	
 	private ArrayList<Curso> cursos;
@@ -92,10 +92,6 @@ public class Persona {
 	}
 
 	public void setRol(Rol rol) {
-//		if(rol.getId() == 1) {
-//			rol.setTipo("alumno");
-//		}
-		//TODO Idea: Validar Rol desde POJO
 		this.rol = rol;
 	}
 

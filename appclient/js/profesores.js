@@ -129,7 +129,9 @@ function filtro() {
   } // filtro
 
 /*-******************************** PROFESORES ********************************-*/
-
+/**
+ * 
+ */
 function cargarProfesores() {
 
     console.trace('Profesores');
@@ -166,7 +168,7 @@ function cargarProfesores() {
 
         })
         .catch((error) => {
-            console.warn("promesa: Error al cargar Alumnos");
+            console.warn("promesa: Error al cargar los Profesores");
             console.debug(error);
             alert(error.informacion);
         });
@@ -255,7 +257,7 @@ function seleccionar( id = 0 ) {
         checkMujer.checked = "checked";
       }
       
-      //Cursos del Alumno
+      //Cursos del Profesor
       let misCursos = document.getElementById("mis-cursos");
       misCursos.innerHTML = '<h1 class="rounded-right mb-4">Mis Cursos</h1>'; 
     
@@ -267,7 +269,10 @@ function seleccionar( id = 0 ) {
           <li id="liCursos">
             <div class="row m-0 d-flex justify-content-between">
              <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-             <h5 class="card-title pt-3">${el.nombre}</h5>
+             <h5 class="card-title pt-3">
+              <span class="nombre-curso-asignado">Curso de </span>${el.nombre} 
+              <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre}
+             </h5>
              <a class="btn- btn-lg pt-3" title="Elimina Curso">
                <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${profesorSeleccionado.id},${el.id})"></i>
              </a>
@@ -317,7 +322,7 @@ function guardar() {
   
         ajax("POST", url, profesor)
           .then((data) => {
-            alert("Hola " + profesor.nombre + " bienvenid@");
+            alert("Hola " + profesor.nombre + " bienvenid@ a nuestro equipo de profesores!");
             //limpiar formulario
             document.getElementById("inputId").value = 0;
             document.getElementById("inputNombre").value = '';
@@ -468,9 +473,9 @@ function eliminarCurso( event, idPersona, idCurso  ){
       let htmlArray = document.getElementsByClassName('animated');
       htmlArray[0].remove();
 
-      cargarAlumnos();
+      cargarProfesores();
   })
-  .catch( error => alert(error));
+  .catch( error => alert(error.informacion));
 
 }//eliminarCurso
 
@@ -481,7 +486,7 @@ function eliminarCurso( event, idPersona, idCurso  ){
  */
 function asignarCurso( idPersona = 0, idCurso ){
 
-  idPersona = (idPersona != 0) ? idPersona : personaSeleccionada.id;
+  idPersona = (idPersona != 0) ? idPersona : profesorSeleccionado.id;
 
   console.debug(`click asignarCurso idPersona=${idPersona} idCurso=${idCurso}`);
 
@@ -500,14 +505,17 @@ function asignarCurso( idPersona = 0, idCurso ){
                           <li id="liCursos">
                             <div class="row m-0 d-flex justify-content-between">
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-                              <h5 class="card-title pt-3">${curso.nombre} Imparte: ${curso.profesor.nombre}</h5>
+                              <h5 class="card-title pt-3">
+                                <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                              </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
                               </a>
                             </div>
                           </li>
                           `;
-      cargarAlumnos();
+      cargarProfesores();
       
   })
   .catch( (error) => {

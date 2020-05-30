@@ -218,6 +218,7 @@ public class PersonaDAO implements IPersonaDAO  {
 			try (ResultSet rs = s.executeQuery()) {
 
 				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
+				
 				if (rs.next()) {
 
 					registro = mapper(rs, hmPersonas);
