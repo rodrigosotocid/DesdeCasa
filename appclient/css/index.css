@@ -278,8 +278,18 @@ label {
   padding: 0.7rem;
 } 
 
-.card-title {
+.nombre-curso-modal{
   font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.curso-profesor-modal {
+color: #db7843; 
+font-size: 1rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
   color:#FFFFFF;
 }
 

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.rodrigo.model.Curso;
 import com.rodrigo.model.Persona;
+import com.rodrigo.model.Rol;
 import com.rodrigo.model.dao.ConnectionManager;
 import com.rodrigo.model.dao.IDAO;
 
@@ -19,8 +20,35 @@ public class CursoDAO implements IDAO<Curso> {
 
 	private static CursoDAO INSTANCE = null;
 
-	private static String SQL_GET_ALL = "SELECT id, nombre, imagen, precio FROM curso ORDER BY id DESC LIMIT 100;";
-	private static String SQL_GET_BY_ID   = "SELECT id, nombre, imagen, precio FROM curso WHERE id = ?; ";
+	private static String SQL_GET_ALL = 		"SELECT \r\n" + 
+												"c.id as curso_id, \r\n" + 
+												"c.nombre as curso_nombre,\r\n" + 
+												"c.imagen as curso_imagen,\r\n" + 
+												"c.precio as curso_precio, \r\n" + 
+												"p.id as profesor_id,\r\n" + 
+												"p.nombre as profesor_nombre, \r\n" + 
+												"p.avatar as profesor_avatar, \r\n" + 
+												"p.sexo as profesor_sexo, \r\n" + 
+												"p.rol_id as profesor_rol \r\n" + 
+												"FROM curso c \r\n" + 
+												"LEFT JOIN persona p ON c.persona_id = p.id \r\n" + 
+												"ORDER BY c.id desc\r\n" + 
+												"LIMIT 500;";
+	
+	private static String SQL_GET_BY_ID   = 	"SELECT\r\n" + 
+												"c.id as curso_id, \r\n" + 
+												"c.nombre as curso_nombre,\r\n" + 
+												"c.imagen as curso_imagen,\r\n" + 
+												"c.precio as curso_precio, \r\n" + 
+												"p.id as profesor_id,\r\n" + 
+												"p.nombre as profesor_nombre, \r\n" + 
+												"p.avatar as profesor_avatar, \r\n" + 
+												"p.sexo as profesor_sexo, \r\n" + 
+												"p.rol_id as profesor_rol \r\n" + 
+												"FROM curso c \r\n" + 
+												"LEFT JOIN persona p ON c.persona_id = p.id\r\n" + 
+												"WHERE c.id = ?;";
+	
 	private static String SQL_GET_LIKE_NOMBRE   = "SELECT id, nombre, precio, imagen FROM curso WHERE nombre LIKE ? ORDER BY id DESC LIMIT 100; ";
 	
 	private CursoDAO() {
@@ -140,19 +168,30 @@ public class CursoDAO implements IDAO<Curso> {
 	}
 	
 	private Curso mapper(ResultSet rs) throws SQLException {
+		
 		Curso c = new Curso();
+		Persona profesor = new Persona();
+		Rol rol = new Rol();
 		
-		c.setId(rs.getInt("id"));
-		c.setNombre(rs.getString("nombre"));
-		c.setImagen(rs.getString("imagen"));
-		c.setPrecio(rs.getDouble("precio"));
+		//CURSO
+		c.setId(rs.getInt("curso_id"));
+		c.setNombre(rs.getString("curso_nombre"));
+		c.setImagen(rs.getString("curso_imagen"));
+		c.setPrecio(rs.getFloat("curso_precio"));
 		
-//		Persona profe = new Persona();
-//		
-//		profe.setId(rs.getInt("profesor_id"));
-//		profe.setNombre(rs.getString("profesor_nombre"));
-//		
-//		c.setProfesor(profe);
+		
+		//PROFESOR
+		profesor.setId(rs.getInt("profesor_id"));
+		profesor.setNombre(rs.getString("profesor_nombre"));
+		profesor.setAvatar(rs.getString("profesor_avatar"));
+		profesor.setSexo(rs.getString("profesor_sexo"));
+		profesor.setRol(rol);
+		
+		//ROL
+		//rol.setId(rs.getInt("rol_id"));
+		//rol.setTipo(rs.getString("rol_tipo"));
+		
+		c.setProfesor(profesor);
 		
 		return c;
 	}

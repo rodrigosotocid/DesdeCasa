@@ -36,7 +36,7 @@ public class PersonaDAO implements IPersonaDAO  {
 
 	private static String SQL_DELETE				= " CALL personaDelete(?) ";
 	private static String SQL_INSERT				= " INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ?, ? ); ";
-	private static String SQL_UPDATE				= " UPDATE persona SET nombre = ?, avatar = ?, sexo = ?, rol_id = ? WHERE id = ?;";
+	private static String SQL_UPDATE				= " UPDATE persona SET nombre = ?, avatar = ?, sexo = ? WHERE id = ?;";
 	
 	private static String SQL_ASIGNAR_CURSO		= " INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?); ";
 	private static String SQL_ELIMINAR_CURSO		= " DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?; ";
@@ -105,14 +105,14 @@ public class PersonaDAO implements IPersonaDAO  {
 
 			while (rs.next()) {
 			
-				mapper(rs, hmAlumno);
+				alumnosMapper(rs, hmAlumno);
 
 			}
 			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-			LOGGER.info("getAllAlumnos(): PersonaDAO - SQL Exception ");
+			LOGGER.info("getAllAlumnos(): Error al obtener la lista de los Alumnos ");
 			//throw new SQLException("Error al obtener la lista de los Alumnos");
 			
 		}
@@ -315,7 +315,7 @@ public class PersonaDAO implements IPersonaDAO  {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
-			pst.setObject(4, pojo.getRol());
+			pst.setObject(4, pojo.getRol().getId());
 
 			//s.registerOutParameter(5, java.sql.Types.INTEGER); ???
 			
@@ -359,8 +359,8 @@ public class PersonaDAO implements IPersonaDAO  {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getAvatar());
 			pst.setString(3, pojo.getSexo());
-			pst.setObject(4, pojo.getRol());
-			pst.setInt(5, pojo.getId());
+			//pst.setObject(4, pojo.getRol().getId());
+			pst.setInt(4, pojo.getId());
 
 			LOGGER.info(pst.toString());
 
@@ -368,8 +368,12 @@ public class PersonaDAO implements IPersonaDAO  {
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
+				
+				LOGGER.warning("No se ha modificado el registro para el idAlumno=" + pojo.getId());
 				throw new Exception("No se puede Actualizar el registro con el id: " + pojo);
 			}
+			
+			LOGGER.info("UPDATE ejecutado correctamente de: " + pojo);
 			
 		} catch (SQLException e) {
 			// getMessage(): lanzaría violate constraint exception
@@ -469,7 +473,15 @@ public class PersonaDAO implements IPersonaDAO  {
 			c.setPrecio( rs.getDouble("curso_precio"));
 			c.setImagen(rs.getString("curso_imagen"));
 			
-			//c.setProfesor(profe);
+//			Persona profe = new Persona();
+//			
+//			profe.setId(rs.getInt("profesor_id"));
+//			profe.setNombre( rs.getString("profesor_nombre"));
+//			profe.setAvatar( rs.getString("profesor_avatar"));
+//			profe.setSexo( rs.getString("profesor_sexo"));
+//			profe.setRol(rol);
+//			
+//			c.setProfesor(profe);
 		
 			p.getCursos().add(c);
 		}	
@@ -490,16 +502,6 @@ private Persona alumnosMapper(ResultSet rs, HashMap<Integer,Persona> hmAlumno) t
 		Rol rol = new Rol();
 		rol.setId(rs.getInt("rol_id"));
 		rol.setTipo(rs.getString("rol_tipo"));
-		
-		//Se añade el Profesor
-		Persona profe = new Persona();
-				
-		profe.setId(rs.getInt("profesor_id"));
-		profe.setNombre(rs.getString("profesor_nombre"));
-		profe.setAvatar(rs.getString("profesor_avatar"));
-		profe.setSexo(rs.getString("profesor_sexo"));
-		profe.setRol(rol);
-
 		
 		//Si no existe en el HashMap se crea
 		if( alumno == null) {
@@ -522,11 +524,19 @@ private Persona alumnosMapper(ResultSet rs, HashMap<Integer,Persona> hmAlumno) t
 			c.setNombre(rs.getString("curso_nombre"));
 			c.setPrecio( rs.getDouble("curso_precio"));
 			c.setImagen(rs.getString("curso_imagen"));	
+			
+			//Se añade el Profesor
+			Persona profe = new Persona();
+					
+			//profe.setId(rs.getInt("profesor_id"));
+			profe.setNombre(rs.getString("profesor_nombre"));
+//			profe.setAvatar(rs.getString("profesor_avatar"));
+//			profe.setSexo(rs.getString("profesor_sexo"));
+//			profe.setRol(rol);
+
 			c.setProfesor(profe);
-		
 			alumno.getCursos().add(c);
 		}	
-	
 		
 		//Actualizar HashMap
 		hmAlumno.put(key, alumno);

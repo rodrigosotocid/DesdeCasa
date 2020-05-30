@@ -14,7 +14,11 @@ let personaSeleccionada = { "id":0,
                             "nombre": "sin nombre" , 
                             "avatar" : "img/avatar7.png", 
                             "sexo": "h",
-                            "cursos": []
+                            "cursos": [],
+                            "rol": {
+                              "id": 1,
+                              "tipo": "alumno"
+                            }
                           };
 
 window.addEventListener("load", init());
@@ -178,7 +182,7 @@ function maquetarLista(elementos) {
           <td onclick="seleccionar(${p.id})">${p.cursos.length} cursos</td>
 
           <td class="text-center p-0">
-            <a class="btn-mod btn-lg" href="#top" title="Seleccionar"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
+            <a class="btn-mod btn-lg" href="#top" title="Editar"><i class="far fa-edit" onclick="seleccionar(${p.id})"></i></a>
             <a class="btn-del btn-lg" title="Eliminar"><i class="far fa-trash-alt" onclick="eliminar(${p.id})"></i></a>
           </td>	
         </tr>
@@ -233,7 +237,11 @@ function seleccionar( id = 0 ) {
                                 "nombre": "" , 
                                 "avatar" : "img/avatar1.png", 
                                 "sexo": "h",
-                                "cursos": []
+                                "cursos": [],
+                                "rol": {
+                                  "id": 1,
+                                  "tipo": "alumno"
+                                }
                              };
 
                              // Pone el cursor en el campo escribir nombre al dar botón 'Nuevo'
@@ -277,11 +285,12 @@ function seleccionar( id = 0 ) {
   ulElement.setAttribute('id', 'ulElement');
 
   personaSeleccionada.cursos.forEach( el => {
+    
     ulElement.innerHTML += `
       <li id="liCursos">
         <div class="row m-0 d-flex justify-content-between">
          <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-         <h5 class="card-title pt-3">${el.nombre}</h5>
+         <h5 class="card-title pt-3">${el.nombre} Profesor:</h5>
          <a class="btn- btn-lg pt-3" title="Elimina Curso">
            <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${personaSeleccionada.id},${el.id})"></i>
          </a>
@@ -314,7 +323,11 @@ function guardar() {
     "id": id,
     "nombre": nombre,
     "avatar": avatar,
-    "sexo": sexo
+    "sexo": sexo,
+    "rol": {
+      "id": 1,
+      "tipo": "alumno"
+    }
   };
 
   console.debug("persona a guardar %o", persona);
@@ -416,6 +429,7 @@ function cargarCursos(filtro = '') {
       const listaCurso = document.getElementById("listaCursos");
       listaCurso.innerHTML = ""; // vaciar html
       
+      // Vista de los cursos desplegable (Modal)
       cursos.forEach(el =>
           listaCurso.innerHTML += `
           <div id="card-cursos" class="card mb-1" ">
@@ -425,7 +439,10 @@ function cargarCursos(filtro = '') {
                 <img src="img/${el.imagen}" id="img-all-cursos" class="card-img" alt="curso">
               </div>
               <div class="col-5">
-                  <h5 class="card-title font-weight-bold">${el.nombre}</h5>
+                  <h5 class="card-title ">
+                    <span class="nombre-curso-modal">${ el.nombre} </span><br>
+                    <span class="curso-profesor-modal">Profesor: </span> ${ el.profesor.nombre}
+                  </h5>
                   <p class="card-text">
                     <span class="font-weight-bold">Precio:</span>
                     <span class="c-precio">${el.precio}</span> €
@@ -478,7 +495,7 @@ function eliminarCurso( event, idPersona, idCurso  ){
 }//eliminarCurso
 
 /**
- * ASIGNAR CURSO
+ * ASIGNAR CURSO (Curso getById en appRest)
  * @param {*} idPersona 
  * @param {*} idCurso 
  */
@@ -494,16 +511,16 @@ function asignarCurso( idPersona = 0, idCurso ){
   .then( data => {
 
       alert(data.informacion);
-
+    
       const curso = data.data;
-
+      
       let lista = document.getElementById('ulElement');
-
+      // Vista del curso recién añadido
       lista.innerHTML += `
                           <li id="liCursos">
                             <div class="row m-0 d-flex justify-content-between">
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-                              <h5 class="card-title pt-3">${curso.nombre}</h5>
+                              <h5 class="card-title pt-3">${curso.nombre} Imparte: ${curso.profesor.nombre}</h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
                               </a>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesores</title>
+    <title>ÁREA - Profesores</title>
 
     <!-- Bootstrap 4 -->
     <link 
@@ -135,6 +135,39 @@
         </div>
       </section>
 
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+           
+            <!-- Header -->
+            <div class="modal-header sticky-top">
+              <h1 class="rounded-right" id="exampleModalLongTitle">Cursos</h1>
+              <form class="form-inline">
+                <input id="filtroCurso" class="form-control mr-sm-2" type="search" placeholder="Escribe nombre del Curso" aria-label="Search">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </form>
+
+            </div>
+            <div class="modal-body " >
+              <!-- Lista general de Cursos --> 
+              <div id="listaCursos">
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Modal -->
+      
       <!-- Footer -->
       <footer class="d-flex fixed-bottom">
         <p class="copyright col d-flex align-items-center">Alumnos Api Rest &copy;2020  -  Todos los Derechos Reservados</p>
