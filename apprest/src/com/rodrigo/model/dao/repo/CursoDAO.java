@@ -148,7 +148,17 @@ public class CursoDAO implements IDAO<Curso> {
 				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);
 		) {
-			pst.setInt(1, pojo.getProfesor().getId());
+			if (pojo.getProfesor() == null) {
+				
+				pst.setObject(1, pojo.getProfesor());
+				
+			} else {
+				
+				pst.setObject(1, pojo.getProfesor().getId());
+				
+			}
+			//pst.setInt(1, pojo.getProfesor().getId());
+			
 			pst.setInt(2, pojo.getId());
 			
 			LOGGER.info(pst.toString());

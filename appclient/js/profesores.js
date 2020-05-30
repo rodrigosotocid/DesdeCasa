@@ -270,11 +270,11 @@ function seleccionar( id = 0 ) {
             <div class="row m-0 d-flex justify-content-between">
              <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
              <h5 class="card-title pt-3">
-              <span class="nombre-curso-asignado">Curso de </span>${el.nombre} 
-              <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre}
+              <span class="nombre-curso-asignado">Curso de </span>      <span id="nombre_curso">${el.nombre}</span>
+              <span class="nombre-curso-asignado">impartido por </span> <span id="nombre_profe">${el.profesor.nombre}</span>
              </h5>
              <a class="btn- btn-lg pt-3" title="Elimina Curso">
-               <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${profesorSeleccionado.id},${el.id})"></i>
+               <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${el.id})"></i>
              </a>
            </div>
           </li>
@@ -451,41 +451,13 @@ function cargarCursos(filtro = '') {
 }//cargarCursos
 
 /**
- * ELIMINAR CURSO
- * @param {*} idPersona 
- * @param {*} idCurso 
- */
-function eliminarCurso( event, idPersona, idCurso  ){
-
-  console.debug(`click eliminarCurso idPersona=${idPersona} idCurso=${idCurso}`);
-
-  const url = endpoint + 'personas/' + idPersona + "/curso/" + idCurso;
-
-  ajax('DELETE', url, undefined)
-  .then( data => {
-
-      alert(data.informacion);
-
-      event.target.parentElement.parentElement.parentElement.classList.add('animated','rollOut');
-      //event.target.parentElement.parentElement.parentElement.remove();
-
-      // Obtengo una HTMLCollection y elimino el componente según su posición
-      let htmlArray = document.getElementsByClassName('animated');
-      htmlArray[0].remove();
-
-      cargarProfesores();
-  })
-  .catch( error => alert(error.informacion));
-
-}//eliminarCurso
-
-/**
  * ASIGNAR CURSO (Curso getById en appRest)
  * @param {*} idPersona 
  * @param {*} idCurso 
  */
 function asignarCurso( idPersona = 0, idCurso ){
 
+  curso = 
   idPersona = (idPersona != 0) ? idPersona : profesorSeleccionado.id;
 
   console.debug(`click asignarCurso idPersona=${idPersona} idCurso=${idCurso}`);
@@ -510,7 +482,7 @@ function asignarCurso( idPersona = 0, idCurso ){
                                 <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
                               </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
-                                <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
+                                <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
                               </a>
                             </div>
                           </li>
@@ -527,6 +499,52 @@ function asignarCurso( idPersona = 0, idCurso ){
 
 }//asignarCurso
 
+
+/**
+ * Modifica el valor de la columna id_persona de la tabla Curso
+ * su valor pasa a null para desvincular el curso del profesor.
+ * @param {*} event 
+ * @param {*} idCurso 
+ */
+function borraProfesorCurso( event , idCurso ) {
+
+  //Encuentra el id coincidente
+  let cursoUpdate = profesorSeleccionado.cursos.find( el=> el.id == idCurso);
+  console.log('curso update '+ cursoUpdate);
+
+  //Si es null el profesor asignado e este curso se elimina
+  cursoUpdate.profesor = null;
+  console.log('Si es null el profesor asignado e este curso se elimina' + cursoUpdate.profesor);
+
+  console.trace("Click: borraProfesorCurso --> %o", idCurso);
+
+  const url = endpoint + 'cursos/' + idCurso;
+
+  ajax('PUT', url, cursoUpdate)
+    .then(data => {
+
+      alert("Has dejado de impartir el curso de " + data.nombre);
+  
+      event.target.parentElement.parentElement.parentElement.classList.add('animated','rollOut');
+
+      // Obtengo una HTMLCollection y elimino el componente según su posición
+      let htmlArray = document.getElementsByClassName('animated');
+      htmlArray[0].remove();
+
+      cargarProfesores();
+    })
+    .catch( error => {
+
+      alert("Error: " + error);
+      console.warn("Error:" + error);
+
+    });
+}//borraProfesorCurso
+
+
+function añadirProfesorCurso() {
+
+}
 
 /*
  * ANIMATE.CSS 

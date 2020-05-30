@@ -11,7 +11,7 @@ public class Persona {
 
 	private int id;
 	
-	@Size( min=2, max=50, message= "mínimo 2 & máximo 50 caracteres" )
+	//@Size( min=2, max=50, message= "mínimo 2 & máximo 50 caracteres" )
 	private String nombre;
 	
 	@NotEmpty

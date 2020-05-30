@@ -65,6 +65,34 @@ public class CursoController {
 		return response;		
 	}
 	
+	@GET
+	@Path("/{id: \\d+}")
+	public Response getById(@PathParam("id") int id) throws Exception {
+		
+		LOGGER.info("Obtener el curso por id");
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+
+		try {
+			
+			Curso curso = cursoDAO.getById(id);
+
+			if (curso == null) {
+				
+				response = Response.status(Status.NOT_FOUND).build();
+				LOGGER.warning("Error: Curso no encontrado, con id " + id);
+				throw new Exception("Error: Curso no encontrado");
+
+			} else {
+				response = Response.status(Status.OK).entity(curso).build();
+				LOGGER.info("Encontrado curso por id: " + curso);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.warning("No se ha podido obtener el curso con id " + id);
+		}
+		return response;
+	}
+	
 	@PUT
 	@Path("/{id: \\d+}")
 	public Response update(@PathParam("id") int id, Curso curso) {
