@@ -1,5 +1,6 @@
 package com.rodrigo.model.dao.repo;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,34 +21,8 @@ public class CursoDAO implements IDAO<Curso> {
 
 	private static CursoDAO INSTANCE = null;
 
-	private static String SQL_GET_ALL = 		"SELECT \r\n" + 
-												"c.id as curso_id, \r\n" + 
-												"c.nombre as curso_nombre,\r\n" + 
-												"c.imagen as curso_imagen,\r\n" + 
-												"c.precio as curso_precio, \r\n" + 
-												"p.id as profesor_id,\r\n" + 
-												"p.nombre as profesor_nombre, \r\n" + 
-												"p.avatar as profesor_avatar, \r\n" + 
-												"p.sexo as profesor_sexo, \r\n" + 
-												"p.rol_id as profesor_rol \r\n" + 
-												"FROM curso c \r\n" + 
-												"LEFT JOIN persona p ON c.persona_id = p.id \r\n" + 
-												"ORDER BY c.id desc\r\n" + 
-												"LIMIT 500;";
-	
-	private static String SQL_GET_BY_ID   = 	"SELECT\r\n" + 
-												"c.id as curso_id, \r\n" + 
-												"c.nombre as curso_nombre,\r\n" + 
-												"c.imagen as curso_imagen,\r\n" + 
-												"c.precio as curso_precio, \r\n" + 
-												"p.id as profesor_id,\r\n" + 
-												"p.nombre as profesor_nombre, \r\n" + 
-												"p.avatar as profesor_avatar, \r\n" + 
-												"p.sexo as profesor_sexo, \r\n" + 
-												"p.rol_id as profesor_rol \r\n" + 
-												"FROM curso c \r\n" + 
-												"LEFT JOIN persona p ON c.persona_id = p.id\r\n" + 
-												"WHERE c.id = ?;";
+	private static String SQL_GET_ALL 	 = "CALL cursosGetAll()";	
+	private static String SQL_GET_BY_ID = "CALL cursosGetById(?)";
 	
 	private static String SQL_GET_LIKE_NOMBRE   = "SELECT id, nombre, precio, imagen FROM curso WHERE nombre LIKE ? ORDER BY id DESC LIMIT 100; ";
 	
@@ -70,10 +45,11 @@ public class CursoDAO implements IDAO<Curso> {
 		
 		try (
 				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = pst.executeQuery();
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
+				CallableStatement s = con.prepareCall(SQL_GET_ALL);
+				ResultSet rs = s.executeQuery();
 			){
-				LOGGER.info(pst.toString());
+				LOGGER.info(s.toString());
 				
 				while(rs.next()) {
 					registros.add(mapper(rs));
@@ -127,13 +103,14 @@ public class CursoDAO implements IDAO<Curso> {
 		
 		try (
 				Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID)
+				//PreparedStatement pst = con.prepareStatement(SQL_GET_BY_ID)
+				CallableStatement s = con.prepareCall(SQL_GET_BY_ID);
 			  ){
 			
-			pst.setInt(1, id);
-			LOGGER.info(pst.toString());
+			s.setInt(1, id);
+			LOGGER.info(s.toString());
 			
-			try (ResultSet rs = pst.executeQuery()) {
+			try (ResultSet rs = s.executeQuery()) {
 				
 				if(rs.next()) {
 					
