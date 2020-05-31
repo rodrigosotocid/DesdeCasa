@@ -135,6 +135,6 @@ La mayoría de las consultas de SQL fueron convertidas a Procedimientos almacena
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
  - [Api Busqueda de eventos - React JS](https://reacteventbriteapi.netlify.app/)
- - [Tienda de eCommerce](https://laguntxu.com/)
+ - [Tienda de eCommerce](https://www.laguntxu.com/)
 
 ___
