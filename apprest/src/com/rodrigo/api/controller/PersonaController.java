@@ -244,7 +244,7 @@ public class PersonaController {
 
 			} catch (Exception e) {
 				
-				LOGGER.info("Nombre duplicado");
+				LOGGER.warning("Nombre duplicado");
 				rb.setInformacion("Lo siento este nombre no está disponible!");
 				response = Response.status(Status.CONFLICT).entity(rb).build();
 			}

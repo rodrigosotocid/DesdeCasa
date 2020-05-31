@@ -10,7 +10,7 @@ public class Curso {
 	private String imagen;
 	private double precio;
 	
-	//@NotNull
+	//@NotNull [Se quita para poder desasignar un profesor de un curso]
 	@Valid // fuerza la validacion de Persona
 	private Persona profesor;
 	

@@ -434,7 +434,7 @@ function cargarCursos(filtro = '') {
                   </p>
               </div>
               <div class="col-4">
-                <a href="#" id="añadir-curso" class="btn btn-danger" onClick="asignarCurso( 0, ${el.id})" >Añadir Curso</a>
+                <a href="#" id="añadir-curso" class="btn btn-danger" onClick="addProfesorCurso(${el.id})" >Añadir Curso</a>
               </div>
            
             </div>
@@ -457,7 +457,6 @@ function cargarCursos(filtro = '') {
  */
 function asignarCurso( idPersona = 0, idCurso ){
 
-  curso = 
   idPersona = (idPersona != 0) ? idPersona : profesorSeleccionado.id;
 
   console.debug(`click asignarCurso idPersona=${idPersona} idCurso=${idCurso}`);
@@ -508,6 +507,8 @@ function asignarCurso( idPersona = 0, idCurso ){
  */
 function borraProfesorCurso( event , idCurso ) {
 
+  console.trace("Click: borraProfesorCurso --> %o", idCurso);
+
   //Encuentra el id coincidente
   let cursoUpdate = profesorSeleccionado.cursos.find( el=> el.id == idCurso);
   console.log('curso update '+ cursoUpdate);
@@ -515,8 +516,6 @@ function borraProfesorCurso( event , idCurso ) {
   //Si es null el profesor asignado e este curso se elimina
   cursoUpdate.profesor = null;
   console.log('Si es null el profesor asignado e este curso se elimina' + cursoUpdate.profesor);
-
-  console.trace("Click: borraProfesorCurso --> %o", idCurso);
 
   const url = endpoint + 'cursos/' + idCurso;
 
@@ -542,9 +541,69 @@ function borraProfesorCurso( event , idCurso ) {
 }//borraProfesorCurso
 
 
-function añadirProfesorCurso() {
+function addProfesorCurso( idCurso ) {
 
-}
+  console.trace("Click: addProfesorCurso --> %o", idCurso);
+
+  //Encuentra el id coincidente sino con el if te avisa que ya lo tienes
+  let cursoUpdate = profesorSeleccionado.cursos.find( el=> el.id == idCurso);
+
+  if(cursoUpdate == null){
+
+    //alert('null ' + cursoUpdate + " id profe: " + idProfesor);
+    cursoUpdate = cursos.find( el=> el.id == idCurso);
+    
+    
+    
+  } else {
+    alert('Lo siento, ¡Ya tienes este curso! ');
+  }
+  console.log('curso update '+ cursoUpdate);
+  
+
+   cursoUpdate.profesor.id = profesorSeleccionado.id ;
+   alert(cursoUpdate.profesor.id);
+
+  console.log('Si es ' + cursoUpdate.profesor);
+
+  const url = endpoint + 'cursos/' + idCurso;
+
+  ajax('PUT', url, cursoUpdate)
+    .then(data => {
+
+      alert("Curso de %o , asignado con éxito" , data.nombre)
+
+      const curso = data;
+      
+      let lista = document.getElementById('ulElement');
+      // Vista del curso recién añadido
+      lista.innerHTML += `
+                          <li id="liCursos">
+                            <div class="row m-0 d-flex justify-content-between">
+                              <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
+                              <h5 class="card-title pt-3">
+                                <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                              </h5>
+                              <a class="btn- btn-lg pt-3" title="Elimina Curso">
+                                <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
+                              </a>
+                            </div>
+                          </li>
+                          `;
+      cargarProfesores(); 
+      cargarCursos();
+      
+  })
+  .catch( error => {
+
+    alert("Error: " + error);
+    console.warn("Error:" + error);
+
+    cargarCursos();
+  });
+}//addProfesorCurso
+
 
 /*
  * ANIMATE.CSS 

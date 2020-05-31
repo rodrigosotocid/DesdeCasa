@@ -110,7 +110,7 @@ public class CursoController {
 				
 				cursoDAO.update(curso);
 				response = Response.status(Status.OK).entity(curso).build();
-				LOGGER.info("Curso modificado correctamente");
+				LOGGER.info("El Curso ha sido modificado correctamente");
 				
 			} catch (Exception e) {
 				

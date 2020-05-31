@@ -148,7 +148,7 @@ public class CursoDAO implements IDAO<Curso> {
 				Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);
 		) {
-			if (pojo.getProfesor() == null) {
+			if (pojo.getProfesor() == null) {		//sino da error en javascript al intentar desvinvular un profesor de un curso
 				
 				pst.setObject(1, pojo.getProfesor());
 				
