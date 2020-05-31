@@ -550,30 +550,19 @@ function addProfesorCurso( idCurso ) {
 
   if(cursoUpdate == null){
 
-    //alert('null ' + cursoUpdate + " id profe: " + idProfesor);
-    cursoUpdate = cursos.find( el=> el.id == idCurso);
-    
-    
-    
-  } else {
-    alert('Lo siento, ¡Ya tienes este curso! ');
-  }
-  console.log('curso update '+ cursoUpdate);
+  cursoUpdate = cursos.find( el=> el.id == idCurso);
   
-
-   cursoUpdate.profesor.id = profesorSeleccionado.id ;
-   alert(cursoUpdate.profesor.id);
-
-  console.log('Si es ' + cursoUpdate.profesor);
+  cursoUpdate.profesor.id = profesorSeleccionado.id ;
 
   const url = endpoint + 'cursos/' + idCurso;
 
   ajax('PUT', url, cursoUpdate)
     .then(data => {
 
-      alert("Curso de %o , asignado con éxito" , data.nombre)
-
       const curso = data;
+      alert('Curso , se te ha asignado con éxito')                    
+      
+      
       
       let lista = document.getElementById('ulElement');
       // Vista del curso recién añadido
@@ -583,7 +572,7 @@ function addProfesorCurso( idCurso ) {
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
                               <h5 class="card-title pt-3">
                                 <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
-                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                                <span class="nombre-curso-asignado">impartido por </span> kk ${curso.profesor.nombre}
                               </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
@@ -591,9 +580,9 @@ function addProfesorCurso( idCurso ) {
                             </div>
                           </li>
                           `;
+
       cargarProfesores(); 
       cargarCursos();
-      
   })
   .catch( error => {
 
@@ -602,6 +591,12 @@ function addProfesorCurso( idCurso ) {
 
     cargarCursos();
   });
+
+} else {
+  alert('Lo siento, ¡Ya tienes este curso! ');
+  cargarCursos();
+}
+
 }//addProfesorCurso
 
 
