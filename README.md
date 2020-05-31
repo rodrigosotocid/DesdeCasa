@@ -95,6 +95,13 @@ nuestra base de datos.
 'DELETE': = endpoint + 'personas/{idPersona}/cursos{idCurso}' -> Nos permite ELIMINAR un Curso asociado a 
 una Persona.
 ```
+
+### Profesores
+```javascript
+'GET'= endpoint + 'personas/?rol={profesor}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
+nuestra base de datos.
+```
+
 ## Diagrama Entidad Relación
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
 
@@ -107,7 +114,10 @@ una Persona.
 * [x] v2.0 - Añadida funcionalidad de asignar, eliminar cursos y mejora en el diseño.
 * [x] v2.1 - Funcionalidad: Nombre Disponible - Fix clase hypermedia/ResponseBody impl. Serializable - Se añade documentación Javadoc para el Backend
 * [x] v2.2 - Añadida página de noticias
-* [ ] v3.0 - Versión en proceso de desarrollo. (CRUD de profesores, asignar profesor por curso, entre otras funcionalidades)  
+* [x] v3.0 - Se crea el Rol de profesor y alumno en la tabla personas para gestionar ambos de manera independiente.
+
+Cada curso tiene un profesor asignado, se puede dar de alta nuevos profesores y eliminarlos.
+Los alumnos pueden ver que profesor imparte cada curso. Un profesor puede impartir mas de un curso pero un curso solo puede tener designado un solo profesor.  
 
  ___
 
