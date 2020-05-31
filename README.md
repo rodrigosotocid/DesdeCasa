@@ -110,7 +110,7 @@ una Persona.
 
 
 ## Diagrama Entidad Relación
-![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
+![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Entidad%20Relaci%C3%B3n.png)
 
 ## Página Noticias
 ![imagen noticias](https://github.com/istikis/DesdeCasa/blob/master/screenshots/Screenshot%20Noticias(1).png)
