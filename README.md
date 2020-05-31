@@ -83,6 +83,19 @@ const endpoint = "http://localhost:8080/apprest/api/";
 ```javascript
 'DELETE': = endpoint + 'personas/{id}' -> Nos permite ELIMINAR el registro de una Persona.
 ```
+
+### Alumnos
+```javascript
+'GET'= endpoint + 'personas/?rol={alumno}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
+nuestra base de datos.
+```
+
+### Profesores
+```javascript
+'GET'= endpoint + 'personas/?rol={profesor}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
+nuestra base de datos.
+```
+
 ### Cursos
 ```javascript
 'GET'= endpoint + 'cursos/?filtro={String}' -> Nos permite OBTENER TODOS los registros de los Cursos de 
@@ -96,11 +109,7 @@ nuestra base de datos.
 una Persona.
 ```
 
-### Profesores
-```javascript
-'GET'= endpoint + 'personas/?rol={profesor}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
-nuestra base de datos.
-```
+
 
 ## Diagrama Entidad Relación
 ![Imagen Entidad Relacion](https://github.com/istikis/DesdeCasa/blob/master/screenshots/der.png)
