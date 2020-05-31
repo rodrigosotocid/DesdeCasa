@@ -124,7 +124,8 @@ una Persona.
 * [x] v3.0 - Se crea el Rol de profesor y alumno en la tabla personas para gestionar ambos de manera independiente.
 
 Cada curso tiene un profesor asignado, se puede dar de alta nuevos profesores y eliminarlos.
-Los alumnos pueden ver que profesor imparte cada curso. Un profesor puede impartir mas de un curso pero un curso solo puede tener designado un solo profesor.  
+Los alumnos pueden ver que profesor imparte cada curso. Un profesor puede impartir mas de un curso pero un curso solo puede tener designado un solo profesor. 
+La mayoría de las consultas de SQL fueron convertidas a Procedimientos almacenados por su longitud y por comodidad a la hora de trabajar en PersonaDAO y CursoDAO principalmente.- 
 
  ___
 
@@ -134,5 +135,6 @@ Los alumnos pueden ver que profesor imparte cada curso. Un profesor puede impart
  - [Administración Veterinaria: Web SPA desarrollada con React JS](https://admveterinaria.netlify.app/)
  - [Api de Noticias: Desarrollada con React JS](https://reactnewsapi.netlify.app/)
  - [Api Busqueda de eventos - React JS](https://reacteventbriteapi.netlify.app/)
+ - [Tienda de eCommerce](https://laguntxu.com/)
 
 ___
