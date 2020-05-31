@@ -86,14 +86,12 @@ const endpoint = "http://localhost:8080/apprest/api/";
 
 ### Alumnos
 ```javascript
-'GET'= endpoint + 'personas/?rol={alumno}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
-nuestra base de datos.
+'GET'= endpoint + 'personas/?rol={alumno}' -> Nos permite OBTENER TODOS los registros con Rol de "Alumno".
 ```
 
 ### Profesores
 ```javascript
-'GET'= endpoint + 'personas/?rol={profesor}' -> Nos permite OBTENER TODOS los registros de los Profesores de 
-nuestra base de datos.
+'GET'= endpoint + 'personas/?rol={profesor}' -> Nos permite OBTENER TODOS los registros  con Rol de "Profesor".
 ```
 
 ### Cursos
