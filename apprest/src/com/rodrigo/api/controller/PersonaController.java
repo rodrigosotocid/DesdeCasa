@@ -63,7 +63,7 @@ public class PersonaController {
 		
 		if( name != null && !name.trim().isEmpty() ) {											// Busqueda por Nombre
 			
-			 LOGGER.info("Buscar 1 Persona name" + name);
+			 LOGGER.info("Buscar 1 Persona name: " + name);
 			 
 			 try {
 				 //TODO filtraba busqueda por nombre

@@ -270,8 +270,8 @@ function seleccionar( id = 0 ) {
             <div class="row m-0 d-flex justify-content-between">
              <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
              <h5 class="card-title pt-3">
-              <span class="nombre-curso-asignado">Curso de </span>      <span id="nombre_curso">${el.nombre}</span>
-              <span class="nombre-curso-asignado">impartido por </span> <span id="nombre_profe">${el.profesor.nombre}</span>
+              <span class="nombre-curso-asignado">Curso de </span>${el.nombre}
+              <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre ? el.profesor.nombre : 'No asignado'}
              </h5>
              <a class="btn- btn-lg pt-3" title="Elimina Curso">
                <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${el.id})"></i>
@@ -426,7 +426,7 @@ function cargarCursos(filtro = '') {
               <div class="col-5">
                   <h5 class="card-title ">
                     <span class="nombre-curso-modal">${ el.nombre} </span><br>
-                    <span class="curso-profesor-modal">Profesor: </span> ${ el.profesor.nombre}
+                    <span class="curso-profesor-modal">Profesor: </span> ${el.profesor.nombre ? el.profesor.nombre : 'No asignado'}
                   </h5>
                   <p class="card-text">
                     <span class="font-weight-bold">Precio:</span>
@@ -478,7 +478,7 @@ function asignarCurso( idPersona = 0, idCurso ){
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
                               <h5 class="card-title pt-3">
                                 <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
-                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre ? curso.profesor.nombre : 'No asignado'}
                               </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
@@ -560,9 +560,7 @@ function addProfesorCurso( idCurso ) {
     .then(data => {
 
       const curso = data;
-      alert('Curso , se te ha asignado con éxito')                    
-      
-      
+      alert('Curso asignado con éxito')                    
       
       let lista = document.getElementById('ulElement');
       // Vista del curso recién añadido
@@ -572,7 +570,7 @@ function addProfesorCurso( idCurso ) {
                               <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
                               <h5 class="card-title pt-3">
                                 <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
-                                <span class="nombre-curso-asignado">impartido por </span> kk ${curso.profesor.nombre}
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
                               </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
@@ -581,24 +579,25 @@ function addProfesorCurso( idCurso ) {
                           </li>
                           `;
 
-      cargarProfesores(); 
-      cargarCursos();
+    seleccionar(profesorSeleccionado.id); 
+  
   })
   .catch( error => {
-
+    
     alert("Error: " + error);
     console.warn("Error:" + error);
-
     cargarCursos();
   });
+  
+  
+  
 
-} else {
-  alert('Lo siento, ¡Ya tienes este curso! ');
-  cargarCursos();
-}
+  } else {
+    alert('Lo siento, ¡Ya tienes este curso! ');
+    cargarCursos();
+  }
 
 }//addProfesorCurso
-
 
 /*
  * ANIMATE.CSS 

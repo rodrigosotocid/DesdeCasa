@@ -73,14 +73,14 @@ function listener() {
   iNombre.addEventListener('keyup', () => {
     console.debug('tecla pulsada ' + iNombre.value );
 
-    const url = endpoint + 'personas/?filtro=' + iNombre.value;
+    const url = endpoint + 'personas/?name=' + iNombre.value;
 
     if ( personaSeleccionada.nombre != iNombre.value ){
     ajax('GET', url, undefined)
       .then( (data) => {
         console.debug('nombre NO disponible');
         
-        msgValidador.textContent = 'Nombre NO disponible';
+        //msgValidador.textContent = 'Nombre NO disponible';
         msgValidador.classList.add('invalid');
         msgValidador.classList.remove('valid');
       } )
@@ -293,7 +293,7 @@ function seleccionar( id = 0 ) {
          <img src="img/${el.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
           <h5 class="card-title pt-3">
             <span class="nombre-curso-asignado">Curso de </span>${el.nombre} 
-            <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre}
+            <span class="nombre-curso-asignado">impartido por </span>${el.profesor.nombre ? el.profesor.nombre : 'No asignado'}
           </h5>
          <a class="btn- btn-lg pt-3" title="Elimina Curso">
            <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${personaSeleccionada.id},${el.id})"></i>
@@ -445,7 +445,7 @@ function cargarCursos(filtro = '') {
               <div class="col-5">
                   <h5 class="card-title ">
                     <span class="nombre-curso-modal">${ el.nombre} </span><br>
-                    <span class="curso-profesor-modal">Profesor: </span> ${ el.profesor.nombre}
+                    <span class="curso-profesor-modal">Profesor: </span> ${el.profesor.nombre ? el.profesor.nombre : 'No asignado'}
                   </h5>
                   <p class="card-text">
                     <span class="font-weight-bold">Precio:</span>
@@ -527,7 +527,7 @@ function asignarCurso( idPersona = 0, idCurso ){
                               <p class="nuevo-curso">Nuevo</p>
                               <h5 class="card-title pt-3">
                                 <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
-                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
+                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre ? curso.profesor.nombre : 'No asignado'}
                               </h5>
                               <a class="btn- btn-lg pt-3" title="Elimina Curso">
                                 <i class="far fa-trash-alt" onclick="eliminarCurso(event, ${idPersona},${curso.id})"></i>
