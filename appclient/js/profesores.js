@@ -72,7 +72,7 @@ function listener() {
        .then( (data) => {
          console.debug('nombre NO disponible');
          
-         msgValidador.textContent = 'Nombre NO disponible';
+         //msgValidador.textContent = 'Nombre NO disponible';
          msgValidador.classList.add('invalid');
          msgValidador.classList.remove('valid');
        } )
@@ -83,7 +83,7 @@ function listener() {
          console.log(error.informacion);
          console.log(error.hypermedias[0]);
          console.log(error.hypermedias[1]);
-         msgValidador.textContent = 'Nombre disponible';
+         //msgValidador.textContent = 'Nombre disponible';
          msgValidador.classList.add('valid');
          msgValidador.classList.remove('invalid');
        });
@@ -426,7 +426,7 @@ function cargarCursos(filtro = '') {
               <div class="col-5">
                   <h5 class="card-title ">
                     <span class="nombre-curso-modal">${ el.nombre} </span><br>
-                    <span class="curso-profesor-modal">Profesor: </span> ${el.profesor.nombre ? el.profesor.nombre : 'No asignado'}
+                    <span class="curso-profesor-modal">Profesor: </span> ${el.profesor.nombre? el.profesor.nombre : 'No asignado'}
                   </h5>
                   <p class="card-text">
                     <span class="font-weight-bold">Precio:</span>
@@ -550,44 +550,45 @@ function addProfesorCurso( idCurso ) {
 
   if(cursoUpdate == null){
 
-  cursoUpdate = cursos.find( el=> el.id == idCurso);
-  
-  cursoUpdate.profesor.id = profesorSeleccionado.id ;
-
-  const url = endpoint + 'cursos/' + idCurso;
-
-  ajax('PUT', url, cursoUpdate)
-    .then(data => {
-
-      const curso = data;
-      alert('Curso asignado con éxito')                    
-      
-      let lista = document.getElementById('ulElement');
-      // Vista del curso recién añadido
-      lista.innerHTML += `
-                          <li id="liCursos">
-                            <div class="row m-0 d-flex justify-content-between">
-                              <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
-                              <h5 class="card-title pt-3">
-                                <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
-                                <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre}
-                              </h5>
-                              <a class="btn- btn-lg pt-3" title="Elimina Curso">
-                                <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
-                              </a>
-                            </div>
-                          </li>
-                          `;
-
-    seleccionar(profesorSeleccionado.id); 
-  
-  })
-  .catch( error => {
+    cursoUpdate = cursos.find( el=> el.id == idCurso);
     
-    alert("Error: " + error);
-    console.warn("Error:" + error);
-    cargarCursos();
-  });
+    cursoUpdate.profesor.id = profesorSeleccionado.id ;
+
+    const url = endpoint + 'cursos/' + idCurso;
+
+    ajax('PUT', url, cursoUpdate)
+      .then(data => {
+
+        const curso = data;
+        alert('Curso asignado con éxito')                    
+        
+        let lista = document.getElementById('ulElement');
+        // Vista del curso recién añadido
+        lista.innerHTML += `
+                            <li id="liCursos">
+                              <div class="row m-0 d-flex justify-content-between">
+                                <img src="img/${curso.imagen}" class="card-img m-1 mr-1" style="max-width: 50px;" alt="Imagen Curso">
+                                <h5 class="card-title pt-3">
+                                  <span class="nombre-curso-asignado">Curso de </span>${curso.nombre} 
+                                  <span class="nombre-curso-asignado">impartido por </span>${curso.profesor.nombre ? 'ti ahora' : ' ti ahora'}
+                                </h5>
+                                <a class="btn- btn-lg pt-3" title="Elimina Curso">
+                                  <i class="far fa-trash-alt" onclick="borraProfesorCurso(event, ${curso.id})"></i>
+                                </a>
+                              </div>
+                            </li>
+                            `;
+
+                            cargarProfesores();
+
+                            
+    })
+    .catch( error => {
+      
+      alert("Error: " + error);
+      console.warn("Error:" + error);
+      cargarCursos();
+    });
   
   
   
@@ -596,6 +597,8 @@ function addProfesorCurso( idCurso ) {
     alert('Lo siento, ¡Ya tienes este curso! ');
     cargarCursos();
   }
+
+  seleccionar(profesorSeleccionado.id);
 
 }//addProfesorCurso
 
